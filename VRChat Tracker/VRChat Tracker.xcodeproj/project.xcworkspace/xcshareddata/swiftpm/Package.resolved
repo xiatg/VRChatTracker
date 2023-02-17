@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "vrchatapi-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/watanabexia/vrchatapi-swift",
+      "state" : {
+        "branch" : "main",
+        "revision" : "304dbb606848a91ba208415f18509242c5991a22"
+      }
+    }
+  ],
+  "version" : 2
+}
