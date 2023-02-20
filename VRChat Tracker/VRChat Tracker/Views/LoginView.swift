@@ -14,49 +14,76 @@ struct LoginView: View {
     @State var password = ""
     
     var body: some View {
-        VStack {
-            Text("Welcome!")
-                .font(.title)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(.white)
-                .bold()
-            Image("welcome")
-                .resizable()
-                .frame(height: 180)
-                .padding(.bottom, 10)
-            Text("Hey there! I've been tapping my foot and checking my watch, waiting for you to show up. ")
-                .foregroundColor(.white)
-                .multilineTextAlignment(.leading)
-                .font(.body)
-                .padding(.bottom, 30)
-            Text("Login now to explore our features!")
-                .foregroundColor(.white)
-                .bold()
-                .padding(.bottom, 20)
-            TextField("Username", text: $username)
+        ZStack {
+            Color("BackgroundColor")
+            VStack {
+                Text("Welcome!")
+                    .font(.title)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(.white)
+                    .bold()
+                Image("welcome")
+                    .resizable()
+                    .frame(height: 180)
+                    .padding(.bottom, 10)
+                Text("Hey there! I've been tapping my foot and checking my watch, waiting for you to show up. ")
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.leading)
+                    .font(.body)
+                    .padding(.bottom, 30)
+                Text("Login now to explore our features!")
+                    .foregroundColor(.white)
+                    .bold()
+                    .padding(.bottom, 20)
+                TextField("Username", text: $username)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(5)
+                    .padding(.bottom, 5)
+                TextField("Password", text: $password)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(5)
+                    .padding(.bottom, 15)
+                Button(action: {
+                    signIn(username: username, password: password)
+                }) {
+                    HStack {
+                        Spacer()
+                        Text("Sign In")
+                        Spacer()
+                    }
+                }
+                .frame(maxWidth: .infinity)
                 .padding()
-                .background(Color.white)
-                .cornerRadius(5)
+                .background(Color.white.opacity(0.5))
+                .cornerRadius(15)
+                .contentShape(Rectangle())
                 .padding(.bottom, 5)
-            TextField("Password", text: $password)
+                Button(action: {
+                    // FIXME: should navigate to another view for users to sign up an account
+                    signIn(username: username, password: password)
+                }) {
+                    HStack {
+                        Spacer()
+                        Text("Sign Up")
+                            .foregroundColor(.red)
+                        Spacer()
+                    }
+                }
+                .frame(maxWidth: .infinity)
                 .padding()
-                .background(Color.white)
-                .cornerRadius(5)
-                .padding(.bottom, 15)
-            Button("Sign In") {
-                signIn(username: username, password: password)
+                .background(Color.white.opacity(0.5))
+                .cornerRadius(15)
+                .contentShape(Rectangle())
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
-            .background(Color.white.opacity(0.5))
-            .cornerRadius(15)
+            .padding(.all, 30.0)
         }
-        .padding(.all, 30.0)
-        .background(Color("BackgroundColor"))
     }
 }
 
 func signIn(username: String, password: String){
+    //FIXME: should check urnm & pswd using API
     if username == "123" && password == "123" {
         print("login successful")
     }
