@@ -1,6 +1,8 @@
 # VRChatTracker
 ## Resource
 
+- welcome image source: https://www.youtube.com/watch?v=PWLPw4RE9Ig
+
 ## Attribution
 <!-- - `ASWebAuthenticationSession`: https://www.andyibanez.com/posts/using-aswebauthenticationaession-swiftui/ -->
 - Swift Package: https://www.youtube.com/watch?v=DK6mSYEtTIk

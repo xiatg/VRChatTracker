@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F7BB1F43299EDD6200AA12F7 /* VRChat_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BB1F42299EDD6200AA12F7 /* VRChat_TrackerApp.swift */; };
-		F7BB1F45299EDD6200AA12F7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BB1F44299EDD6200AA12F7 /* ContentView.swift */; };
+		F7BB1F45299EDD6200AA12F7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BB1F44299EDD6200AA12F7 /* LoginView.swift */; };
 		F7BB1F47299EDD6300AA12F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7BB1F46299EDD6300AA12F7 /* Assets.xcassets */; };
 		F7BB1F4B299EDD6300AA12F7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7BB1F4A299EDD6300AA12F7 /* Preview Assets.xcassets */; };
 		F7C4ED0E299F3CDA00CC6F83 /* SwiftVRChatAPI in Frameworks */ = {isa = PBXBuildFile; productRef = F7C4ED0D299F3CDA00CC6F83 /* SwiftVRChatAPI */; };
@@ -17,7 +17,7 @@
 /* Begin PBXFileReference section */
 		F7BB1F3F299EDD6200AA12F7 /* VRChat Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VRChat Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7BB1F42299EDD6200AA12F7 /* VRChat_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRChat_TrackerApp.swift; sourceTree = "<group>"; };
-		F7BB1F44299EDD6200AA12F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F7BB1F44299EDD6200AA12F7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F7BB1F46299EDD6300AA12F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F7BB1F48299EDD6300AA12F7 /* VRChat_Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VRChat_Tracker.entitlements; sourceTree = "<group>"; };
 		F7BB1F4A299EDD6300AA12F7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 		F7BB1F51299EE4C900AA12F7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F7BB1F44299EDD6200AA12F7 /* ContentView.swift */,
+				F7BB1F44299EDD6200AA12F7 /* LoginView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,7 +163,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7BB1F45299EDD6200AA12F7 /* ContentView.swift in Sources */,
+				F7BB1F45299EDD6200AA12F7 /* LoginView.swift in Sources */,
 				F7BB1F43299EDD6200AA12F7 /* VRChat_TrackerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,7 +289,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VRChat Tracker/Preview Content\"";
-				DEVELOPMENT_TEAM = A7HL64F7MB;
+				DEVELOPMENT_TEAM = HBFAWJXSC3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -327,7 +327,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VRChat Tracker/Preview Content\"";
-				DEVELOPMENT_TEAM = A7HL64F7MB;
+				DEVELOPMENT_TEAM = HBFAWJXSC3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

@@ -11,7 +11,7 @@ import SwiftUI
 struct VRChat_TrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
         }
     }
 }
