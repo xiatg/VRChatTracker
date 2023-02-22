@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F76A452729A336340078C19D /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A452629A336340078C19D /* NavigationView.swift */; };
+		F76A452929A33AA40078C19D /* ProfileTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A452829A33AA40078C19D /* ProfileTabView.swift */; };
 		F7BB1F43299EDD6200AA12F7 /* VRChat_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BB1F42299EDD6200AA12F7 /* VRChat_TrackerApp.swift */; };
 		F7BB1F45299EDD6200AA12F7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BB1F44299EDD6200AA12F7 /* LoginView.swift */; };
 		F7BB1F47299EDD6300AA12F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7BB1F46299EDD6300AA12F7 /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F76A452629A336340078C19D /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
+		F76A452829A33AA40078C19D /* ProfileTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabView.swift; sourceTree = "<group>"; };
 		F7BB1F3F299EDD6200AA12F7 /* VRChat Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VRChat Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7BB1F42299EDD6200AA12F7 /* VRChat_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRChat_TrackerApp.swift; sourceTree = "<group>"; };
 		F7BB1F44299EDD6200AA12F7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -76,6 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				F7BB1F44299EDD6200AA12F7 /* LoginView.swift */,
+				F76A452629A336340078C19D /* NavigationView.swift */,
+				F76A452829A33AA40078C19D /* ProfileTabView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -164,6 +170,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7BB1F45299EDD6200AA12F7 /* LoginView.swift in Sources */,
+				F76A452729A336340078C19D /* NavigationView.swift in Sources */,
+				F76A452929A33AA40078C19D /* ProfileTabView.swift in Sources */,
 				F7BB1F43299EDD6200AA12F7 /* VRChat_TrackerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
