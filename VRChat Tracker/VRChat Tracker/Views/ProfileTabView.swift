@@ -6,20 +6,25 @@
 //
 
 import SwiftUI
+import SwiftVRChatAPI
 
 struct ProfileTabView: View {
+    @ObservedObject var client: VRChatClient
+    
     let displayName: String
     let username: String
     let currentAvatarImageUrl: String
     let tags: [String]
     let bio: String
     
-    init(displayName: String, username: String, currentAvatarImageUrl: String, tags: [String], bio: String) {
-        self.displayName = displayName
-        self.username = username
-        self.currentAvatarImageUrl = currentAvatarImageUrl
-        self.tags = tags
-        self.bio = bio
+    init(client: VRChatClient) {
+        self.client = client
+        
+        self.displayName = client.userInfo!.displayName!
+        self.username = client.userInfo!.username!
+        self.currentAvatarImageUrl = client.userInfo!.currentAvatarImageUrl!
+        self.tags = client.userInfo!.tags!
+        self.bio = client.userInfo!.bio!
         
         // https://stackoverflow.com/questions/69325928/swiftui-size-to-fit-or-word-wrap-navigation-title
         UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
@@ -81,17 +86,6 @@ func nothing() {
 
 struct ProfileTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileTabView(displayName: "Natsuki关注永雏塔菲喵", username: "sunny915915", currentAvatarImageUrl: "https://api.vrchat.cloud/api/1/file/file_ea36dd11-163e-4511-979a-8ed1f01f3793/1/file",
-                       tags: [
-                        "system_no_captcha",
-                        "language_eng",
-                        "language_jpn"
-                       ], bio: """
-Male男（He⁄Him）INTJ-T
-Hello 你好 こんにちは
-EN⁄CN⁄粵⁄JP
-GMT-5
-"""
-                    )
+        ProfileTabView(client: VRChatClient.createPreview())
     }
 }

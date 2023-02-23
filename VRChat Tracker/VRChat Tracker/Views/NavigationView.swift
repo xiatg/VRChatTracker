@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct NavigationView: View {
+    @ObservedObject var client: VRChatClient
+    
     var body: some View {
         TabView(selection: .constant(3)) {
             Text("WorldTabView")
@@ -22,19 +24,28 @@ struct NavigationView: View {
                     Text("Avatar")
                 }
                 .tag(2)
-            Text("ProfileTabView")
-                .tabItem {
-                    Image(systemName: "person")
-                    Text("Profile")
-                }
-                .tag(3)
+            if (client.isLoggedIn) {
+                ProfileTabView(client: client)
+                    .tabItem {
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }
+                    .tag(3)
+            } else {
+                Text("ProfileTabView")
+                    .tabItem {
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }
+                    .tag(3)
+            }
             Text("FriendsTabView")
                 .tabItem {
                     Image(systemName: "person.3")
                     Text("Friends")
                 }
                 .tag(4)
-            Text("SettingTabView")
+            SettingTabView(client: client)
                 .tabItem {
                     Image(systemName: "gear")
                     Text("Setting")
@@ -46,6 +57,6 @@ struct NavigationView: View {
 
 struct NavigationView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView()
+        NavigationView(client: VRChatClient.createPreview())
     }
 }
