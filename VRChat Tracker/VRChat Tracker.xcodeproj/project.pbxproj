@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F7191A8229A6CA900033ED57 /* VRChatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8129A6CA900033ED57 /* VRChatClient.swift */; };
 		F7191A8429A70DD50033ED57 /* SettingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8329A70DD50033ED57 /* SettingTabView.swift */; };
+		F7191A8629A71EDD0033ED57 /* FriendTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8529A71EDD0033ED57 /* FriendTabView.swift */; };
 		F76A452729A336340078C19D /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A452629A336340078C19D /* NavigationView.swift */; };
 		F76A452929A33AA40078C19D /* ProfileTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A452829A33AA40078C19D /* ProfileTabView.swift */; };
 		F7BB1F43299EDD6200AA12F7 /* VRChat_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BB1F42299EDD6200AA12F7 /* VRChat_TrackerApp.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		F7191A8129A6CA900033ED57 /* VRChatClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRChatClient.swift; sourceTree = "<group>"; };
 		F7191A8329A70DD50033ED57 /* SettingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTabView.swift; sourceTree = "<group>"; };
+		F7191A8529A71EDD0033ED57 /* FriendTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTabView.swift; sourceTree = "<group>"; };
 		F76A452629A336340078C19D /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 		F76A452829A33AA40078C19D /* ProfileTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabView.swift; sourceTree = "<group>"; };
 		F7BB1F3F299EDD6200AA12F7 /* VRChat Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VRChat Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,7 @@
 				F76A452629A336340078C19D /* NavigationView.swift */,
 				F76A452829A33AA40078C19D /* ProfileTabView.swift */,
 				F7191A8329A70DD50033ED57 /* SettingTabView.swift */,
+				F7191A8529A71EDD0033ED57 /* FriendTabView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				F7BB1F45299EDD6200AA12F7 /* LoginView.swift in Sources */,
 				F76A452729A336340078C19D /* NavigationView.swift in Sources */,
 				F7191A8229A6CA900033ED57 /* VRChatClient.swift in Sources */,
+				F7191A8629A71EDD0033ED57 /* FriendTabView.swift in Sources */,
 				F76A452929A33AA40078C19D /* ProfileTabView.swift in Sources */,
 				F7BB1F43299EDD6200AA12F7 /* VRChat_TrackerApp.swift in Sources */,
 				F7191A8429A70DD50033ED57 /* SettingTabView.swift in Sources */,

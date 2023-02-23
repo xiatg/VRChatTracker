@@ -31,7 +31,7 @@ class VRChatClient: ObservableObject {
     }
     
     static func createPreview() -> VRChatClient {
-        var client_preview = VRChatClient()
+        let client_preview = VRChatClient()
         
         let json = """
 {

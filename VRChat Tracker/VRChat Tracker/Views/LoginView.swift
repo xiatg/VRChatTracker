@@ -64,6 +64,7 @@ struct LoginView: View {
                             .background(Color.white)
                             .cornerRadius(5)
                             .padding(.bottom, 15)
+                        
                     } else {
                         TextField("Two-factor Email Code", text: $twoFactorEmailCode)
                             .padding()
@@ -114,7 +115,10 @@ struct LoginView: View {
                     .contentShape(Rectangle())
                 }
             }
-            .padding(.all, 30.0)
+            .padding([.leading, .bottom, .trailing], 30.0)
+            .onTapGesture {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
         }
         .ignoresSafeArea()
     }
