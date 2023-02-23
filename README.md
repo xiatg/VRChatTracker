@@ -1,10 +1,10 @@
 # VRChatTracker
 ## Resource
 
+- App Icon: https://images.squarespace-cdn.com/content/v1/5f0770791aaf57311515b23d/1608240505246-O7TI4Z68YP4JF0MULQPT/VRC_Treehouse_5.png?format=2500w
 - welcome image source: https://www.youtube.com/watch?v=PWLPw4RE9Ig
 
 ## Attribution
-<!-- - `ASWebAuthenticationSession`: https://www.andyibanez.com/posts/using-aswebauthenticationaession-swiftui/ -->
 - Swift Package: https://www.youtube.com/watch?v=DK6mSYEtTIk
 - Basic Auth: https://cocoacasts.com/networking-essentials-how-to-implement-basic-authentication-in-swift
 - `DispatchSemaphore`: https://stackoverflow.com/questions/38952420/swift-wait-until-datataskwithrequest-has-finished-to-call-the-return
