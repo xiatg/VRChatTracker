@@ -9,3 +9,4 @@
 - Basic Auth: https://cocoacasts.com/networking-essentials-how-to-implement-basic-authentication-in-swift
 - `DispatchSemaphore`: https://stackoverflow.com/questions/38952420/swift-wait-until-datataskwithrequest-has-finished-to-call-the-return
 - Navigation Title font: https://stackoverflow.com/questions/69325928/swiftui-size-to-fit-or-word-wrap-navigation-title
+- Placeholder style: https://stackoverflow.com/questions/57688242/swiftui-how-to-change-the-placeholder-color-of-the-textfield

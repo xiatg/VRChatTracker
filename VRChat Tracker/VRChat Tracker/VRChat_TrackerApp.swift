@@ -6,12 +6,19 @@
 //
 
 import SwiftUI
+import SwiftVRChatAPI
 
 @main
 struct VRChat_TrackerApp: App {
+    @StateObject var client = VRChatClient()
+    
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            if (client.isLoggedIn) {
+                NavigationView(client: client)
+            } else {
+                LoginView(client: client)
+            }
         }
     }
 }
