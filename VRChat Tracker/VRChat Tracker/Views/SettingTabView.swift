@@ -27,7 +27,7 @@ struct SettingTabView: View {
     }
     
     func logout() {
-        client.isLoggedIn = false
+        client.clear()
     }
 }
 

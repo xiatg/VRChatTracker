@@ -66,12 +66,15 @@ struct LoginView: View {
                             .padding(.bottom, 15)
                         
                     } else {
+                        
                         TextField("Two-factor Email Code", text: $twoFactorEmailCode)
                             .padding()
                             .background(Color.white)
                             .cornerRadius(5)
                             .padding(.bottom, 5)
                             .transition(.move(edge: .trailing))
+                        
+                        
                     }
                 }
                 .foregroundColor(.black)
@@ -113,6 +116,20 @@ struct LoginView: View {
                     .background(Color.white.opacity(0.5))
                     .cornerRadius(15)
                     .contentShape(Rectangle())
+                } else {
+                    Button(action: cancel) {
+                        HStack {
+                            Spacer()
+                            Text("Cancel")
+                                .foregroundColor(.red)
+                            Spacer()
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.white.opacity(0.5))
+                    .cornerRadius(15)
+                    .contentShape(Rectangle())
                 }
             }
             .padding([.leading, .bottom, .trailing], 30.0)
@@ -123,34 +140,24 @@ struct LoginView: View {
         .ignoresSafeArea()
     }
     
-    func login(){
-        
+    func login() {
         isLoading = true
-        
+
         if (client.is2FA == false) {
+            // initlaize a new `APIClient`
             client.apiClient = APIClient(username: username, password: password)
-            client.userInfo = AuthenticationAPI(client: client.apiClient!).loginUserInfo()
+            
+            client.loginUserInfo()
+            
         } else {
-            if AuthenticationAPI(client: client.apiClient!).verify2FAEmail(emailOTP: twoFactorEmailCode) ?? false {
-                client.userInfo = AuthenticationAPI(client: client.apiClient!).loginUserInfo()
-            }
+            client.email2FALogin(emailOTP: twoFactorEmailCode)
         }
-        
-        if (client.userInfo?.requiresTwoFactorAuth == ["emailOtp"]) {
-            client.is2FA = true
-        } else {
-            if (client.userInfo?.displayName != nil) {
-                client.isLoggedIn = true
-                client.is2FA = false
-            }
-        }
-        
-        print(client.isLoggedIn)
-        print(client.is2FA)
-        print(client.userInfo)
-        print(client.apiClient?.cookies)
         
         isLoading = false
+    }
+    
+    func cancel() {
+        client.clear()
     }
 }
 

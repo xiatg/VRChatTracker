@@ -16,7 +16,7 @@ struct VRChat_TrackerApp: App {
         WindowGroup {
             if (client.isLoggedIn) {
                 NavigationView(client: client)
-            } else {
+            } else if (!client.isAutoLoggingIn) {
                 LoginView(client: client)
             }
         }

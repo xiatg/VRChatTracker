@@ -20,11 +20,11 @@ struct ProfileTabView: View {
     init(client: VRChatClient) {
         self.client = client
         
-        self.displayName = client.userInfo!.displayName!
-        self.username = client.userInfo!.username!
-        self.currentAvatarImageUrl = client.userInfo!.currentAvatarImageUrl!
-        self.tags = client.userInfo!.tags!
-        self.bio = client.userInfo!.bio!
+        self.displayName = client.user!.displayName!
+        self.username = client.user!.username!
+        self.currentAvatarImageUrl = client.user!.currentAvatarImageUrl!
+        self.tags = client.user!.tags!
+        self.bio = client.user!.bio!
         
         // https://stackoverflow.com/questions/69325928/swiftui-size-to-fit-or-word-wrap-navigation-title
         UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
