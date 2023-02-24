@@ -12,7 +12,7 @@ struct NavigationView: View {
     
     var body: some View {
         TabView(selection: .constant(3)) {
-            Text("WorldTabView")
+            WorldTabView()
                 .tabItem {
                     Image(systemName: "globe")
                     Text("World")
