@@ -10,7 +10,7 @@
 		F7191A8229A6CA900033ED57 /* VRChatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8129A6CA900033ED57 /* VRChatClient.swift */; };
 		F7191A8429A70DD50033ED57 /* SettingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8329A70DD50033ED57 /* SettingTabView.swift */; };
 		F7191A8629A71EDD0033ED57 /* FriendTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8529A71EDD0033ED57 /* FriendTabView.swift */; };
-		F727159229A84FEB00477F66 /* FriendUserPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = F77626A729A849CC00A99E25 /* FriendUserPreview.json */; };
+		F727159229A84FEB00477F66 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		F727159629A8581700477F66 /* UserPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = F727159529A8581700477F66 /* UserPreview.json */; };
 		F76A452729A336340078C19D /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A452629A336340078C19D /* NavigationView.swift */; };
 		F76A452929A33AA40078C19D /* ProfileTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76A452829A33AA40078C19D /* ProfileTabView.swift */; };
@@ -20,9 +20,8 @@
 		F7BB1F4B299EDD6300AA12F7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7BB1F4A299EDD6300AA12F7 /* Preview Assets.xcassets */; };
 		F7C4ED0E299F3CDA00CC6F83 /* SwiftVRChatAPI in Frameworks */ = {isa = PBXBuildFile; productRef = F7C4ED0D299F3CDA00CC6F83 /* SwiftVRChatAPI */; };
 		F7EE997B29A88C93009BBC98 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EE997A29A88C93009BBC98 /* UserView.swift */; };
-		F7EE997D29A91AB0009BBC98 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EE997C29A91AB0009BBC98 /* PreviewData.swift */; };
-		F7EE998429A91B61009BBC98 /* FriendUserPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = F7EE998229A91B60009BBC98 /* FriendUserPreview.json */; };
-		F7EE998529A91B61009BBC98 /* UserPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = F7EE998329A91B60009BBC98 /* UserPreview.json */; };
+		F7EE998929A92049009BBC98 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EE998729A92049009BBC98 /* PreviewData.swift */; };
+		F7EE998A29A92049009BBC98 /* FriendUserPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = F7EE998829A92049009BBC98 /* FriendUserPreview.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +31,6 @@
 		F727159529A8581700477F66 /* UserPreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserPreview.json; sourceTree = "<group>"; };
 		F76A452629A336340078C19D /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 		F76A452829A33AA40078C19D /* ProfileTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabView.swift; sourceTree = "<group>"; };
-		F77626A629A848C100A99E25 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		F7BB1F3F299EDD6200AA12F7 /* VRChat Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VRChat Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7BB1F42299EDD6200AA12F7 /* VRChat_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRChat_TrackerApp.swift; sourceTree = "<group>"; };
 		F7BB1F44299EDD6200AA12F7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -40,9 +38,8 @@
 		F7BB1F48299EDD6300AA12F7 /* VRChat_Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VRChat_Tracker.entitlements; sourceTree = "<group>"; };
 		F7BB1F4A299EDD6300AA12F7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F7EE997A29A88C93009BBC98 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
-		F7EE997C29A91AB0009BBC98 /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
-		F7EE998229A91B60009BBC98 /* FriendUserPreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FriendUserPreview.json; sourceTree = "<group>"; };
-		F7EE998329A91B60009BBC98 /* UserPreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserPreview.json; sourceTree = "<group>"; };
+		F7EE998729A92049009BBC98 /* PreviewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
+		F7EE998829A92049009BBC98 /* FriendUserPreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FriendUserPreview.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +58,6 @@
 			isa = PBXGroup;
 			children = (
 				F7BB1F41299EDD6200AA12F7 /* VRChat Tracker */,
-				F77626A629A848C100A99E25 /* MyPlayground.playground */,
 				F7BB1F40299EDD6200AA12F7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,8 +86,8 @@
 		F7BB1F49299EDD6300AA12F7 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				F77626A929A84D5000A99E25 /* PreviewData.swift */,
-				F77626A729A849CC00A99E25 /* FriendUserPreview.json */,
+				F7EE998729A92049009BBC98 /* PreviewData.swift */,
+				F7EE998829A92049009BBC98 /* FriendUserPreview.json */,
 				F727159529A8581700477F66 /* UserPreview.json */,
 				F7BB1F4A299EDD6300AA12F7 /* Preview Assets.xcassets */,
 			);
@@ -185,9 +181,9 @@
 			files = (
 				F727159629A8581700477F66 /* UserPreview.json in Resources */,
 				F7BB1F4B299EDD6300AA12F7 /* Preview Assets.xcassets in Resources */,
-				F727159229A84FEB00477F66 /* FriendUserPreview.json in Resources */,
+				F727159229A84FEB00477F66 /* (null) in Resources */,
+				F7EE998A29A92049009BBC98 /* FriendUserPreview.json in Resources */,
 				F7BB1F47299EDD6300AA12F7 /* Assets.xcassets in Resources */,
-				F7EE998429A91B61009BBC98 /* FriendUserPreview.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +199,7 @@
 				F7191A8229A6CA900033ED57 /* VRChatClient.swift in Sources */,
 				F7191A8629A71EDD0033ED57 /* FriendTabView.swift in Sources */,
 				F76A452929A33AA40078C19D /* ProfileTabView.swift in Sources */,
-				F77626AA29A84D5000A99E25 /* PreviewData.swift in Sources */,
+				F7EE998929A92049009BBC98 /* PreviewData.swift in Sources */,
 				F7BB1F43299EDD6200AA12F7 /* VRChat_TrackerApp.swift in Sources */,
 				F7EE997B29A88C93009BBC98 /* UserView.swift in Sources */,
 				F7191A8429A70DD50033ED57 /* SettingTabView.swift in Sources */,
