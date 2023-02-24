@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23FEB13329A85A9E00EFE656 /* WorldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FEB13229A85A9E00EFE656 /* WorldModel.swift */; };
+		23FEB13529A863C900EFE656 /* WorldDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FEB13429A863C900EFE656 /* WorldDetailView.swift */; };
+		23FEB13729A866BD00EFE656 /* WorldTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FEB13629A866BD00EFE656 /* WorldTabView.swift */; };
+		23FEB13929A868F600EFE656 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FEB13829A868F600EFE656 /* SearchBarView.swift */; };
 		F7191A8229A6CA900033ED57 /* VRChatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8129A6CA900033ED57 /* VRChatClient.swift */; };
 		F7191A8429A70DD50033ED57 /* SettingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8329A70DD50033ED57 /* SettingTabView.swift */; };
 		F7191A8629A71EDD0033ED57 /* FriendTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8529A71EDD0033ED57 /* FriendTabView.swift */; };
@@ -25,6 +29,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23FEB13229A85A9E00EFE656 /* WorldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldModel.swift; sourceTree = "<group>"; };
+		23FEB13429A863C900EFE656 /* WorldDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDetailView.swift; sourceTree = "<group>"; };
+		23FEB13629A866BD00EFE656 /* WorldTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTabView.swift; sourceTree = "<group>"; };
+		23FEB13829A868F600EFE656 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		F7191A8129A6CA900033ED57 /* VRChatClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRChatClient.swift; sourceTree = "<group>"; };
 		F7191A8329A70DD50033ED57 /* SettingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTabView.swift; sourceTree = "<group>"; };
 		F7191A8529A71EDD0033ED57 /* FriendTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTabView.swift; sourceTree = "<group>"; };
@@ -99,6 +107,9 @@
 			children = (
 				F7BB1F44299EDD6200AA12F7 /* LoginView.swift */,
 				F76A452629A336340078C19D /* NavigationView.swift */,
+				23FEB13629A866BD00EFE656 /* WorldTabView.swift */,
+				23FEB13429A863C900EFE656 /* WorldDetailView.swift */,
+				23FEB13829A868F600EFE656 /* SearchBarView.swift */,
 				F76A452829A33AA40078C19D /* ProfileTabView.swift */,
 				F7191A8329A70DD50033ED57 /* SettingTabView.swift */,
 				F7191A8529A71EDD0033ED57 /* FriendTabView.swift */,
@@ -111,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				F7191A8129A6CA900033ED57 /* VRChatClient.swift */,
+				23FEB13229A85A9E00EFE656 /* WorldModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -195,8 +207,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7BB1F45299EDD6200AA12F7 /* LoginView.swift in Sources */,
+				23FEB13529A863C900EFE656 /* WorldDetailView.swift in Sources */,
 				F76A452729A336340078C19D /* NavigationView.swift in Sources */,
+				23FEB13929A868F600EFE656 /* SearchBarView.swift in Sources */,
 				F7191A8229A6CA900033ED57 /* VRChatClient.swift in Sources */,
+				23FEB13329A85A9E00EFE656 /* WorldModel.swift in Sources */,
+				23FEB13729A866BD00EFE656 /* WorldTabView.swift in Sources */,
 				F7191A8629A71EDD0033ED57 /* FriendTabView.swift in Sources */,
 				F76A452929A33AA40078C19D /* ProfileTabView.swift in Sources */,
 				F7EE998929A92049009BBC98 /* PreviewData.swift in Sources */,
