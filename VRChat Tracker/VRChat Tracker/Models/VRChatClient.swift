@@ -103,3 +103,7 @@ class VRChatClient: ObservableObject {
         return client_preview
     }
 }
+
+func nothing() {
+    
+}

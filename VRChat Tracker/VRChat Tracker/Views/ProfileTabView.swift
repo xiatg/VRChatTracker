@@ -58,7 +58,7 @@ struct ProfileTabView: View {
                     
     //                    Text("\(user.statusDescription!)")
     //                        .padding(.vertical, 5)
-                    
+  
                     HStack {
                         ForEach(user.tags!, id: \.self) { tag in
                             if (tag.starts(with: "language")) {
@@ -85,17 +85,12 @@ struct ProfileTabView: View {
                     Spacer()
                 }
                 .offset(y: ((user.userIcon ?? "") == "") ? 0 : -100)
-                
             }
             .padding(.horizontal, 10.0)
             .navigationTitle(user.displayName!)
             
         }
     }
-}
-
-func nothing() {
-    
 }
 
 struct ProfileTabView_Previews: PreviewProvider {
