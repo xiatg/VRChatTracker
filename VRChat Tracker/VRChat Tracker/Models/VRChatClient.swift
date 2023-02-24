@@ -98,6 +98,8 @@ class VRChatClient: ObservableObject {
         
         client_preview.user = PreviewData.load(name: "UserPreview")
         
+        client_preview.isLoggedIn = true
+        
         return client_preview
     }
 }

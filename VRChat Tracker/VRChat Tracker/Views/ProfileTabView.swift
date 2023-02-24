@@ -34,21 +34,31 @@ struct ProfileTabView: View {
                 }
                 
                 VStack {
-                    AsyncImage(url: URL(string: user.userIcon!)) { image in
-                            image
-                            .resizable()
-                            .frame(width: 200, height: 200)
-                            .clipShape(Circle())
-                            .overlay {
-                                Circle().stroke(.white, lineWidth: 4)
-                            }
-                            .shadow(radius: 7)
-                    } placeholder: {
-                        ProgressView()
+                    if (user.userIcon ?? "" != "") {
+                        AsyncImage(url: URL(string: user.userIcon!)) { image in
+                                image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 200)
+                                .clipShape(Circle())
+                                .overlay {
+                                    Circle().stroke(.white, lineWidth: 4)
+                                }
+                                .shadow(radius: 7)
+                        } placeholder: {
+                            ProgressView()
+                        }
                     }
                     
                     Text("\(user.state!)")
+//                        .padding(.top, 5)
                     
+                    Text("\(user.status!)")
+    //                        .padding(.vertical, 5)
+                    
+    //                    Text("\(user.statusDescription!)")
+    //                        .padding(.vertical, 5)
+  
                     HStack {
                         ForEach(user.tags!, id: \.self) { tag in
                             if (tag.starts(with: "language")) {
@@ -74,7 +84,7 @@ struct ProfileTabView: View {
                     
                     Spacer()
                 }
-                .offset(y: -100)
+                .offset(y: ((user.userIcon ?? "") == "") ? 0 : -100)
             }
             .padding(.horizontal, 10.0)
             .navigationTitle(user.displayName!)

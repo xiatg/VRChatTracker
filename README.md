@@ -10,3 +10,7 @@
 - `DispatchSemaphore`: https://stackoverflow.com/questions/38952420/swift-wait-until-datataskwithrequest-has-finished-to-call-the-return
 - Navigation Title font: https://stackoverflow.com/questions/69325928/swiftui-size-to-fit-or-word-wrap-navigation-title
 - Placeholder style: https://stackoverflow.com/questions/57688242/swiftui-how-to-change-the-placeholder-color-of-the-textfield
+- average Color: https://www.hackingwithswift.com/example-code/media/how-to-read-the-average-color-of-a-uiimage-using-ciareaaverage
+- `Image` to `UIImage`: https://stackoverflow.com/questions/57028484/how-to-convert-a-image-to-uiimage
+- UIColor bright or dark: https://stackoverflow.com/questions/2509443/check-if-uicolor-is-dark-or-bright
+- 
