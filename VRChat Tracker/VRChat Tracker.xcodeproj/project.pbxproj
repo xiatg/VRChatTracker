@@ -62,6 +62,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F77578B829A9234B00200DC9 /* World */ = {
+			isa = PBXGroup;
+			children = (
+				23FEB13629A866BD00EFE656 /* WorldTabView.swift */,
+				23FEB13429A863C900EFE656 /* WorldDetailView.swift */,
+			);
+			path = World;
+			sourceTree = "<group>";
+		};
 		F7BB1F36299EDD6200AA12F7 = {
 			isa = PBXGroup;
 			children = (
@@ -107,8 +116,7 @@
 			children = (
 				F7BB1F44299EDD6200AA12F7 /* LoginView.swift */,
 				F76A452629A336340078C19D /* NavigationView.swift */,
-				23FEB13629A866BD00EFE656 /* WorldTabView.swift */,
-				23FEB13429A863C900EFE656 /* WorldDetailView.swift */,
+				F77578B829A9234B00200DC9 /* World */,
 				23FEB13829A868F600EFE656 /* SearchBarView.swift */,
 				F76A452829A33AA40078C19D /* ProfileTabView.swift */,
 				F7191A8329A70DD50033ED57 /* SettingTabView.swift */,
