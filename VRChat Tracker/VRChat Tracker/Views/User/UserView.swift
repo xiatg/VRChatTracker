@@ -7,21 +7,31 @@
 
 import SwiftUI
 import SwiftVRChatAPI
+import CachedAsyncImage
 
 struct UserView: View {
     let user: User
+    let world: World?
+    let instance: Instance?
     
     @State var averageColor: Color?
     @State var isAverageColorLight: Bool = false
     
+    init(user: User, world: World? = nil, instance: Instance? = nil) {
+        self.user = user
+        self.world = world
+        self.instance = instance
+    }
+    
     var body: some View {
         VStack {
-            HStack(alignment: .top) {
-                AsyncImage(url: URL(string: user.currentAvatarImageUrl!)) { image in
+            
+            HStack {
+                AsyncImage(url: URL(string: user.currentAvatarThumbnailImageUrl!)) { image in
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 200)
+                            .frame(width: 100)
                             .onAppear {
                                 let averageUIColor = image.asUIImage().averageColor!
                                 averageColor = Color(uiColor: averageUIColor)
@@ -30,10 +40,11 @@ struct UserView: View {
                 } placeholder: {
                     ProgressView()
                 }
+                .cornerRadius(10)
                 .padding([.horizontal, .top], 10)
                 
-                VStack(alignment: .leading) {
-                    
+                VStack(alignment: .leading, spacing: ((user.userIcon ?? "") == "") ? 0 : -20) {
+
                     HStack {
                         if (user.userIcon ?? "" != "") {
                             AsyncImage(url: URL(string: user.userIcon!)) { image in
@@ -50,41 +61,99 @@ struct UserView: View {
                                 ProgressView()
                             }
                         }
-                        
-                        Text("\(user.displayName!)")
-                            .font(.title)
-                            .bold()
-                            .minimumScaleFactor(0.01)
-                            .lineLimit(1)
+
+                        HStack(spacing: -10) {
+                            Text("\(user.displayName!)")
+                                .ignoresSafeArea()
+                                .font(.title)
+                                .bold()
+                                .minimumScaleFactor(0.7)
+                                .lineLimit(1)
+                                .padding(.trailing, ((user.userIcon ?? "") == "") ? 0 : -40)
+
+                            Spacer()
+                        }
                     }
                     .offset(x: ((user.userIcon ?? "") == "") ? 0 : -50)
-                    
-                    Text("\(user.state!)")
-//                        .padding(.top, 5)
-                    
-                    Text("\(user.status!)")
-    //                        .padding(.vertical, 5)
-                    
-    //                    Text("\(user.statusDescription!)")
-    //                        .padding(.vertical, 5)
+
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Text("\(user.state!)")
+                            Text("\(user.status!)")
+                        }
+                        .padding(.trailing, 10)
+                    }
                 }
                 .foregroundColor(isAverageColorLight ? .black : .white)
                 .padding(.top, 10)
+                
+                Spacer()
             }
             
-            HStack(alignment: .top) {
-                AsyncImage(url: URL(string: user.currentAvatarImageUrl!)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 200)
-                } placeholder: {
-                    ProgressView()
+            HStack {
+                Text("\(user.statusDescription!)")
+                    .foregroundColor(isAverageColorLight ? .black : .white)
+                    .minimumScaleFactor(0.01)
+                    .lineLimit(3)
+                
+                Spacer()
+            }
+            .padding(.leading, 10)
+            
+            if let world = world {
+                HStack(alignment: .top) {
+                    AsyncImage(url: URL(string: world.thumbnailImageUrl!)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 50)
+                    } placeholder: {
+                        ProgressView()
+                    }
+
+                    VStack(alignment: .leading) {
+                        Text("\(world.name!)")
+                            .lineLimit(1)
+                            .bold()
+
+                        Text("\(world.description!)")
+                            .lineLimit(1)
+                            .foregroundColor(.secondary)
+
+                        HStack {
+                            if let instance = instance {
+                                Text("\(instance.type!)")
+
+                                switch instance.region {
+                                case "jp":
+                                    Text("🇯🇵")
+                                case "us":
+                                    Text("🇺🇸")
+                                case "eu":
+                                    Text("🇪🇺")
+                                default:
+                                    Text("🌍")
+                                }
+
+                                Text("\(instance.n_users!)/\(instance.capacity!)")
+                            }
+                        }
+                    }
+                    .foregroundColor(isAverageColorLight ? .black : .white)
+
+                    Spacer()
                 }
+                .frame(height: 40)
+//                .background(Color.red)
+                .padding(10)
             }
             
+            Spacer()
         }
-        .background(averageColor)
+        .background(averageColor ?? Color.gray)
+        .cornerRadius(10)
+        .frame(width: 300, height: 200)
     }
 }
 
@@ -147,6 +216,8 @@ extension UIView {
 
 struct UserView_Previews: PreviewProvider {
     static var previews: some View {
-        UserView(user: PreviewData.load(name: "FriendUserPreview")!)
+        UserView(user: PreviewData.load(name: "UserPreview")!,
+                 world: PreviewData.load(name: "WorldPreview")!,
+                 instance: PreviewData.load(name: "InstancePreview")!)
     }
 }

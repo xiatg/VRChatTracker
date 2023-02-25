@@ -16,18 +16,20 @@ struct SettingTabView: View {
             List {
                 Section(content: {
                     Button(action: logout, label: {
-                        Text("logout")
+                        Text("Logout")
                     })
                 }, header: {
                     Text("system")
                 })
                 
                 Section(content: {
-                    Button(action: nothing, label: {
-                        Text("contribute on GitHub")
+                    Button(action: {
+                        UIApplication.shared.open(URL(string: "https://github.com/watanabexia/VRChatTracker")!)
+                    }, label: {
+                        Text("Contribute on GitHub")
                     })
                     Button(action: nothing, label: {
-                        Text("support us!")
+                        Text("Support us ❤️")
                     })
                 }, header: {
                     Text("about")

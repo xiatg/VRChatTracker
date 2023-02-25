@@ -103,7 +103,9 @@ struct LoginView: View {
                 .padding(.bottom, 5)
                 
                 if (client.is2FA == false) {
-                    Button(action: nothing) { // FIXME: should jump to signup website in a browser
+                    Button(action: {
+                        UIApplication.shared.open(URL(string: "https://vrchat.com/home/register")!)
+                    }) {
                         HStack {
                             Spacer()
                             Text("Sign Up")

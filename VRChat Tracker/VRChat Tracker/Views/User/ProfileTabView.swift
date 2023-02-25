@@ -50,14 +50,19 @@ struct ProfileTabView: View {
                         }
                     }
                     
-                    Text("\(user.state!)")
-//                        .padding(.top, 5)
+                    Text("\(user.displayName!)")
+                        .font(.title)
+                        .bold()
                     
-                    Text("\(user.status!)")
-    //                        .padding(.vertical, 5)
+                    Text("\(user.statusDescription!)")
+                        .padding(.top, -10)
                     
-    //                    Text("\(user.statusDescription!)")
-    //                        .padding(.vertical, 5)
+                    HStack {
+                        Text("\(user.state!)")
+                        
+                        Text("\(user.status!)")
+                    }
+                    .padding(.top)
   
                     HStack {
                         ForEach(user.tags!, id: \.self) { tag in
@@ -73,6 +78,7 @@ struct ProfileTabView: View {
                             }
                         }
                     }
+                    .padding(.top, -7)
                     
                     HStack {
                         Text(user.bio!)
@@ -84,12 +90,17 @@ struct ProfileTabView: View {
                     
                     Spacer()
                 }
+                .padding(.horizontal, 10.0)
                 .offset(y: ((user.userIcon ?? "") == "") ? 0 : -100)
             }
-            .padding(.horizontal, 10.0)
-            .navigationTitle(user.displayName!)
-            
+            .scrollIndicators(.hidden)
+            .ignoresSafeArea()
+//            .navigationTitle(user.displayName!)
         }
+        .refreshable {
+            client.loginUserInfo()
+        }
+        .statusBarHidden()
     }
 }
 

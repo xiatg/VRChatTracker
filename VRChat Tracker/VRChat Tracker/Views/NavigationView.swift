@@ -10,8 +10,10 @@ import SwiftUI
 struct NavigationView: View {
     @ObservedObject var client: VRChatClient
     
+    @State private var selection = 3
+    
     var body: some View {
-        TabView(selection: .constant(3)) {
+        TabView(selection: $selection) {
             WorldTabView()
                 .tabItem {
                     Image(systemName: "globe")
@@ -39,7 +41,7 @@ struct NavigationView: View {
                     }
                     .tag(3)
             }
-            Text("FriendsTabView")
+            FriendTabView(client: client)
                 .tabItem {
                     Image(systemName: "person.3")
                     Text("Friends")
