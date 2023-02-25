@@ -13,4 +13,5 @@
 - average Color: https://www.hackingwithswift.com/example-code/media/how-to-read-the-average-color-of-a-uiimage-using-ciareaaverage
 - `Image` to `UIImage`: https://stackoverflow.com/questions/57028484/how-to-convert-a-image-to-uiimage
 - UIColor bright or dark: https://stackoverflow.com/questions/2509443/check-if-uicolor-is-dark-or-bright
-- 
+- Background Fetch 1: https://developer.apple.com/documentation/uikit/app_and_environment/scenes/preparing_your_ui_to_run_in_the_background/using_background_tasks_to_update_your_app
+- Background Fetch 2: 

@@ -21,8 +21,8 @@
 		F77578BB29A9422D00200DC9 /* WorldPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = F77578BA29A9422D00200DC9 /* WorldPreview.json */; };
 		F77578BD29A9447900200DC9 /* InstancePreview.json in Resources */ = {isa = PBXBuildFile; fileRef = F77578BC29A9447800200DC9 /* InstancePreview.json */; };
 		F77578C229A94C6400200DC9 /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77578C129A94C6400200DC9 /* FriendModel.swift */; };
-		F792148329A96AE600B98105 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = F792148229A96AE600B98105 /* CachedAsyncImage */; };
 		F792148529A9854900B98105 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F792148429A9854900B98105 /* UserDetailView.swift */; };
+		F792148829A9AA8000B98105 /* BackgroundTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F792148729A9AA8000B98105 /* BackgroundTask.swift */; };
 		F7BB1F43299EDD6200AA12F7 /* VRChat_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BB1F42299EDD6200AA12F7 /* VRChat_TrackerApp.swift */; };
 		F7BB1F45299EDD6200AA12F7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BB1F44299EDD6200AA12F7 /* LoginView.swift */; };
 		F7BB1F47299EDD6300AA12F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7BB1F46299EDD6300AA12F7 /* Assets.xcassets */; };
@@ -48,6 +48,8 @@
 		F77578BC29A9447800200DC9 /* InstancePreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InstancePreview.json; sourceTree = "<group>"; };
 		F77578C129A94C6400200DC9 /* FriendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
 		F792148429A9854900B98105 /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
+		F792148629A9A85800B98105 /* VRChat-Tracker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "VRChat-Tracker-Info.plist"; sourceTree = SOURCE_ROOT; };
+		F792148729A9AA8000B98105 /* BackgroundTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTask.swift; sourceTree = "<group>"; };
 		F7BB1F3F299EDD6200AA12F7 /* VRChat Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VRChat Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7BB1F42299EDD6200AA12F7 /* VRChat_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRChat_TrackerApp.swift; sourceTree = "<group>"; };
 		F7BB1F44299EDD6200AA12F7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -65,7 +67,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7C4ED0E299F3CDA00CC6F83 /* SwiftVRChatAPI in Frameworks */,
-				F792148329A96AE600B98105 /* CachedAsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				F7BB1F41299EDD6200AA12F7 /* VRChat Tracker */,
+				F792148629A9A85800B98105 /* VRChat-Tracker-Info.plist */,
 				F7BB1F40299EDD6200AA12F7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -153,6 +155,7 @@
 				F7191A8129A6CA900033ED57 /* VRChatClient.swift */,
 				23FEB13229A85A9E00EFE656 /* WorldModel.swift */,
 				F77578C129A94C6400200DC9 /* FriendModel.swift */,
+				F792148729A9AA8000B98105 /* BackgroundTask.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -175,7 +178,6 @@
 			name = "VRChat Tracker";
 			packageProductDependencies = (
 				F7C4ED0D299F3CDA00CC6F83 /* SwiftVRChatAPI */,
-				F792148229A96AE600B98105 /* CachedAsyncImage */,
 			);
 			productName = "VRChat Tracker";
 			productReference = F7BB1F3F299EDD6200AA12F7 /* VRChat Tracker.app */;
@@ -207,7 +209,6 @@
 			mainGroup = F7BB1F36299EDD6200AA12F7;
 			packageReferences = (
 				F7C4ED0C299F3CDA00CC6F83 /* XCRemoteSwiftPackageReference "vrchatapi-swift" */,
-				F792148129A96AE600B98105 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = F7BB1F40299EDD6200AA12F7 /* Products */;
 			projectDirPath = "";
@@ -242,6 +243,7 @@
 			files = (
 				F7BB1F45299EDD6200AA12F7 /* LoginView.swift in Sources */,
 				F77578C229A94C6400200DC9 /* FriendModel.swift in Sources */,
+				F792148829A9AA8000B98105 /* BackgroundTask.swift in Sources */,
 				23FEB13529A863C900EFE656 /* WorldDetailView.swift in Sources */,
 				F76A452729A336340078C19D /* NavigationView.swift in Sources */,
 				23FEB13929A868F600EFE656 /* SearchBarView.swift in Sources */,
@@ -383,6 +385,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VRChat-Tracker-Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -421,6 +424,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VRChat-Tracker-Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -470,14 +474,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F792148129A96AE600B98105 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 		F7C4ED0C299F3CDA00CC6F83 /* XCRemoteSwiftPackageReference "vrchatapi-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/watanabexia/vrchatapi-swift";
@@ -489,11 +485,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F792148229A96AE600B98105 /* CachedAsyncImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F792148129A96AE600B98105 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
-			productName = CachedAsyncImage;
-		};
 		F7C4ED0D299F3CDA00CC6F83 /* SwiftVRChatAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F7C4ED0C299F3CDA00CC6F83 /* XCRemoteSwiftPackageReference "vrchatapi-swift" */;

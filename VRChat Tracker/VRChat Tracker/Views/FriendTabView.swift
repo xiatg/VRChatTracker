@@ -37,13 +37,15 @@ struct FriendTabView: View {
             .navigationTitle("Friends")
         }
         .searchable(text: $searchName, prompt: "Search for friends...") {
-            LazyVStack {
-                ForEach(searchResults) { friend in
-                    NavigationLink {
-                        UserDetailView(user: friend.user)
-                    } label: {
-                        UserView(user: friend.user, world: friend.world, instance: friend.instance)
-                            .cornerRadius(10)
+            ScrollView {
+                LazyVStack {
+                    ForEach(searchResults) { friend in
+                        NavigationLink {
+                            UserDetailView(user: friend.user)
+                        } label: {
+                            UserView(user: friend.user, world: friend.world, instance: friend.instance)
+                                .cornerRadius(10)
+                        }
                     }
                 }
             }
@@ -60,9 +62,9 @@ struct FriendTabView: View {
         if searchName.isEmpty {
             return []
         } else {
-            
+
             var friends:[Friend] = []
-            
+
             if let onlineFriends = client.onlineFriends {
                 friends += onlineFriends
             }
@@ -72,7 +74,7 @@ struct FriendTabView: View {
             if let offlineFriends = client.offlineFriends {
                 friends += offlineFriends
             }
-            
+
             return friends.filter{ $0.user.displayName!.localizedCaseInsensitiveContains(searchName) }
         }
     }
@@ -84,7 +86,7 @@ struct FriendRowView: View {
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 5) {
-                ForEach(friends) { friend in
+                ForEach(friends.sorted{ $0.user.displayName! < $1.user.displayName! }) { friend in
                     NavigationLink {
                         UserDetailView(user: friend.user)
                     } label: {
