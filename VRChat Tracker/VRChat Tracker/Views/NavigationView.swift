@@ -52,7 +52,7 @@ struct NavigationView: View {
                     Image(systemName: "gear")
                     Text("Setting")
                 }
-                .tag(4)
+                .tag(5)
         }
     }
 }
