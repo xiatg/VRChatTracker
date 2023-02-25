@@ -19,7 +19,9 @@ class VRChatClient: ObservableObject {
     @Published var user: User?
     
     // FriendTabView
-    @Published var friends: [User]?
+    @Published var onlineFriends: [Friend]?
+    @Published var activeFriends: [Friend]?
+    @Published var offlineFriends: [Friend]?
     
     
     var apiClient = APIClient()
@@ -36,7 +38,7 @@ class VRChatClient: ObservableObject {
     }
     
     //
-    // MARK: Authentication APIs
+    // MARK: Authentication
     //
     
     func loginUserInfo() {
@@ -83,12 +85,72 @@ class VRChatClient: ObservableObject {
         self.is2FA = false
         self.isAutoLoggingIn = false
         self.user = nil
-        self.friends = nil
     }
     
     //
-    // MARK: User APIs
+    // MARK: User
     //
+    
+    func updateFriends() {
+        self.onlineFriends = []
+        self.activeFriends = []
+        self.offlineFriends = []
+        
+        if let user = user {
+            for userID in user.onlineFriends! {
+                UserAPI.getUser(client: apiClient, userID: userID) { user in
+                    guard let user = user else { return }
+                    
+                    let worldID = user.worldId!
+                    let instanceID = user.instanceId!
+            
+                    if (worldID != "private") {
+                        InstanceAPI.getInstance(client: self.apiClient, worldID: worldID, instanceID: instanceID) { instance in
+                            WorldAPI.getWorld(client: self.apiClient, worldID: worldID) { world in
+                                DispatchQueue.main.sync {
+                                    self.onlineFriends?.append(Friend(user: user, world: world, instance: instance))
+                                }
+                            }
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.onlineFriends?.append(Friend(user: user))
+                        }
+                    }
+                    
+    //                print("** onlineFriends() **")
+    //                print(self.onlineFriends)
+                    
+                }
+            }
+            
+            for userID in user.activeFriends! {
+                UserAPI.getUser(client: apiClient, userID: userID) { user in
+                    guard let user = user else { return }
+
+                    DispatchQueue.main.async {
+                        self.activeFriends?.append(Friend(user: user))
+                    }
+                }
+            }
+            
+            for userID in user.offlineFriends! {
+                UserAPI.getUser(client: apiClient, userID: userID) { user in
+                    guard let user = user else { return }
+
+                    DispatchQueue.main.async {
+                        self.offlineFriends?.append(Friend(user: user))
+                    }
+                }
+            }
+        }
+    }
+    
+//    func updateFriendsGroup(friends: [String]) {
+//        for userID in friends {
+//            UserAPI.
+//        }
+//    }
     
     /**
      Create a sample `VRChatClient` instance for preview.
@@ -99,6 +161,10 @@ class VRChatClient: ObservableObject {
         client_preview.user = PreviewData.load(name: "UserPreview")
         
         client_preview.isLoggedIn = true
+        
+        client_preview.onlineFriends = [Friend(user: client_preview.user!,
+                                               world: PreviewData.load(name: "WorldPreview"),
+                                               instance: PreviewData.load(name: "InstancePreview"))]
         
         return client_preview
     }
