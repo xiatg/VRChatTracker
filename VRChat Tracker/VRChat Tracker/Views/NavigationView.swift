@@ -20,7 +20,7 @@ struct NavigationView: View {
                     Text("World")
                 }
                 .tag(1)
-            Text("AvatarTabView")
+            AvatarTabView()
                 .tabItem {
                     Image(systemName: "theatermasks")
                     Text("Avatar")

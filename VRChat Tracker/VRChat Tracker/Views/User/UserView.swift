@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SwiftVRChatAPI
-import CachedAsyncImage
 
 struct UserView: View {
     let user: User
@@ -167,7 +166,7 @@ extension UIImage {
         guard let outputImage = filter.outputImage else { return nil }
 
         var bitmap = [UInt8](repeating: 0, count: 4)
-        let context = CIContext(options: [.workingColorSpace: kCFNull])
+        let context = CIContext(options: [.workingColorSpace: kCFNull!])
         context.render(outputImage, toBitmap: &bitmap, rowBytes: 4, bounds: CGRect(x: 0, y: 0, width: 1, height: 1), format: .RGBA8, colorSpace: nil)
 
         return UIColor(red: CGFloat(bitmap[0]) / 255, green: CGFloat(bitmap[1]) / 255, blue: CGFloat(bitmap[2]) / 255, alpha: CGFloat(bitmap[3]) / 255)
@@ -182,7 +181,11 @@ extension View {
         let controller = UIHostingController(rootView: self)
         
         controller.view.frame = CGRect(x: 0, y: CGFloat(Int.max), width: 1, height: 1)
-        UIApplication.shared.windows.first!.rootViewController?.view.addSubview(controller.view)
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let mainWindow = windowScene.windows.first {
+            mainWindow.rootViewController?.view.addSubview(controller.view)
+        }
         
         let size = controller.sizeThatFits(in: UIScreen.main.bounds.size)
         controller.view.bounds = CGRect(origin: .zero, size: size)
