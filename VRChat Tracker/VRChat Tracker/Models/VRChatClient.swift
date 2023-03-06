@@ -23,10 +23,14 @@ class VRChatClient: ObservableObject {
     @Published var activeFriends: [Friend]?
     @Published var offlineFriends: [Friend]?
     
-    
     var apiClient = APIClient()
     
-    init(autoLogin: Bool = true) {
+    var preview = false
+    
+    init(autoLogin: Bool = true, preview: Bool = false) {
+        
+        self.preview = preview
+        
         // Fetch the currently available cookies
         apiClient.updateCookies()
         
@@ -43,6 +47,11 @@ class VRChatClient: ObservableObject {
     
     func loginUserInfo() {
         AuthenticationAPI.loginUserInfo(client: self.apiClient) { user in
+            
+            //Debug
+            print("** loginUserInfo() 1 **")
+            //Debug End
+            
             DispatchQueue.main.async {
                 self.user = user
                 
@@ -92,6 +101,11 @@ class VRChatClient: ObservableObject {
     //
     
     func updateFriends() {
+        
+        if (self.preview) {
+            return 
+        }
+        
         self.onlineFriends = []
         self.activeFriends = []
         self.offlineFriends = []
@@ -156,7 +170,7 @@ class VRChatClient: ObservableObject {
      Create a sample `VRChatClient` instance for preview.
      */
     static func createPreview() -> VRChatClient {
-        let client_preview = VRChatClient(autoLogin: false)
+        let client_preview = VRChatClient(autoLogin: false, preview: true)
         
         client_preview.user = PreviewData.load(name: "UserPreview")
         
