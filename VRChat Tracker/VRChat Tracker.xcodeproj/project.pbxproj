@@ -11,6 +11,9 @@
 		23FEB13529A863C900EFE656 /* WorldDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FEB13429A863C900EFE656 /* WorldDetailView.swift */; };
 		23FEB13729A866BD00EFE656 /* WorldTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FEB13629A866BD00EFE656 /* WorldTabView.swift */; };
 		23FEB13929A868F600EFE656 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FEB13829A868F600EFE656 /* SearchBarView.swift */; };
+		23FEB13B29B2161200EFE656 /* AvatarTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FEB13A29B2161200EFE656 /* AvatarTabView.swift */; };
+		23FEB13D29B218C500EFE656 /* AvatarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FEB13C29B218C500EFE656 /* AvatarModel.swift */; };
+		23FEB13F29B21E6200EFE656 /* AvatarDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FEB13E29B21E6200EFE656 /* AvatarDetailView.swift */; };
 		F7191A8229A6CA900033ED57 /* VRChatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8129A6CA900033ED57 /* VRChatClient.swift */; };
 		F7191A8429A70DD50033ED57 /* SettingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8329A70DD50033ED57 /* SettingTabView.swift */; };
 		F7191A8629A71EDD0033ED57 /* FriendTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7191A8529A71EDD0033ED57 /* FriendTabView.swift */; };
@@ -38,6 +41,9 @@
 		23FEB13429A863C900EFE656 /* WorldDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldDetailView.swift; sourceTree = "<group>"; };
 		23FEB13629A866BD00EFE656 /* WorldTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldTabView.swift; sourceTree = "<group>"; };
 		23FEB13829A868F600EFE656 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		23FEB13A29B2161200EFE656 /* AvatarTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTabView.swift; sourceTree = "<group>"; };
+		23FEB13C29B218C500EFE656 /* AvatarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarModel.swift; sourceTree = "<group>"; };
+		23FEB13E29B21E6200EFE656 /* AvatarDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarDetailView.swift; sourceTree = "<group>"; };
 		F7191A8129A6CA900033ED57 /* VRChatClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRChatClient.swift; sourceTree = "<group>"; };
 		F7191A8329A70DD50033ED57 /* SettingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTabView.swift; sourceTree = "<group>"; };
 		F7191A8529A71EDD0033ED57 /* FriendTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTabView.swift; sourceTree = "<group>"; };
@@ -73,6 +79,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23FEB14029B21E6C00EFE656 /* Avatar */ = {
+			isa = PBXGroup;
+			children = (
+				23FEB13A29B2161200EFE656 /* AvatarTabView.swift */,
+				23FEB13E29B21E6200EFE656 /* AvatarDetailView.swift */,
+			);
+			path = Avatar;
+			sourceTree = "<group>";
+		};
 		F77578B829A9234B00200DC9 /* World */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +155,7 @@
 			children = (
 				F7BB1F44299EDD6200AA12F7 /* LoginView.swift */,
 				F76A452629A336340078C19D /* NavigationView.swift */,
+				23FEB14029B21E6C00EFE656 /* Avatar */,
 				F77578B829A9234B00200DC9 /* World */,
 				F77578BE29A9450A00200DC9 /* User */,
 				F7191A8529A71EDD0033ED57 /* FriendTabView.swift */,
@@ -154,6 +170,7 @@
 			children = (
 				F7191A8129A6CA900033ED57 /* VRChatClient.swift */,
 				23FEB13229A85A9E00EFE656 /* WorldModel.swift */,
+				23FEB13C29B218C500EFE656 /* AvatarModel.swift */,
 				F77578C129A94C6400200DC9 /* FriendModel.swift */,
 				F792148729A9AA8000B98105 /* BackgroundTask.swift */,
 			);
@@ -243,6 +260,7 @@
 			files = (
 				F7BB1F45299EDD6200AA12F7 /* LoginView.swift in Sources */,
 				F77578C229A94C6400200DC9 /* FriendModel.swift in Sources */,
+				23FEB13D29B218C500EFE656 /* AvatarModel.swift in Sources */,
 				F792148829A9AA8000B98105 /* BackgroundTask.swift in Sources */,
 				23FEB13529A863C900EFE656 /* WorldDetailView.swift in Sources */,
 				F76A452729A336340078C19D /* NavigationView.swift in Sources */,
@@ -256,6 +274,8 @@
 				F7BB1F43299EDD6200AA12F7 /* VRChat_TrackerApp.swift in Sources */,
 				F7EE997B29A88C93009BBC98 /* UserView.swift in Sources */,
 				F792148529A9854900B98105 /* UserDetailView.swift in Sources */,
+				23FEB13F29B21E6200EFE656 /* AvatarDetailView.swift in Sources */,
+				23FEB13B29B2161200EFE656 /* AvatarTabView.swift in Sources */,
 				F7191A8429A70DD50033ED57 /* SettingTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,7 +401,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VRChat Tracker/Preview Content\"";
-				DEVELOPMENT_TEAM = A7HL64F7MB;
+				DEVELOPMENT_TEAM = HBFAWJXSC3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -420,7 +440,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VRChat Tracker/Preview Content\"";
-				DEVELOPMENT_TEAM = A7HL64F7MB;
+				DEVELOPMENT_TEAM = HBFAWJXSC3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
