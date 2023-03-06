@@ -10,12 +10,13 @@ import SwiftVRChatAPI
 
 struct UserDetailView: View {
     let user:User
+    let world: World?
+    let instance: Instance?
     
-    init(user: User) {
-        
+    init(user: User, world: World? = nil, instance: Instance? = nil) {
         self.user = user
-        
-//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        self.world = world
+        self.instance = instance
     }
     
     var body: some View {
@@ -92,6 +93,8 @@ struct UserDetailView: View {
 
 struct UserDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        UserDetailView(user: PreviewData.load(name: "UserPreview")!)
+        UserDetailView(user: PreviewData.load(name: "UserPreview")!,
+                       world: PreviewData.load(name: "WorldPreview")!,
+                       instance: PreviewData.load(name: "InstancePreview")!)
     }
 }

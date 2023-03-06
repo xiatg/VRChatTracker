@@ -1,6 +1,5 @@
 # VRChatTracker
 ## Resource
-
 - App Icon: https://images.squarespace-cdn.com/content/v1/5f0770791aaf57311515b23d/1608240505246-O7TI4Z68YP4JF0MULQPT/VRC_Treehouse_5.png?format=2500w
 - welcome image source: https://www.youtube.com/watch?v=PWLPw4RE9Ig
 
@@ -14,4 +13,9 @@
 - `Image` to `UIImage`: https://stackoverflow.com/questions/57028484/how-to-convert-a-image-to-uiimage
 - UIColor bright or dark: https://stackoverflow.com/questions/2509443/check-if-uicolor-is-dark-or-bright
 - Background Fetch 1: https://developer.apple.com/documentation/uikit/app_and_environment/scenes/preparing_your_ui_to_run_in_the_background/using_background_tasks_to_update_your_app
-- Background Fetch 2: 
+- Network Status: https://www.hackingwithswift.com/example-code/networking/how-to-check-for-internet-connectivity-using-nwpathmonitor
+
+## First-party Framework
+- SwiftVRChatAPI: https://github.com/watanabexia/vrchatapi-swift
+## Third-party Framework
+- VRChat API: https://vrchatapi.github.io/

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftVRChatAPI
+import Network
 
 class VRChatClient: ObservableObject {
     
@@ -14,6 +15,9 @@ class VRChatClient: ObservableObject {
     @Published var isLoggedIn = false
     @Published var is2FA = false
     @Published var isAutoLoggingIn = false
+    @Published var showNoInternetAlert = false
+    
+    let monitor = NWPathMonitor()
     
     // ProfileTabView
     @Published var user: User?
@@ -46,32 +50,52 @@ class VRChatClient: ObservableObject {
     //
     
     func loginUserInfo() {
-        AuthenticationAPI.loginUserInfo(client: self.apiClient) { user in
+        
+        
+        //Debug
+        print("** loginUserInfo() 0 **")
+        //Debug End
+        
+        //https://www.hackingwithswift.com/example-code/networking/how-to-check-for-internet-connectivity-using-nwpathmonitor
+        monitor.pathUpdateHandler = { path in
             
-            //Debug
-            print("** loginUserInfo() 1 **")
-            //Debug End
-            
-            DispatchQueue.main.async {
-                self.user = user
+            if path.status != .satisfied {
                 
-                // If already successfully logged in
-                if (self.user?.displayName != nil) {
-                    self.isLoggedIn = true
-                } else if (self.user?.requiresTwoFactorAuth == ["emailOtp"]) {
-                    self.isLoggedIn = false
-                    self.is2FA = true
+                DispatchQueue.main.async {
+                    self.isAutoLoggingIn = false
+                    self.showNoInternetAlert = true
                 }
                 
-                self.isAutoLoggingIn = false
+            } else {
+                
+                AuthenticationAPI.loginUserInfo(client: self.apiClient) { user in
+                    
+                    DispatchQueue.main.async {
+                        self.user = user
+                        
+                        // If already successfully logged in
+                        if (self.user?.displayName != nil) {
+                            self.isLoggedIn = true
+                        } else if (self.user?.requiresTwoFactorAuth == ["emailOtp"]) {
+                            self.isLoggedIn = false
+                            self.is2FA = true
+                        }
+                    }
+                    
+                    //Debug
+                    print("** loginUserInfo() 3 **")
+                    print(self.isLoggedIn)
+                    print(self.is2FA)
+                    //Debug End
+                }
+                
+                DispatchQueue.main.async {
+                    self.isAutoLoggingIn = false
+                }
             }
-            
-            //Debug
-            print("** loginUserInfo() **")
-            print(self.isLoggedIn)
-            print(self.is2FA)
-            //Debug End
         }
+        
+        monitor.start(queue: DispatchQueue.main)
     }
     
     func email2FALogin(emailOTP: String) {
