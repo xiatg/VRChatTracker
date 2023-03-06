@@ -15,9 +15,7 @@ struct UserDetailView: View {
         
         self.user = user
         
-        // https://stackoverflow.com/questions/69325928/swiftui-size-to-fit-or-word-wrap-navigation-title
-        UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
     }
     
     var body: some View {
@@ -65,9 +63,7 @@ struct UserDetailView: View {
                     HStack {
                         ForEach(user.tags!, id: \.self) { tag in
                             if (tag.starts(with: "language")) {
-                                Button(action: nothing) {
-                                    Text(tag.suffix(3).uppercased())
-                                }
+                                Text(tag.suffix(3).uppercased())
                             }
                         }
                     }

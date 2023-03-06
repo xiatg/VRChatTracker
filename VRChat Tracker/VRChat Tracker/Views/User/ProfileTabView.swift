@@ -17,9 +17,6 @@ struct ProfileTabView: View {
         self.client = client
         
         self.user = client.user!
-        
-        // https://stackoverflow.com/questions/69325928/swiftui-size-to-fit-or-word-wrap-navigation-title
-        UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
     }
     
     var body: some View {
