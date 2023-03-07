@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
+import SwiftVRChatAPI
 
 struct WorldTabView: View {
     
     // search bar text
     @State private var searchText = ""
     
-    // FIXME: placeholder data
-    var worldList: [VRWorld] = [worldExample, worldExample2, worldExample3]
+    @ObservedObject var client: VRChatClient
+    
+    var worldExamples: [VRWorld] = [worldExample, worldExample2, worldExample3]
     
     var body: some View {
+        let worldList = client.worldList != nil ? client.worldList! : worldExamples
         NavigationStack {
             SearchBarView(text: $searchText)
                 .padding([.leading, .trailing, .bottom], 16)
@@ -43,7 +46,7 @@ struct WorldTabView: View {
                                 }
                         }
                         Rectangle()
-                            .frame(width: .infinity, height: 50)
+                            .frame(width: .infinity, height: 50.0)
                             .offset(y: -85)
                             .foregroundColor(.white)
                         HStack{
@@ -71,6 +74,7 @@ struct WorldTabView: View {
                         .padding(EdgeInsets(top: 20, leading: 20, bottom: 2, trailing: 20))
                         .offset(y: -90)
                     }
+                    .id(item.id)
                     .cornerRadius(15)
                 }
             }
@@ -81,7 +85,8 @@ struct WorldTabView: View {
 
 struct WorldTabView_Previews: PreviewProvider {
     static var previews: some View {
-        let worldList = [worldExample, worldExample2, worldExample3]
-        WorldTabView(worldList: worldList)
+//        let worldList = [worldExample, worldExample2, worldExample3]
+//        WorldTabView(worldList: worldList)
+        WorldTabView(client: VRChatClient.createPreview())
     }
 }

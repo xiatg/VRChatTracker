@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AvatarDetailView: View {
     
-    var avatar: Avatar = avatarExample2
+    var avatar: VRAvatar = avatarExample2
     let dateFormatter = DateFormatter()
     
     var body: some View {
@@ -85,7 +85,7 @@ struct AvatarDetailView: View {
 
 struct AvatarDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let avatar: Avatar = avatarExample3
+        let avatar: VRAvatar = avatarExample3
         AvatarDetailView(avatar: avatar)
     }
 }

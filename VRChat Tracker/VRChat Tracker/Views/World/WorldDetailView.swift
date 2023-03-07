@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import SwiftVRChatAPI
 
 struct WorldDetailView: View {
     
-    var world: VRWorld = worldExample
+    var world: VRWorld
     let dateFormatter = DateFormatter()
     
     var body: some View {

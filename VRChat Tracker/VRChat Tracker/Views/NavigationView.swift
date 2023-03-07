@@ -14,13 +14,13 @@ struct NavigationView: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            WorldTabView()
+            WorldTabView(client: client)
                 .tabItem {
                     Image(systemName: "globe")
                     Text("World")
                 }
                 .tag(1)
-            AvatarTabView()
+            AvatarTabView(client: client)
                 .tabItem {
                     Image(systemName: "theatermasks")
                     Text("Avatar")
