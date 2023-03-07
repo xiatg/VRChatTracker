@@ -80,6 +80,9 @@ struct WorldTabView: View {
             }
             .navigationTitle("Discover Worlds")
         }
+        .refreshable {
+            client.getWorlds()
+        }
     }
 }
 

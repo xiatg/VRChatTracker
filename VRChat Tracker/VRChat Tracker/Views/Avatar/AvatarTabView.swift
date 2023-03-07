@@ -53,6 +53,9 @@ struct AvatarTabView: View {
             }
             .navigationTitle("Favorite Avatars")
         }
+        .refreshable {
+            client.getAvatars()
+        }
     }
 }
 

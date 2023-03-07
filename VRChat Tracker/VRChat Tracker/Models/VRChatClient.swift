@@ -167,6 +167,7 @@ class VRChatClient: ObservableObject {
     }
     
     func getWorlds() {
+        self.worldList = []
         WorldAPI.searchWorld(client: apiClient) { worlds in
             if let worlds = worlds {
                 for item in worlds {
@@ -177,9 +178,12 @@ class VRChatClient: ObservableObject {
                 print("Error: Failed to retrieve worlds")
             }
         }
+        
+        print(self.worldList)
     }
     
     func getAvatars() {
+        self.avatarList = []
         AvatarAPI.searchAvatar(client: apiClient) { avatars in
             if let avatars = avatars {
                 for item in avatars {
@@ -190,6 +194,8 @@ class VRChatClient: ObservableObject {
                 print("Error: Failed to retrieve avatars")
             }
         }
+        
+//        print(self.avatarList)
     }
     
 //    func updateFriendsGroup(friends: [String]) {
