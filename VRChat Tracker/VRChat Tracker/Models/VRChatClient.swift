@@ -23,6 +23,12 @@ class VRChatClient: ObservableObject {
     @Published var activeFriends: [Friend]?
     @Published var offlineFriends: [Friend]?
     
+    // WorldTabView
+    @Published var worldList: [VRWorld]?
+    
+    // AvatarTabView
+    @Published var avatarList: [VRAvatar]?
+    
     var apiClient = APIClient()
     
     var preview = false
@@ -158,6 +164,45 @@ class VRChatClient: ObservableObject {
                 }
             }
         }
+    }
+    
+    func getWorlds() {
+        self.worldList = []
+        WorldAPI.searchWorld(client: apiClient) { worlds in
+            if let worlds = worlds {
+                for item in worlds {
+                    let newWorld: VRWorld = VRWorld(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, favorites: item.favorites, visits: item.visits, capacity: item.capacity, created_at: item.created_at, updated_at: item.updated_at)
+                    
+                    DispatchQueue.main.async {
+                        self.worldList?.append(newWorld)
+                    }
+                    
+                }
+            } else {
+                print("Error: Failed to retrieve worlds")
+            }
+        }
+        
+        print(self.worldList)
+    }
+    
+    func getAvatars() {
+        self.avatarList = []
+        AvatarAPI.searchAvatar(client: apiClient) { avatars in
+            if let avatars = avatars {
+                for item in avatars {
+                    let newAvatar: VRAvatar = VRAvatar(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, updated_at: item.updated_at)
+                    
+                    DispatchQueue.main.async {
+                        self.avatarList?.append(newAvatar)
+                    }
+                }
+            } else {
+                print("Error: Failed to retrieve avatars")
+            }
+        }
+        
+//        print(self.avatarList)
     }
     
 //    func updateFriendsGroup(friends: [String]) {

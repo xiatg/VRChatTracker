@@ -11,11 +11,12 @@ struct AvatarTabView: View {
     
     // search bar text
     @State private var searchText = ""
+    @ObservedObject var client: VRChatClient
     
-    // FIXME: placeholder data
-    var avatarList: [Avatar] = [avatarExample1, avatarExample2, avatarExample3]
+    var avatarExamples: [VRAvatar] = [avatarExample1, avatarExample2, avatarExample3]
     
     var body: some View {
+        let avatarList = client.avatarList != nil ? client.avatarList! : avatarExamples
         NavigationStack {
             SearchBarView(text: $searchText)
                 .padding([.leading, .trailing, .bottom], 16)
@@ -52,12 +53,16 @@ struct AvatarTabView: View {
             }
             .navigationTitle("Favorite Avatars")
         }
+        .refreshable {
+            client.getAvatars()
+        }
     }
 }
 
 struct AvatarTabView_Previews: PreviewProvider {
     static var previews: some View {
-        let avatarList: [Avatar] = [avatarExample1, avatarExample2, avatarExample3]
-        AvatarTabView(avatarList: avatarList)
+//        let avatarList: [VRAvatar] = [avatarExample1, avatarExample2, avatarExample3]
+//        AvatarTabView(avatarList: avatarList)
+        AvatarTabView(client: VRChatClient.createPreview())
     }
 }

@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import SwiftVRChatAPI
 
-struct Avatar : Identifiable{
+struct VRAvatar : Identifiable{
     let name: String?
     let id: String?
     let authorName: String?
