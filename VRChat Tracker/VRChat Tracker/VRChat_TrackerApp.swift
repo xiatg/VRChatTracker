@@ -12,6 +12,10 @@ import SwiftVRChatAPI
 struct VRChat_TrackerApp: App {
     @StateObject var client = VRChatClient()
     
+    init() {
+        registration()
+    }
+    
     var body: some Scene {
         WindowGroup {
             if (client.isLoggedIn) {
@@ -20,5 +24,9 @@ struct VRChat_TrackerApp: App {
                 LoginView(client: client)
             }
         }
+    }
+    
+    func registration() {
+        
     }
 }
