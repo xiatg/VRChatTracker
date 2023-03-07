@@ -18,7 +18,7 @@ struct WorldTabView: View {
     var worldExamples: [VRWorld] = [worldExample, worldExample2, worldExample3]
     
     var body: some View {
-        let worldList = client.worldList != nil ? client.worldList! : worldExamples
+        let worldList = client.worldList?.isEmpty == false ? client.worldList! : worldExamples
         NavigationStack {
             SearchBarView(text: $searchText)
                 .padding([.leading, .trailing, .bottom], 16)
