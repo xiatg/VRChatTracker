@@ -139,6 +139,25 @@ struct LoginView: View {
             .onTapGesture {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     }
+            
+            if (client.isAutoLoggingIn || isLoading) {
+                // Dim the progress view with a semi-transparent overlay
+                Color.black.opacity(0.4)
+                    .edgesIgnoringSafeArea(.all)
+                VStack {
+                    Text("Logging in...")
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                }
+            }
+        }
+        .alert(isPresented: $client.showNoInternetAlert) {
+            
+            Alert(title: Text("No Internet Connection"),
+                  message: Text("Connect to the internet and try again."),
+                  dismissButton: .default(Text("Okay")))
+            
+            
         }
         .ignoresSafeArea()
     }

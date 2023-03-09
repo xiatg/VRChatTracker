@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftVRChatAPI
+import Network
 
 class VRChatClient: ObservableObject {
     
@@ -14,6 +15,9 @@ class VRChatClient: ObservableObject {
     @Published var isLoggedIn = false
     @Published var is2FA = false
     @Published var isAutoLoggingIn = false
+    @Published var showNoInternetAlert = false
+    
+    let monitor = NWPathMonitor()
     
     // ProfileTabView
     @Published var user: User?
@@ -65,32 +69,58 @@ class VRChatClient: ObservableObject {
      If passes MFA, log the user in.
      */
     func loginUserInfo() {
-        AuthenticationAPI.loginUserInfo(client: self.apiClient) { user in
+        
+        
+        //Debug
+        print("** loginUserInfo() 0 **")
+        //Debug End
+        
+        //https://www.hackingwithswift.com/example-code/networking/how-to-check-for-internet-connectivity-using-nwpathmonitor
+        monitor.pathUpdateHandler = { path in
             
-            //Debug
-            print("** loginUserInfo() 1 **")
-            //Debug End
-            
-            DispatchQueue.main.async {
-                self.user = user
+            if path.status != .satisfied {
                 
-                // If already successfully logged in
-                if (self.user?.displayName != nil) {
-                    self.isLoggedIn = true
-                } else if (self.user?.requiresTwoFactorAuth == ["emailOtp"]) {
-                    self.isLoggedIn = false
-                    self.is2FA = true
+                DispatchQueue.main.async {
+                    self.isAutoLoggingIn = false
+                    self.showNoInternetAlert = true
                 }
                 
-                self.isAutoLoggingIn = false
+            } else {
+                
+                AuthenticationAPI.loginUserInfo(client: self.apiClient) { user in
+                    
+                    //Logging
+                    if let user = user {
+                        print("[LOGGING]: Downloaded user information: \(user)")
+                    }
+                    
+                    
+                    DispatchQueue.main.async {
+                        self.user = user
+                        
+                        // If already successfully logged in
+                        if (self.user?.displayName != nil) {
+                            self.isLoggedIn = true
+                        } else if (self.user?.requiresTwoFactorAuth == ["emailOtp"]) {
+                            self.isLoggedIn = false
+                            self.is2FA = true
+                        }
+                    }
+                    
+                    //Debug
+                    print("** loginUserInfo() 3 **")
+                    print(self.isLoggedIn)
+                    print(self.is2FA)
+                    //Debug End
+                }
+                
+                DispatchQueue.main.async {
+                    self.isAutoLoggingIn = false
+                }
             }
-            
-            //Debug
-            print("** loginUserInfo() **")
-            print(self.isLoggedIn)
-            print(self.is2FA)
-            //Debug End
         }
+        
+        monitor.start(queue: DispatchQueue.main)
     }
     
     /**
@@ -102,10 +132,8 @@ class VRChatClient: ObservableObject {
         AuthenticationAPI.verify2FAEmail(client: self.apiClient, emailOTP: emailOTP) { verify in
             guard let verify = verify else { return }
             
-            //Debug
-            print("** email2FALogin() **")
-            print(verify)
-            //Debug End
+            //Logging
+            print("[LOGGING]: Downloaded verification information: \(verify)")
             
             if (verify) {
                 self.loginUserInfo()
@@ -148,12 +176,28 @@ class VRChatClient: ObservableObject {
                 UserAPI.getUser(client: apiClient, userID: userID) { user in
                     guard let user = user else { return }
                     
+                    //Logging
+                    print("[LOGGING]: Downloaded user information: \(user)")
+                    
                     let worldID = user.worldId!
                     let instanceID = user.instanceId!
             
                     if (worldID != "private") {
                         InstanceAPI.getInstance(client: self.apiClient, worldID: worldID, instanceID: instanceID) { instance in
+                            
+                            //Logging
+                            if let instance = instance {
+                                print("[LOGGING]: Downloaded instance information: \(instance)")
+                            }
+                            
                             WorldAPI.getWorld(client: self.apiClient, worldID: worldID) { world in
+                                
+                                //Logging
+                                if let world = world {
+                                    print("[LOGGING]: Downloaded world information: \(world)")
+                                }
+                                
+                                
                                 DispatchQueue.main.sync {
                                     self.onlineFriends?.append(Friend(user: user, world: world, instance: instance))
                                 }
@@ -175,6 +219,9 @@ class VRChatClient: ObservableObject {
                 UserAPI.getUser(client: apiClient, userID: userID) { user in
                     guard let user = user else { return }
 
+                    //Logging
+                    print("[LOGGING]: Downloaded user information: \(user)")
+                    
                     DispatchQueue.main.async {
                         self.activeFriends?.append(Friend(user: user))
                     }
@@ -185,6 +232,9 @@ class VRChatClient: ObservableObject {
                 UserAPI.getUser(client: apiClient, userID: userID) { user in
                     guard let user = user else { return }
 
+                    //Logging
+                    print("[LOGGING]: Downloaded user information: \(user)")
+                    
                     DispatchQueue.main.async {
                         self.offlineFriends?.append(Friend(user: user))
                     }
