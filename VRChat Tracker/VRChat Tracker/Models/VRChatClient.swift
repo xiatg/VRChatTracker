@@ -29,6 +29,12 @@ class VRChatClient: ObservableObject {
     // AvatarTabView
     @Published var avatarList: [VRAvatar]?
     
+    // WorldDetailView
+    @Published var worldDetail: VRWorld?
+    
+    // AvatarDetailView
+    @Published var avatarDetail: VRAvatar?
+    
     var apiClient = APIClient()
     
     var preview = false
@@ -51,6 +57,13 @@ class VRChatClient: ObservableObject {
     // MARK: Authentication
     //
     
+    /**
+     Handle User Login Functionality
+     
+     If user enters correct username and password, prompt to MFA.
+     
+     If passes MFA, log the user in.
+     */
     func loginUserInfo() {
         AuthenticationAPI.loginUserInfo(client: self.apiClient) { user in
             
@@ -80,6 +93,11 @@ class VRChatClient: ObservableObject {
         }
     }
     
+    /**
+     Varify MFA with user input code from email.
+
+     - Parameter emailOTP: a string code the user enters.
+     */
     func email2FALogin(emailOTP: String) {
         AuthenticationAPI.verify2FAEmail(client: self.apiClient, emailOTP: emailOTP) { verify in
             guard let verify = verify else { return }
@@ -95,6 +113,9 @@ class VRChatClient: ObservableObject {
         }
     }
     
+    /**
+     Cancel user login action, or log the user out. Clean everything.
+     */
     func clear() {
         self.isLoggedIn = false
         self.is2FA = false
@@ -106,6 +127,12 @@ class VRChatClient: ObservableObject {
     // MARK: User
     //
     
+    /**
+     Update the data for three friend lists. By using the API the fetch friends' data and insert them into three different lists.
+     1. online friends
+     2. active friends
+     3. offline friends
+     */
     func updateFriends() {
         
         if (self.preview) {
@@ -166,6 +193,11 @@ class VRChatClient: ObservableObject {
         }
     }
     
+    /**
+     Update data for world list, so the user is able to discover all the worlds.
+     
+     By using the API the fetch worlds' data and insert them into a list.
+     */
     func getWorlds() {
         self.worldList = []
         WorldAPI.searchWorld(client: apiClient) { worlds in
@@ -183,9 +215,14 @@ class VRChatClient: ObservableObject {
             }
         }
         
-        print(self.worldList)
+//        print(self.worldList)
     }
     
+    /**
+     Update data for avatar list, so the user is able to discover all the avatars.
+     
+     By using the API the fetch avatars' data and insert them into a list.
+     */
     func getAvatars() {
         self.avatarList = []
         AvatarAPI.searchAvatar(client: apiClient) { avatars in
@@ -203,6 +240,26 @@ class VRChatClient: ObservableObject {
         }
         
 //        print(self.avatarList)
+    }
+    
+    /**
+     Update data for a single world that user clicks in the worlds' list, so that the detail view can display the stats.
+
+     - Parameter worldId: The id of a world that the user clicks in the list.
+     */
+    func fetchWorld(worldId: String) {
+        WorldAPI.getWorld(client: apiClient, worldID: worldId) { world in
+            if let world = world {
+                let newWorld: VRWorld = VRWorld(name: world.name, id: world.id, authorName: world.authorName, imageUrl: world.imageUrl, description: world.description, authorId: world.authorId, favorites: world.favorites, visits: world.visits, capacity: world.capacity, created_at: world.created_at, updated_at: world.updated_at)
+                
+                DispatchQueue.main.async {
+                    self.worldDetail = newWorld
+                }
+            }
+            else {
+                print("No such world exist, please double check the world id: \(worldId)")
+            }
+        }
     }
     
 //    func updateFriendsGroup(friends: [String]) {

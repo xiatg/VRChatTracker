@@ -10,11 +10,18 @@ import SwiftVRChatAPI
 
 struct WorldDetailView: View {
     
+    // the world instance to pass in
     var world: VRWorld
+    
+    // the observable VRChat cilent instance
+    @ObservedObject var client: VRChatClient
+    
+    // the data format
     let dateFormatter = DateFormatter()
     
     var body: some View {
-        
+        // fetch world list data from the API
+        let world = client.worldDetail ?? world
         ScrollView {
             // title
             Text(world.name!)
@@ -54,31 +61,43 @@ struct WorldDetailView: View {
                 .padding(.bottom, 8.0)
                 .foregroundColor(.white)
                 .padding(.leading, 20)
-            Text(world.description!)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.system(size: 15))
-                .padding(.bottom, 8.0)
-                .foregroundColor(.white)
-                .padding(.leading, 20)
+            if let description = world.description {
+                Text(description)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.system(size: 15))
+                    .padding(.bottom, 8.0)
+                    .foregroundColor(.white)
+                    .padding(.leading, 20)
+            } else {
+                Text("please refresh to load description")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.system(size: 15))
+                    .padding(.bottom, 8.0)
+                    .foregroundColor(.white)
+                    .padding(.leading, 20)
+            }
             
             // other status
             VStack{
                 HStack{
                     Text("Visits")
                     Spacer()
-                    Text("\(Int(world.visits!))")
+                    let visits = world.visits ?? 1
+                    Text("\(Int(visits))")
                 }
                 Divider()
                 HStack {
                     Text("Favorites")
                     Spacer()
-                    Text("\(Int(world.favorites!))")
+                    let favorites = world.favorites ?? 1
+                    Text("\(Int(favorites))")
                 }
                 Divider()
                 HStack {
                     Text("Capacity")
                     Spacer()
-                    Text("\(Int(world.capacity!))")
+                    let capacity = world.capacity ?? 1
+                    Text("\(Int(capacity))")
                 }
                 Divider()
                 HStack {
@@ -117,9 +136,18 @@ struct WorldDetailView: View {
             .padding(.horizontal, 20)
         }
         .background(Color("BackgroundColor"))
-        
+        .refreshable {
+            client.fetchWorld(worldId: world.id!)
+        }
     }
     
+    /**
+     Change the date format style.
+
+     - Parameter inputDate: The date format to change.
+
+     - Returns: the correct format of date = "MMM d, yyyy".
+     */
     func formatDate(inputDate: String) -> String {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         let date = dateFormatter.date(from: inputDate)
@@ -128,6 +156,11 @@ struct WorldDetailView: View {
         return result
     }
     
+    /**
+     Add or delete a world to/from the user's favorite list
+     
+     This function is not supported by API, but it will be supported in the future.
+     */
     func addOrDelFavorite() {
         // TODO: add this world into favorite list or remove it from my list
         return
@@ -138,6 +171,6 @@ struct WorldDetailView: View {
 struct WorldDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let world = worldExample
-        WorldDetailView(world: world)
+        WorldDetailView(world: world, client: VRChatClient.createPreview())
     }
 }

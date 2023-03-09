@@ -19,6 +19,10 @@ struct VRChat_TrackerApp: App {
     }
     
     var body: some Scene {
+        
+        // check if the user is already logged in
+        // yes: navigation view
+        // no: login page view
         WindowGroup {
             if (client.isLoggedIn) {
                 NavigationView(client: client)

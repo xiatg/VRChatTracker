@@ -14,6 +14,7 @@ struct SettingTabView: View {
     var body: some View {
         NavigationStack {
             List {
+                // log out button
                 Section(content: {
                     Button(action: logout, label: {
                         Text("Logout")
@@ -23,6 +24,7 @@ struct SettingTabView: View {
                 })
                 
                 Section(content: {
+                    // the button link to our github code web page
                     Button(action: {
                         UIApplication.shared.open(URL(string: "https://github.com/watanabexia/VRChatTracker")!)
                     }, label: {
@@ -39,6 +41,9 @@ struct SettingTabView: View {
         }
     }
     
+    /**
+     Logout the current user, clean everything, go back to login page.
+     */
     func logout() {
         client.clear()
     }

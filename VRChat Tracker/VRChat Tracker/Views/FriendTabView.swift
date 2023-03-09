@@ -9,8 +9,11 @@ import SwiftUI
 import SwiftVRChatAPI
 
 struct FriendTabView: View {
+    
+    // observable instance of vrchat client
     @ObservedObject var client: VRChatClient
     
+    // search bar text
     @State private var searchName = ""
     
     let refreshableToggle = true
@@ -18,16 +21,19 @@ struct FriendTabView: View {
     var body: some View {
         NavigationStack {
             List {
+                // list of online friends
                 if let onlineFriends = client.onlineFriends {
                     Section("Online Friends") {
                         FriendRowView(friends: onlineFriends)
                     }
                 }
+                // list of currently active friends
                 if let activeFriends = client.activeFriends {
                     Section("Active Friends") {
                         FriendRowView(friends: activeFriends)
                     }
                 }
+                // list offline friends
                 if let offlineFriends = client.offlineFriends {
                     Section("Offline Friends") {
                         FriendRowView(friends: offlineFriends)
@@ -36,6 +42,7 @@ struct FriendTabView: View {
             }
             .navigationTitle("Friends")
         }
+        // search bar
         .searchable(text: $searchName, prompt: "Search for friends...") {
             ScrollView {
                 LazyVStack {
@@ -50,6 +57,7 @@ struct FriendTabView: View {
                 }
             }
         }
+        // refresh the list to load updated friends info
         .refreshable {
             client.updateFriends()
         }
@@ -58,6 +66,7 @@ struct FriendTabView: View {
         }
     }
     
+    // update friend list while using the search bar with filter
     var searchResults: [Friend] {
         if searchName.isEmpty {
             return []
