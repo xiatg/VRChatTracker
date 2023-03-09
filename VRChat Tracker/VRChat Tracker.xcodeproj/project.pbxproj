@@ -25,7 +25,6 @@
 		F77578BD29A9447900200DC9 /* InstancePreview.json in Resources */ = {isa = PBXBuildFile; fileRef = F77578BC29A9447800200DC9 /* InstancePreview.json */; };
 		F77578C229A94C6400200DC9 /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77578C129A94C6400200DC9 /* FriendModel.swift */; };
 		F792148529A9854900B98105 /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F792148429A9854900B98105 /* UserDetailView.swift */; };
-		F792148829A9AA8000B98105 /* BackgroundTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F792148729A9AA8000B98105 /* BackgroundTask.swift */; };
 		F7BB1F43299EDD6200AA12F7 /* VRChat_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BB1F42299EDD6200AA12F7 /* VRChat_TrackerApp.swift */; };
 		F7BB1F45299EDD6200AA12F7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BB1F44299EDD6200AA12F7 /* LoginView.swift */; };
 		F7BB1F47299EDD6300AA12F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7BB1F46299EDD6300AA12F7 /* Assets.xcassets */; };
@@ -55,7 +54,6 @@
 		F77578C129A94C6400200DC9 /* FriendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
 		F792148429A9854900B98105 /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		F792148629A9A85800B98105 /* VRChat-Tracker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "VRChat-Tracker-Info.plist"; sourceTree = SOURCE_ROOT; };
-		F792148729A9AA8000B98105 /* BackgroundTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTask.swift; sourceTree = "<group>"; };
 		F7BB1F3F299EDD6200AA12F7 /* VRChat Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VRChat Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7BB1F42299EDD6200AA12F7 /* VRChat_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRChat_TrackerApp.swift; sourceTree = "<group>"; };
 		F7BB1F44299EDD6200AA12F7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 				23FEB13229A85A9E00EFE656 /* WorldModel.swift */,
 				23FEB13C29B218C500EFE656 /* AvatarModel.swift */,
 				F77578C129A94C6400200DC9 /* FriendModel.swift */,
-				F792148729A9AA8000B98105 /* BackgroundTask.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -261,7 +258,6 @@
 				F7BB1F45299EDD6200AA12F7 /* LoginView.swift in Sources */,
 				F77578C229A94C6400200DC9 /* FriendModel.swift in Sources */,
 				23FEB13D29B218C500EFE656 /* AvatarModel.swift in Sources */,
-				F792148829A9AA8000B98105 /* BackgroundTask.swift in Sources */,
 				23FEB13529A863C900EFE656 /* WorldDetailView.swift in Sources */,
 				F76A452729A336340078C19D /* NavigationView.swift in Sources */,
 				23FEB13929A868F600EFE656 /* SearchBarView.swift in Sources */,
