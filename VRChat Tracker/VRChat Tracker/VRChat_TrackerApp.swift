@@ -14,11 +14,16 @@ struct VRChat_TrackerApp: App {
     let defaults = UserDefaults.standard
     
     @State private var showRating = false
+    @State private var showSplash = true
     
     var body: some Scene {
         WindowGroup {
-            if (client.isLoggedIn) {
-                NavigationView(client: client)
+            
+            if (showSplash) {
+                SplashView()
+                    .onTapGesture {
+                        showSplash = false
+                    }
                     .onAppear() {
                         registration()
                     }
@@ -27,16 +32,10 @@ struct VRChat_TrackerApp: App {
                               message: Text("Please? 🥺"),
                               dismissButton: .default(Text("Okay")))
                     }
+            } else if (client.isLoggedIn) {
+                NavigationView(client: client)
             } else {
                 LoginView(client: client)
-                    .onAppear() {
-                        registration()
-                    }
-                    .alert(isPresented: self.$showRating) {
-                        Alert(title: Text("Rate this App in the App Store!"),
-                              message: Text("Please? 🥺"),
-                              dismissButton: .default(Text("Okay")))
-                    }
             }
         }
     }

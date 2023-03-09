@@ -30,6 +30,7 @@
 		F7BB1F47299EDD6300AA12F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7BB1F46299EDD6300AA12F7 /* Assets.xcassets */; };
 		F7BB1F4B299EDD6300AA12F7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7BB1F4A299EDD6300AA12F7 /* Preview Assets.xcassets */; };
 		F7C4ED0E299F3CDA00CC6F83 /* SwiftVRChatAPI in Frameworks */ = {isa = PBXBuildFile; productRef = F7C4ED0D299F3CDA00CC6F83 /* SwiftVRChatAPI */; };
+		F7DD440829B98F7000A38A53 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DD440729B98F7000A38A53 /* SplashView.swift */; };
 		F7EE997B29A88C93009BBC98 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EE997A29A88C93009BBC98 /* UserView.swift */; };
 		F7EE998929A92049009BBC98 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EE998729A92049009BBC98 /* PreviewData.swift */; };
 		F7EE998A29A92049009BBC98 /* FriendUserPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = F7EE998829A92049009BBC98 /* FriendUserPreview.json */; };
@@ -61,6 +62,7 @@
 		F7BB1F46299EDD6300AA12F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F7BB1F48299EDD6300AA12F7 /* VRChat_Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VRChat_Tracker.entitlements; sourceTree = "<group>"; };
 		F7BB1F4A299EDD6300AA12F7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F7DD440729B98F7000A38A53 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		F7EE997A29A88C93009BBC98 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		F7EE998729A92049009BBC98 /* PreviewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		F7EE998829A92049009BBC98 /* FriendUserPreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FriendUserPreview.json; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			children = (
 				F7BB1F44299EDD6200AA12F7 /* LoginView.swift */,
 				F76A452629A336340078C19D /* NavigationView.swift */,
+				F7DD440729B98F7000A38A53 /* SplashView.swift */,
 				23FEB14029B21E6C00EFE656 /* Avatar */,
 				F77578B829A9234B00200DC9 /* World */,
 				F77578BE29A9450A00200DC9 /* User */,
@@ -270,6 +273,7 @@
 				F76A452929A33AA40078C19D /* ProfileTabView.swift in Sources */,
 				F7EE998929A92049009BBC98 /* PreviewData.swift in Sources */,
 				F7BB1F43299EDD6200AA12F7 /* VRChat_TrackerApp.swift in Sources */,
+				F7DD440829B98F7000A38A53 /* SplashView.swift in Sources */,
 				F7EE997B29A88C93009BBC98 /* UserView.swift in Sources */,
 				F792148529A9854900B98105 /* UserDetailView.swift in Sources */,
 				23FEB13F29B21E6200EFE656 /* AvatarDetailView.swift in Sources */,

@@ -10,13 +10,13 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Group</string>
+			<string>Developpers</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Name</string>
+			<string>Qingyang Xu, Jintao Hu</string>
 			<key>Key</key>
 			<string>name_preference</string>
 			<key>DefaultValue</key>
