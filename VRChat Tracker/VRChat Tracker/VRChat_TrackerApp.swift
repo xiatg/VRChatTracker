@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftVRChatAPI
 
 @main
 struct VRChat_TrackerApp: App {

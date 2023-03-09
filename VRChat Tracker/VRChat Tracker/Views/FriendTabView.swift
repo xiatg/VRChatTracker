@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftVRChatAPI
 
 struct FriendTabView: View {
     @ObservedObject var client: VRChatClient
