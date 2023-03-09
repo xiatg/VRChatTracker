@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import SwiftVRChatAPI
 
-//struct VRWorld: Codable, Identifiable {
+//struct World: Codable, Identifiable {
 struct VRWorld : Identifiable{
     let name: String?
     let id: String?
@@ -15,9 +16,9 @@ struct VRWorld : Identifiable{
     let imageUrl: String?
     let description: String?
     let authorId: String?
-    let favorites: Double?
-    let visits: Double?
-    let capacity: Double?
+    let favorites: Int?
+    let visits: Int?
+    let capacity: Int?
     let created_at: String?
     let updated_at: String?
 }

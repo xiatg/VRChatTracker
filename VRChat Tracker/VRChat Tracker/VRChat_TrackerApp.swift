@@ -17,6 +17,10 @@ struct VRChat_TrackerApp: App {
     @State private var showSplash = true
     
     var body: some Scene {
+        
+        // check if the user is already logged in
+        // yes: navigation view
+        // no: login page view
         WindowGroup {
             
             if (showSplash) {
@@ -55,6 +59,5 @@ struct VRChat_TrackerApp: App {
             
             print("show rating!! \(self.showRating)")
         }
-        
     }
 }

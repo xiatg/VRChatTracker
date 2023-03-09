@@ -22,6 +22,7 @@ struct UserDetailView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+                // display current user avatar
                 AsyncImage(url: URL(string: user.currentAvatarImageUrl!)) { image in
                         image
                             .resizable()
@@ -31,6 +32,7 @@ struct UserDetailView: View {
                 }
                 
                 VStack {
+                    // display user icon
                     if (user.userIcon ?? "" != "") {
                         AsyncImage(url: URL(string: user.userIcon!)) { image in
                                 image
@@ -47,10 +49,12 @@ struct UserDetailView: View {
                         }
                     }
                     
+                    // display user name
                     Text("\(user.displayName!)")
                         .font(.title)
                         .bold()
                     
+                    // display user current status
                     Text("\(user.statusDescription!)")
                         .padding(.top, -10)
                     
@@ -61,6 +65,7 @@ struct UserDetailView: View {
                     }
                     .padding(.top)
   
+                    // display language tags
                     HStack {
                         ForEach(user.tags!, id: \.self) { tag in
                             if (tag.starts(with: "language")) {
@@ -70,6 +75,7 @@ struct UserDetailView: View {
                     }
                     .padding(.top, -7)
                     
+                    // display user info/descriptions
                     HStack {
                         Text(user.bio!)
                             .multilineTextAlignment(.leading)

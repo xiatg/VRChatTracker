@@ -14,18 +14,21 @@ struct NavigationView: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            WorldTabView()
+            // 1. the view shows all the worlds
+            WorldTabView(client: client)
                 .tabItem {
                     Image(systemName: "globe")
                     Text("World")
                 }
                 .tag(1)
-            AvatarTabView()
+            // 2. the view shows all the avatars
+            AvatarTabView(client: client)
                 .tabItem {
                     Image(systemName: "theatermasks")
                     Text("Avatar")
                 }
                 .tag(2)
+            // 3a. the view to show login page
             if (client.isLoggedIn) {
                 ProfileTabView(client: client)
                     .tabItem {
@@ -33,6 +36,7 @@ struct NavigationView: View {
                         Text("Profile")
                     }
                     .tag(3)
+            // 3b. the view shows profile if logged in
             } else {
                 Text("ProfileTabView")
                     .tabItem {
@@ -41,12 +45,14 @@ struct NavigationView: View {
                     }
                     .tag(3)
             }
+            // 4. the view shows all the friends
             FriendTabView(client: client)
                 .tabItem {
                     Image(systemName: "person.3")
                     Text("Friends")
                 }
                 .tag(4)
+            // 5. the view shows setting info
             SettingTabView(client: client)
                 .tabItem {
                     Image(systemName: "gear")

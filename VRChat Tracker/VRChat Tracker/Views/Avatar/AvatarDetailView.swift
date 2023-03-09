@@ -9,7 +9,10 @@ import SwiftUI
 
 struct AvatarDetailView: View {
     
-    var avatar: Avatar = avatarExample2
+    // pre-stored data for no internet connection
+    var avatar: VRAvatar = avatarExample2
+    
+    // date format change
     let dateFormatter = DateFormatter()
     
     var body: some View {
@@ -21,7 +24,6 @@ struct AvatarDetailView: View {
                 .padding(.bottom, 3.0)
                 .foregroundColor(.white)
                 .padding(.leading, 20)
-            
             // Image
             AsyncImage(url: URL(string: avatar.imageUrl!)) { image in
                 image
@@ -74,6 +76,13 @@ struct AvatarDetailView: View {
         .background(Color("BackgroundColor"))
     }
     
+    /**
+     Change the date format style.
+
+     - Parameter inputDate: The date format to change.
+
+     - Returns: the correct format of date = "MMM d, yyyy".
+     */
     func formatDate(inputDate: String) -> String {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         let date = dateFormatter.date(from: inputDate)
@@ -85,7 +94,7 @@ struct AvatarDetailView: View {
 
 struct AvatarDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let avatar: Avatar = avatarExample3
+        let avatar: VRAvatar = avatarExample3
         AvatarDetailView(avatar: avatar)
     }
 }

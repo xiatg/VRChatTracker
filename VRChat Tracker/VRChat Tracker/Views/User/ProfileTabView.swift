@@ -22,6 +22,7 @@ struct ProfileTabView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+                // current user avatar image
                 AsyncImage(url: URL(string: user.currentAvatarImageUrl!)) { image in
                         image
                             .resizable()
@@ -31,6 +32,7 @@ struct ProfileTabView: View {
                 }
                 
                 VStack {
+                    // user icon/image
                     if (user.userIcon ?? "" != "") {
                         AsyncImage(url: URL(string: user.userIcon!)) { image in
                                 image
@@ -46,11 +48,11 @@ struct ProfileTabView: View {
                             ProgressView()
                         }
                     }
-                    
+                    // user name
                     Text("\(user.displayName!)")
                         .font(.title)
                         .bold()
-                    
+                    // user status
                     Text("\(user.statusDescription!)")
                         .padding(.top, -10)
                     
@@ -62,6 +64,7 @@ struct ProfileTabView: View {
                     .padding(.top)
   
                     HStack {
+                        // user language tags
                         ForEach(user.tags!, id: \.self) { tag in
                             if (tag.starts(with: "language")) {
                                 Button(action: nothing) {
@@ -78,6 +81,7 @@ struct ProfileTabView: View {
                     .padding(.top, -7)
                     
                     HStack {
+                        // user info
                         Text(user.bio!)
                             .multilineTextAlignment(.leading)
                         .padding(.top)
