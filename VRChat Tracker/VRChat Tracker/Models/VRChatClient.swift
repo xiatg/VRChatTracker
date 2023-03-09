@@ -253,6 +253,10 @@ class VRChatClient: ObservableObject {
         WorldAPI.searchWorld(client: apiClient) { worlds in
             if let worlds = worlds {
                 for item in worlds {
+                    
+                    //Logging
+                    print("[LOGGING]: Downloaded world information: \(item)")
+                    
                     let newWorld: VRWorld = VRWorld(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, favorites: item.favorites, visits: item.visits, capacity: item.capacity, created_at: item.created_at, updated_at: item.updated_at)
                     
                     DispatchQueue.main.async {
@@ -278,6 +282,10 @@ class VRChatClient: ObservableObject {
         AvatarAPI.searchAvatar(client: apiClient) { avatars in
             if let avatars = avatars {
                 for item in avatars {
+                    
+                    //Logging
+                    print("[LOGGING]: Downloaded avatar information: \(item)")
+                    
                     let newAvatar: VRAvatar = VRAvatar(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, updated_at: item.updated_at)
                     
                     DispatchQueue.main.async {

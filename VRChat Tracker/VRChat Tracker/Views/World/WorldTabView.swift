@@ -56,7 +56,7 @@ struct WorldTabView: View {
                         Rectangle()
                             .frame(width: .infinity, height: 50.0)
                             .offset(y: -85)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color("BackgroundColor"))
                         HStack{
                             // favorite button
                             // not yet supported by API, but will be supported in the future
@@ -68,13 +68,14 @@ struct WorldTabView: View {
                                 Text(item.name ?? "😢")
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .font(.title3)
+                                    .foregroundColor(.white)
                                     .fontWeight(.bold)
                                     .padding(.leading, 10.0)
                                     .cornerRadius(10)
                                 Text("By: \(item.authorName ?? "😢")")
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .font(.system(size: 12))
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.white)
                                     .fontWeight(.bold)
                                     .padding(.leading, 10.0)
                                     .cornerRadius(10)
