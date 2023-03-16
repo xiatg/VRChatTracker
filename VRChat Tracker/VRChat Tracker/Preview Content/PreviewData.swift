@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftVRChatAPI
 
 class PreviewData {
     

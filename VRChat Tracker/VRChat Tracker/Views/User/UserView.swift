@@ -26,6 +26,7 @@ struct UserView: View {
         VStack {
             
             HStack {
+                // the image of the current avatar
                 AsyncImage(url: URL(string: user.currentAvatarThumbnailImageUrl!)) { image in
                         image
                             .resizable()
@@ -42,6 +43,7 @@ struct UserView: View {
                 .cornerRadius(10)
                 .padding([.horizontal, .top], 10)
                 
+                // display user icon
                 VStack(alignment: .leading, spacing: ((user.userIcon ?? "") == "") ? 0 : -20) {
 
                     HStack {
@@ -61,6 +63,7 @@ struct UserView: View {
                             }
                         }
 
+                        // display user name
                         HStack(spacing: -10) {
                             Text("\(user.displayName!)")
                                 .ignoresSafeArea()
@@ -91,6 +94,7 @@ struct UserView: View {
             }
             
             HStack {
+                // user written descriptions
                 Text("\(user.statusDescription!)")
                     .foregroundColor(isAverageColorLight ? .black : .white)
                     .minimumScaleFactor(0.01)
@@ -111,6 +115,7 @@ struct UserView: View {
                         ProgressView()
                     }
 
+                    // users' world
                     VStack(alignment: .leading) {
                         Text("\(world.name!)")
                             .lineLimit(1)
@@ -208,7 +213,11 @@ extension UIColor {
 }
 
 extension UIView {
-// This is the function to convert UIView to UIImage
+    /**
+     Convert UIView to UIImage.
+
+     - Returns: a rendered UI Image.
+     */
     public func asUIImage() -> UIImage {
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
         return renderer.image { rendererContext in

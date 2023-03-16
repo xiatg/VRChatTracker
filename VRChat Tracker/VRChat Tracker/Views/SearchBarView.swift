@@ -13,14 +13,17 @@ struct SearchBarView: View {
     
     var body: some View {
         HStack {
+            // search bar text
             TextField("Search", text: $text)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal, 10)
+            // search bar
             Button(action: {
                 withAnimation {
                     text = ""
                 }
             }) {
+                // cancel button
                 Image(systemName: "xmark.circle.fill")
                     .foregroundColor(Color(.systemGray3))
             }
