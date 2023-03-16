@@ -89,12 +89,6 @@ class VRChatClient: ObservableObject {
                 
                 AuthenticationAPI.loginUserInfo(client: self.apiClient) { user in
                     
-                    //Logging
-                    if let user = user {
-                        print("[LOGGING]: Downloaded user information: \(user)")
-                    }
-                    
-                    
                     DispatchQueue.main.async {
                         self.user = user
                         
@@ -131,9 +125,6 @@ class VRChatClient: ObservableObject {
     func email2FALogin(emailOTP: String) {
         AuthenticationAPI.verify2FAEmail(client: self.apiClient, emailOTP: emailOTP) { verify in
             guard let verify = verify else { return }
-            
-            //Logging
-            print("[LOGGING]: Downloaded verification information: \(verify)")
             
             if (verify) {
                 self.loginUserInfo()
@@ -176,27 +167,13 @@ class VRChatClient: ObservableObject {
                 UserAPI.getUser(client: apiClient, userID: userID) { user in
                     guard let user = user else { return }
                     
-                    //Logging
-                    print("[LOGGING]: Downloaded user information: \(user)")
-                    
                     let worldID = user.worldId!
                     let instanceID = user.instanceId!
             
                     if (worldID != "private" && worldID != "traveling" && worldID != "offline" && worldID != "privateOffline") {
                         InstanceAPI.getInstance(client: self.apiClient, worldID: worldID, instanceID: instanceID) { instance in
                             
-                            //Logging
-                            if let instance = instance {
-                                print("[LOGGING]: Downloaded instance information: \(instance)")
-                            }
-                            
                             WorldAPI.getWorld(client: self.apiClient, worldID: worldID) { world in
-                                
-                                //Logging
-                                if let world = world {
-                                    print("[LOGGING]: Downloaded world information: \(world)")
-                                }
-                                
                                 
                                 DispatchQueue.main.sync {
                                     self.onlineFriends?.append(Friend(user: user, world: world, instance: instance))
@@ -218,9 +195,6 @@ class VRChatClient: ObservableObject {
             for userID in user.activeFriends! {
                 UserAPI.getUser(client: apiClient, userID: userID) { user in
                     guard let user = user else { return }
-
-                    //Logging
-                    print("[LOGGING]: Downloaded user information: \(user)")
                     
                     DispatchQueue.main.async {
                         self.activeFriends?.append(Friend(user: user))
@@ -232,9 +206,6 @@ class VRChatClient: ObservableObject {
                 UserAPI.getUser(client: apiClient, userID: userID) { user in
                     guard let user = user else { return }
 
-                    //Logging
-                    print("[LOGGING]: Downloaded user information: \(user)")
-                    
                     DispatchQueue.main.async {
                         self.offlineFriends?.append(Friend(user: user))
                     }
@@ -253,9 +224,6 @@ class VRChatClient: ObservableObject {
         WorldAPI.searchWorld(client: apiClient) { worlds in
             if let worlds = worlds {
                 for item in worlds {
-                    
-                    //Logging
-                    print("[LOGGING]: Downloaded world information: \(item)")
                     
                     let newWorld: VRWorld = VRWorld(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, favorites: item.favorites, visits: item.visits, capacity: item.capacity, created_at: item.created_at, updated_at: item.updated_at)
                     
@@ -282,9 +250,6 @@ class VRChatClient: ObservableObject {
         AvatarAPI.searchAvatar(client: apiClient) { avatars in
             if let avatars = avatars {
                 for item in avatars {
-                    
-                    //Logging
-                    print("[LOGGING]: Downloaded avatar information: \(item)")
                     
                     let newAvatar: VRAvatar = VRAvatar(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, updated_at: item.updated_at)
                     

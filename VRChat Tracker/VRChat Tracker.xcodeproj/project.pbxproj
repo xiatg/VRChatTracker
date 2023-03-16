@@ -48,7 +48,6 @@
 		F7191A8329A70DD50033ED57 /* SettingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTabView.swift; sourceTree = "<group>"; };
 		F7191A8529A71EDD0033ED57 /* FriendTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTabView.swift; sourceTree = "<group>"; };
 		F727159529A8581700477F66 /* UserPreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UserPreview.json; sourceTree = "<group>"; };
-		F75B763629B59C6F004F07EE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		F76A452629A336340078C19D /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 		F76A452829A33AA40078C19D /* ProfileTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabView.swift; sourceTree = "<group>"; };
 		F77578BA29A9422D00200DC9 /* WorldPreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WorldPreview.json; sourceTree = "<group>"; };
@@ -111,7 +110,6 @@
 		F7BB1F36299EDD6200AA12F7 = {
 			isa = PBXGroup;
 			children = (
-				F75B763629B59C6F004F07EE /* Settings.bundle */,
 				F792148629A9A85800B98105 /* VRChat-Tracker-Info.plist */,
 				F7BB1F41299EDD6200AA12F7 /* VRChat Tracker */,
 				F7BB1F40299EDD6200AA12F7 /* Products */,
@@ -423,7 +421,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "shigure.manufactures.VRChat-Tracker-0";
+				PRODUCT_BUNDLE_IDENTIFIER = "shigure.manufactures.VRChat-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -462,7 +460,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "shigure.manufactures.VRChat-Tracker-0";
+				PRODUCT_BUNDLE_IDENTIFIER = "shigure.manufactures.VRChat-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
