@@ -15,6 +15,7 @@ struct LoginView: View {
     @State var password = ""
     @State var twoFactorEmailCode = ""
     @State private var isLoading = false
+    @State private var showPassword = false
     
     var body: some View {
         ZStack {
@@ -46,26 +47,39 @@ struct LoginView: View {
                 VStack {
                     // MFA Check
                     if (client.is2FA == false) {
-                        TextField("", text: $username)
-                            .placeholder(when: username.isEmpty) {
-                                Text("Username").foregroundColor(.black)
-                            }
+                        TextField("", text: $username, prompt: Text("Username").foregroundColor(.gray))
                             .padding()
-                            .background(Color.white)
+                            .background(.white)
                             .tint(.blue)
                             .cornerRadius(5)
                             .padding(.bottom, 5)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
                         
-                        SecureField("", text: $password)
-                            .placeholder(when: password.isEmpty) {
-                                Text("Password").foregroundColor(.black)
+                        HStack {
+                            if (showPassword) {
+                                TextField("", text: $password, prompt: Text("Password").foregroundColor(.gray))
+                                    .padding()
+                                    .background(.white)
+                                    .cornerRadius(5)
+                                    .padding(.bottom, 15)
+                            } else {
+                                SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray))
+                                    .padding()
+                                    .background(Color.white)
+                                    .cornerRadius(5)
+                                    .padding(.bottom, 15)
                             }
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(5)
-                            .padding(.bottom, 15)
+                            Button {
+                                showPassword.toggle()
+                            } label: {
+                                Image(systemName: showPassword ? "eye.slash" : "eye")
+                                    .foregroundColor(.white)
+                                    .padding(.bottom)
+                            }
+                        }
+                        
+                        
                         
                     } else {
                         // If username and password are correct, prompt to MFA check
@@ -75,8 +89,6 @@ struct LoginView: View {
                             .cornerRadius(5)
                             .padding(.bottom, 5)
                             .transition(.move(edge: .trailing))
-                        
-                        
                     }
                 }
                 .foregroundColor(.black)
@@ -185,23 +197,6 @@ struct LoginView: View {
      */
     func cancel() {
         client.clear()
-    }
-}
-
-// https://stackoverflow.com/questions/57688242/swiftui-how-to-change-the-placeholder-color-of-the-textfield
-extension View {
-    /**
-     Place holder view modifications
-     */
-    func placeholder<Content: View>(
-        when shouldShow: Bool,
-        alignment: Alignment = .leading,
-        @ViewBuilder placeholder: () -> Content) -> some View {
-
-        ZStack(alignment: alignment) {
-            placeholder().opacity(shouldShow ? 1 : 0)
-            self
-        }
     }
 }
 
