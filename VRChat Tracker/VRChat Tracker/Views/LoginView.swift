@@ -78,12 +78,9 @@ struct LoginView: View {
                                     .padding(.bottom)
                             }
                         }
-                        
-                        
-                        
                     } else {
                         // If username and password are correct, prompt to MFA check
-                        TextField("Two-factor Email Code", text: $twoFactorEmailCode)
+                        TextField("", text: $twoFactorEmailCode, prompt: Text("Two-factor Email Code").foregroundColor(.gray))
                             .padding()
                             .background(Color.white)
                             .cornerRadius(5)
@@ -93,7 +90,11 @@ struct LoginView: View {
                 }
                 .foregroundColor(.black)
                 // login button
-                Button(action: login) {
+                Button {
+                    Task {
+                        await login()
+                    }
+                } label: {
                     HStack {
                         Spacer()
                         if (isLoading) {
@@ -156,37 +157,45 @@ struct LoginView: View {
                 // Dim the progress view with a semi-transparent overlay
                 Color.black.opacity(0.4)
                     .edgesIgnoringSafeArea(.all)
-                VStack {
-                    Text("Logging in...")
+                HStack {
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
+                        .progressViewStyle(.automatic)
+                        .tint(.white)
+                    Text("Loading...")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .bold()
                 }
             }
         }
         .alert(isPresented: $client.showNoInternetAlert) {
-            
             Alert(title: Text("No Internet Connection"),
                   message: Text("Connect to the internet and try again."),
                   dismissButton: .default(Text("Okay")))
-            
-            
+        }
+        .alert(isPresented: $client.showErrorMessage) {
+            Alert(title: Text("Login failed"),
+                  message: Text(client.errorMessage),
+                  dismissButton: .default(Text("Okay")))
         }
         .ignoresSafeArea()
     }
     /**
      Check MFA, if it passed, log the user in, else initialize a new login page.
      */
-    func login() {
+    func login() async {
         isLoading = true
 
         if (client.is2FA == false) {
             // initlaize a new `APIClient`
             client.apiClient = APIClient(username: username, password: password)
+            client.apiClientAsync = APIClientAsync(username: username, password: password)
             
-            client.loginUserInfo()
+            await client.loginUserInfoAsync()
             
         } else {
-            client.email2FALogin(emailOTP: twoFactorEmailCode)
+            
+            await client.email2FALoginAsync(emailOTP: twoFactorEmailCode)
         }
         
         isLoading = false

@@ -14,7 +14,9 @@ class VRChatClient: ObservableObject {
     // LoginView
     @Published var isLoggedIn = false
     @Published var is2FA = false
-    @Published var isAutoLoggingIn = false
+    @Published var isAutoLoggingIn: Bool
+    @Published var showErrorMessage = false
+    @Published var errorMessage = ""
     @Published var showNoInternetAlert = false
     
     let monitor = NWPathMonitor()
@@ -40,11 +42,13 @@ class VRChatClient: ObservableObject {
     @Published var avatarDetail: VRAvatar?
     
     var apiClient = APIClient()
+    var apiClientAsync = APIClientAsync()
     
     var preview = false
     
     init(autoLogin: Bool = true, preview: Bool = false) {
         
+        self.isAutoLoggingIn = autoLogin
         self.preview = preview
         
         // Fetch the currently available cookies
@@ -60,6 +64,38 @@ class VRChatClient: ObservableObject {
     //
     // MARK: Authentication
     //
+    
+    /**
+     Handle User Login Functionality
+     
+     If user enters correct username and password, prompt to MFA.
+     
+     If passes MFA, log the user in.
+     */
+    func loginUserInfoAsync() async {
+        
+        let user = await AuthenticationAPIAsync.loginUserInfo(client: self.apiClientAsync)
+        
+        DispatchQueue.main.async {
+            self.user = user
+            
+            guard let user = self.user else { return }
+            
+            // If already successfully logged in
+            if (user.displayName != nil) {
+                self.isLoggedIn = true
+            } else if (user.requiresTwoFactorAuth == ["emailOtp"]) {
+                self.isLoggedIn = false
+                self.is2FA = true
+            } else if let error = user.error {
+                self.errorMessage = error.message!
+                self.showErrorMessage = true
+            } else {
+                self.errorMessage = "Uncaught error occurred."
+                self.showErrorMessage = true
+            }
+        }
+    }
     
     /**
      Handle User Login Functionality
@@ -99,22 +135,27 @@ class VRChatClient: ObservableObject {
                             self.isLoggedIn = false
                             self.is2FA = true
                         }
+                        
+                        self.isAutoLoggingIn = false
                     }
-                    
-                    //Debug
-                    print("** loginUserInfo() 3 **")
-                    print(self.isLoggedIn)
-                    print(self.is2FA)
-                    //Debug End
-                }
-                
-                DispatchQueue.main.async {
-                    self.isAutoLoggingIn = false
                 }
             }
         }
         
         monitor.start(queue: DispatchQueue.main)
+    }
+    
+    /**
+     Varify MFA with user input code from email.
+
+     - Parameter emailOTP: a string code the user enters.
+     */
+    func email2FALoginAsync(emailOTP: String) async {
+        let verify = await AuthenticationAPIAsync.verify2FAEmail(client: self.apiClientAsync, emailOTP: emailOTP)
+        
+        if (verify ?? false) {
+            await self.loginUserInfoAsync()
+        }
     }
     
     /**
