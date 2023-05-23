@@ -261,6 +261,11 @@ class VRChatClient: ObservableObject {
      By using the API the fetch worlds' data and insert them into a list.
      */
     func getWorlds() {
+        
+        if (self.preview) {
+            return 
+        }
+        
         self.worldList = []
         WorldAPI.searchWorld(client: apiClient) { worlds in
             if let worlds = worlds {
@@ -345,6 +350,8 @@ class VRChatClient: ObservableObject {
         client_preview.onlineFriends = [Friend(user: client_preview.user!,
                                                world: PreviewData.load(name: "WorldPreview"),
                                                instance: PreviewData.load(name: "InstancePreview"))]
+        
+        client_preview.worldList = [worldExample, worldExample2, worldExample3]
         
         return client_preview
     }
