@@ -16,10 +16,6 @@ struct WorldTabView: View {
     // the observable VRChat cilent instance
     @ObservedObject var client: VRChatClient
     
-    // the stored metadata of three worlds
-    // if the internet is disconnected, load the pre-stored data
-    var worldExamples: [VRWorld] = [worldExample, worldExample2, worldExample3]
-    
     var body: some View {
         
         NavigationStack {
@@ -50,7 +46,7 @@ struct WorldRowView: View {
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 5) {
-                ForEach(worlds.sorted{ $0.name! < $1.name! }) { world in
+                ForEach(worlds.sorted{ $0.popularity! > $1.popularity! }) { world in
                     NavigationLink {
                         WorldDetailView(world: world, client: client)
                     } label: {
@@ -72,7 +68,7 @@ struct WorldRowView: View {
 //                                     rectangle for the use of UI design
                                     Rectangle()
                                         .frame(width: 300, height: 50.0)
-                                        .offset(y: -85)
+                                        .offset(y: -90)
                                         .foregroundColor(Color("BackgroundColor"))
                                     HStack{
                                         // favorite button
@@ -100,7 +96,7 @@ struct WorldRowView: View {
                                         }
                                     }
                                     .padding(EdgeInsets(top: 20, leading: 20, bottom: 2, trailing: 20))
-                                    .offset(y: -90)
+                                    .offset(y: -95)
                                 }
                             }
                         }

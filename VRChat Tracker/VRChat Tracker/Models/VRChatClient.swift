@@ -271,7 +271,7 @@ class VRChatClient: ObservableObject {
             if let worlds = worlds {
                 for item in worlds {
                     
-                    let newWorld: VRWorld = VRWorld(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, favorites: item.favorites, visits: item.visits, capacity: item.capacity, created_at: item.created_at, updated_at: item.updated_at)
+                    let newWorld: VRWorld = VRWorld(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, favorites: item.favorites, visits: item.visits, popularity: item.popularity, heat: item.heat, capacity: item.capacity, created_at: item.created_at, updated_at: item.updated_at)
                     
                     DispatchQueue.main.async {
                         self.worldList?.append(newWorld)
@@ -292,6 +292,9 @@ class VRChatClient: ObservableObject {
      By using the API the fetch avatars' data and insert them into a list.
      */
     func getAvatars() {
+        
+        if self.preview { return }
+        
         self.avatarList = []
         AvatarAPI.searchAvatar(client: apiClient) { avatars in
             if let avatars = avatars {
@@ -320,7 +323,7 @@ class VRChatClient: ObservableObject {
         let world = await WorldAPIAsync.getWorld(client: apiClientAsync, worldID: worldId)
         
         if let world = world {
-            let newWorld: VRWorld = VRWorld(name: world.name, id: world.id, authorName: world.authorName, imageUrl: world.imageUrl, description: world.description, authorId: world.authorId, favorites: world.favorites, visits: world.visits, capacity: world.capacity, created_at: world.created_at, updated_at: world.updated_at)
+            let newWorld: VRWorld = VRWorld(name: world.name, id: world.id, authorName: world.authorName, imageUrl: world.imageUrl, description: world.description, authorId: world.authorId, favorites: world.favorites, visits: world.visits, popularity: world.popularity, heat: world.heat, capacity: world.capacity, created_at: world.created_at, updated_at: world.updated_at)
             
             return newWorld
         }
@@ -339,7 +342,7 @@ class VRChatClient: ObservableObject {
     func fetchWorld(worldId: String) {
         WorldAPI.getWorld(client: apiClient, worldID: worldId) { world in
             if let world = world {
-                let newWorld: VRWorld = VRWorld(name: world.name, id: world.id, authorName: world.authorName, imageUrl: world.imageUrl, description: world.description, authorId: world.authorId, favorites: world.favorites, visits: world.visits, capacity: world.capacity, created_at: world.created_at, updated_at: world.updated_at)
+                let newWorld: VRWorld = VRWorld(name: world.name, id: world.id, authorName: world.authorName, imageUrl: world.imageUrl, description: world.description, authorId: world.authorId, favorites: world.favorites, visits: world.visits, popularity: world.popularity, heat: world.heat, capacity: world.capacity, created_at: world.created_at, updated_at: world.updated_at)
                 
                 DispatchQueue.main.async {
                     self.worldDetail = newWorld
@@ -372,6 +375,7 @@ class VRChatClient: ObservableObject {
                                                instance: PreviewData.load(name: "InstancePreview"))]
         
         client_preview.worldList = [worldExample, worldExample2, worldExample3]
+        client_preview.avatarList = [avatarExample1, avatarExample2, avatarExample3]
         
         return client_preview
     }

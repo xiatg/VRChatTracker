@@ -18,14 +18,14 @@ struct NavigationView: View {
             WorldTabView(client: client)
                 .tabItem {
                     Image(systemName: "globe")
-                    Text("World")
+                    Text("Worlds")
                 }
                 .tag(1)
             // 2. the view shows all the avatars
             AvatarTabView(client: client)
                 .tabItem {
                     Image(systemName: "theatermasks")
-                    Text("Avatar")
+                    Text("Avatars")
                 }
                 .tag(2)
             // 3a. the view to show login page
@@ -56,7 +56,7 @@ struct NavigationView: View {
             SettingTabView(client: client)
                 .tabItem {
                     Image(systemName: "gear")
-                    Text("Setting")
+                    Text("Settings")
                 }
                 .tag(5)
         }

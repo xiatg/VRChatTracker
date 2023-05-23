@@ -37,6 +37,7 @@ struct AvatarDetailView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .scaledToFit()
             }
+            .cornerRadius(20)
             .padding(.horizontal, 20)
             .padding(.bottom, 10)
             
