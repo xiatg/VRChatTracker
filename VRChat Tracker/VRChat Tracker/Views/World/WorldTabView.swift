@@ -20,6 +20,11 @@ struct WorldTabView: View {
         
         NavigationStack {
             List {
+                if let favoritedWorldList = client.favoritedWorldList {
+                    Section("Favorited Worlds") {
+                        WorldRowView(client: client, worlds: favoritedWorldList)
+                    }
+                }
                 if let worldList = client.worldList {
                     Section("Discover Worlds") {
                         WorldRowView(client: client, worlds: worldList)
@@ -59,10 +64,7 @@ struct WorldRowView: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                     } placeholder: {
-                                        // placeholder while the image is loading
-                                        Image("cat")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
+                                        ProgressView()
                                     }
                                     
 //                                     rectangle for the use of UI design

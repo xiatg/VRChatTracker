@@ -31,9 +31,11 @@ class VRChatClient: ObservableObject {
     
     // WorldTabView
     @Published var worldList: [VRWorld]?
+    @Published var favoritedWorldList: [VRWorld]?
     
     // AvatarTabView
     @Published var avatarList: [VRAvatar]?
+    @Published var favoritedAvatarList: [VRAvatar]?
     
     // WorldDetailView
     @Published var worldDetail: VRWorld?
@@ -283,7 +285,22 @@ class VRChatClient: ObservableObject {
             }
         }
         
-//        print(self.worldList)
+        self.favoritedWorldList = []
+        WorldAPI.getFavoritedWorld(client: apiClient) { worlds in
+            if let worlds = worlds {
+                for item in worlds {
+                    
+                    let newWorld: VRWorld = VRWorld(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, favorites: item.favorites, visits: item.visits, popularity: item.popularity, heat: item.heat, capacity: item.capacity, created_at: item.created_at, updated_at: item.updated_at)
+                    
+                    DispatchQueue.main.async {
+                        self.favoritedWorldList?.append(newWorld)
+                    }
+                    
+                }
+            } else {
+                print("Error: Failed to retrieve worlds")
+            }
+        }
     }
     
     /**
@@ -303,7 +320,10 @@ class VRChatClient: ObservableObject {
                     let newAvatar: VRAvatar = VRAvatar(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, updated_at: item.updated_at)
                     
                     DispatchQueue.main.async {
-                        self.avatarList?.append(newAvatar)
+                        
+                        if newAvatar.updated_at != nil {
+                            self.avatarList?.append(newAvatar)
+                        }
                     }
                 }
             } else {
@@ -311,7 +331,25 @@ class VRChatClient: ObservableObject {
             }
         }
         
-//        print(self.avatarList)
+        self.favoritedAvatarList = []
+        AvatarAPI.getFavoritedAvatar(client: apiClient) { avatars in
+            if let avatars = avatars {
+                for item in avatars {
+                    
+                    let newAvatar: VRAvatar = VRAvatar(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, updated_at: item.updated_at)
+                    
+                    DispatchQueue.main.async {
+                        
+                        if newAvatar.updated_at != nil {
+                            self.favoritedAvatarList?.append(newAvatar)
+                        }
+                        
+                    }
+                }
+            } else {
+                print("Error: Failed to retrieve avatars")
+            }
+        }
     }
     
     /**

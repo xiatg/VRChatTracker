@@ -19,6 +19,12 @@ struct AvatarTabView: View {
         
         NavigationStack {
             List {
+                if let favoritedAvatarList = client.favoritedAvatarList {
+                    Section("Favorited Avatars") {
+                        AvatarRowView(client: client, avatars: favoritedAvatarList)
+                    }
+                }
+                
                 if let avatarList = client.avatarList {
                     Section("Featured Avatars") {
                         AvatarRowView(client: client, avatars: avatarList)
