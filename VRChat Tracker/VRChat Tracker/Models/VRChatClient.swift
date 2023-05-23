@@ -316,6 +316,26 @@ class VRChatClient: ObservableObject {
 
      - Parameter worldId: The id of a world that the user clicks in the list.
      */
+    func fetchWorldAsync(worldId: String) async -> VRWorld? {
+        let world = await WorldAPIAsync.getWorld(client: apiClientAsync, worldID: worldId)
+        
+        if let world = world {
+            let newWorld: VRWorld = VRWorld(name: world.name, id: world.id, authorName: world.authorName, imageUrl: world.imageUrl, description: world.description, authorId: world.authorId, favorites: world.favorites, visits: world.visits, capacity: world.capacity, created_at: world.created_at, updated_at: world.updated_at)
+            
+            return newWorld
+        }
+        else {
+            print("No such world exist, please double check the world id: \(worldId)")
+            
+            return nil
+        }
+    }
+    
+    /**
+     Update data for a single world that user clicks in the worlds' list, so that the detail view can display the stats.
+
+     - Parameter worldId: The id of a world that the user clicks in the list.
+     */
     func fetchWorld(worldId: String) {
         WorldAPI.getWorld(client: apiClient, worldID: worldId) { world in
             if let world = world {

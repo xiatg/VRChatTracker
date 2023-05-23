@@ -11,7 +11,7 @@ import SwiftVRChatAPI
 struct WorldDetailView: View {
     
     // the world instance to pass in
-    var world: VRWorld
+    @State var world: VRWorld
     
     // the observable VRChat cilent instance
     @ObservedObject var client: VRChatClient
@@ -21,7 +21,7 @@ struct WorldDetailView: View {
     
     var body: some View {
         // fetch world list data from the API
-        let world = client.worldDetail ?? world
+        let world = world
         ScrollView {
             // title
             Text(world.name!)
@@ -45,12 +45,14 @@ struct WorldDetailView: View {
                     .resizable()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .scaledToFit()
+                    .cornerRadius(15)
             } placeholder: {
                 // placeholder while the image is loading
                 Image("cat")
                     .resizable()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .scaledToFit()
+                    .cornerRadius(15)
             }
             .padding(.horizontal, 20)
             
@@ -67,7 +69,7 @@ struct WorldDetailView: View {
                     .font(.system(size: 15))
                     .padding(.bottom, 8.0)
                     .foregroundColor(.white)
-                    .padding(.leading, 20)
+                    .padding(.horizontal, 20)
             } else {
                 Text("please refresh to load description")
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -137,7 +139,18 @@ struct WorldDetailView: View {
         }
         .background(Color("BackgroundColor"))
         .refreshable {
-            client.fetchWorld(worldId: world.id!)
+            Task {
+                if let world = await client.fetchWorldAsync(worldId: world.id!) {
+                    self.world = world
+                }
+            }
+        }
+        .onAppear {
+            Task {
+                if let world = await client.fetchWorldAsync(worldId: world.id!) {
+                    self.world = world
+                }
+            }
         }
     }
     
