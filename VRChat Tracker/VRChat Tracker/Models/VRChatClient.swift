@@ -247,10 +247,18 @@ class VRChatClient: ObservableObject {
         }
     }
     
+    func updateStatusDescription(statusDescription: String) async {
+        let user = await UserAPIAsync.updateUser(client: apiClientAsync, userID: user!.id!, statusDescription: statusDescription)
+        
+        guard user != nil else { return }
+        
+        await self.loginUserInfoAsync()
+    }
+    
     func addTags(tags: [String]) async {
         let newTags = user!.tags! + tags
         
-        let user = await UserAPIAsync.updateUserTags(client: apiClientAsync, userID: user!.id!, tags: newTags)
+        let user = await UserAPIAsync.updateUser(client: apiClientAsync, userID: user!.id!, tags: newTags)
         
         guard user != nil else { return }
         
@@ -265,10 +273,18 @@ class VRChatClient: ObservableObject {
             return tags.contains(tag)
         }
         
-        let user = await UserAPIAsync.updateUserTags(client: apiClientAsync, userID: user!.id!, tags: newTags)
+        let user = await UserAPIAsync.updateUser(client: apiClientAsync, userID: user!.id!, tags: newTags)
 
         guard user != nil else { return }
 
+        await self.loginUserInfoAsync()
+    }
+    
+    func updateBio(bio: String) async {
+        let user = await UserAPIAsync.updateUser(client: apiClientAsync, userID: user!.id!, bio: bio)
+        
+        guard user != nil else { return }
+        
         await self.loginUserInfoAsync()
     }
     
