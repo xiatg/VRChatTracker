@@ -20,10 +20,20 @@ struct AvatarDetailView: View {
             // title
             Text(avatar.name!)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.system(size: 40))
+                .font(.largeTitle)
+                .bold()
                 .padding(.bottom, 3.0)
                 .foregroundColor(.white)
                 .padding(.leading, 20)
+            
+            // author
+            Text("By: \(avatar.authorName!)")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.system(size: 15))
+                .padding(.bottom, 8.0)
+                .foregroundColor(.white)
+                .padding(.leading, 22)
+            
             // Image
             AsyncImage(url: URL(string: avatar.imageUrl!)) { image in
                 image

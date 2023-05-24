@@ -37,7 +37,7 @@ struct SettingTabView: View {
                     Text("about")
                 })
             }
-            .navigationTitle("Setting")
+            .navigationTitle("Settings")
         }
     }
     

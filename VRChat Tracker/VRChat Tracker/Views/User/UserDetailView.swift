@@ -69,7 +69,11 @@ struct UserDetailView: View {
                     HStack {
                         ForEach(user.tags!, id: \.self) { tag in
                             if (tag.starts(with: "language")) {
-                                Text(tag.suffix(3).uppercased())
+                                Button(action: nothing) {
+                                    Text(toEmoji(languageAbbr: tag.suffix(3).lowercased()))
+                                }
+                                .buttonStyle(.bordered)
+                                .tint(.primary)
                             }
                         }
                     }
@@ -77,7 +81,7 @@ struct UserDetailView: View {
                     
                     // display user info/descriptions
                     HStack {
-                        Text(user.bio!)
+                        Text(user.bio!.replacingOccurrences(of: "⁄", with: "/").replacingOccurrences(of: "＃", with: "#").replacingOccurrences(of: "˸", with: ":"))
                             .multilineTextAlignment(.leading)
                         .padding(.top)
                         

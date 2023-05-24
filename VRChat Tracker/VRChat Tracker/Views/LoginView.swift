@@ -154,18 +154,7 @@ struct LoginView: View {
                     }
             
             if (client.isAutoLoggingIn || isLoading) {
-                // Dim the progress view with a semi-transparent overlay
-                Color.black.opacity(0.4)
-                    .edgesIgnoringSafeArea(.all)
-                HStack {
-                    ProgressView()
-                        .progressViewStyle(.automatic)
-                        .tint(.white)
-                    Text("Loading...")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .bold()
-                }
+                LoadingView()
             }
         }
         .alert(isPresented: $client.showNoInternetAlert) {

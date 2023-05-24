@@ -55,6 +55,7 @@ class VRChatClient: ObservableObject {
         
         // Fetch the currently available cookies
         apiClient.updateCookies()
+        apiClientAsync.updateCookies()
         
         if (autoLogin) {
             isAutoLoggingIn = true
@@ -75,9 +76,8 @@ class VRChatClient: ObservableObject {
      If passes MFA, log the user in.
      */
     func loginUserInfoAsync() async {
-        
         let user = await AuthenticationAPIAsync.loginUserInfo(client: self.apiClientAsync)
-        
+
         DispatchQueue.main.async {
             self.user = user
             
@@ -107,12 +107,6 @@ class VRChatClient: ObservableObject {
      If passes MFA, log the user in.
      */
     func loginUserInfo() {
-        
-        
-        //Debug
-        print("** loginUserInfo() 0 **")
-        //Debug End
-        
         //https://www.hackingwithswift.com/example-code/networking/how-to-check-for-internet-connectivity-using-nwpathmonitor
         monitor.pathUpdateHandler = { path in
             
@@ -228,10 +222,6 @@ class VRChatClient: ObservableObject {
                             self.onlineFriends?.append(Friend(user: user))
                         }
                     }
-                    
-    //                print("** onlineFriends() **")
-    //                print(self.onlineFriends)
-                    
                 }
             }
             
@@ -256,6 +246,35 @@ class VRChatClient: ObservableObject {
             }
         }
     }
+    
+    func addTags(tags: [String]) async {
+        let newTags = user!.tags! + tags
+        
+        let user = await UserAPIAsync.updateUserTags(client: apiClientAsync, userID: user!.id!, tags: newTags)
+        
+        guard user != nil else { return }
+        
+        await self.loginUserInfoAsync()
+    }
+    
+    func deleteTags(tags: [String]) async {
+        
+        var newTags = user!.tags!
+        
+        newTags.removeAll { tag in
+            return tags.contains(tag)
+        }
+        
+        let user = await UserAPIAsync.updateUserTags(client: apiClientAsync, userID: user!.id!, tags: newTags)
+
+        guard user != nil else { return }
+
+        await self.loginUserInfoAsync()
+    }
+    
+    //
+    // MARK: World
+    //
     
     /**
      Update data for world list, so the user is able to discover all the worlds.
@@ -302,6 +321,50 @@ class VRChatClient: ObservableObject {
             }
         }
     }
+    
+    /**
+     Update data for a single world that user clicks in the worlds' list, so that the detail view can display the stats.
+
+     - Parameter worldId: The id of a world that the user clicks in the list.
+     */
+    func fetchWorldAsync(worldId: String) async -> VRWorld? {
+        let world = await WorldAPIAsync.getWorld(client: apiClientAsync, worldID: worldId)
+        
+        if let world = world {
+            let newWorld: VRWorld = VRWorld(name: world.name, id: world.id, authorName: world.authorName, imageUrl: world.imageUrl, description: world.description, authorId: world.authorId, favorites: world.favorites, visits: world.visits, popularity: world.popularity, heat: world.heat, capacity: world.capacity, created_at: world.created_at, updated_at: world.updated_at)
+            
+            return newWorld
+        }
+        else {
+            print("No such world exist, please double check the world id: \(worldId)")
+            
+            return nil
+        }
+    }
+    
+    /**
+     Update data for a single world that user clicks in the worlds' list, so that the detail view can display the stats.
+
+     - Parameter worldId: The id of a world that the user clicks in the list.
+     */
+    func fetchWorld(worldId: String) {
+        WorldAPI.getWorld(client: apiClient, worldID: worldId) { world in
+            if let world = world {
+                let newWorld: VRWorld = VRWorld(name: world.name, id: world.id, authorName: world.authorName, imageUrl: world.imageUrl, description: world.description, authorId: world.authorId, favorites: world.favorites, visits: world.visits, popularity: world.popularity, heat: world.heat, capacity: world.capacity, created_at: world.created_at, updated_at: world.updated_at)
+                
+                DispatchQueue.main.async {
+                    self.worldDetail = newWorld
+                }
+            }
+            else {
+                print("No such world exist, please double check the world id: \(worldId)")
+            }
+        }
+    }
+    
+    //
+    // MARK: Avatar
+    //
     
     /**
      Update data for avatar list, so the user is able to discover all the avatars.
@@ -351,52 +414,6 @@ class VRChatClient: ObservableObject {
             }
         }
     }
-    
-    /**
-     Update data for a single world that user clicks in the worlds' list, so that the detail view can display the stats.
-
-     - Parameter worldId: The id of a world that the user clicks in the list.
-     */
-    func fetchWorldAsync(worldId: String) async -> VRWorld? {
-        let world = await WorldAPIAsync.getWorld(client: apiClientAsync, worldID: worldId)
-        
-        if let world = world {
-            let newWorld: VRWorld = VRWorld(name: world.name, id: world.id, authorName: world.authorName, imageUrl: world.imageUrl, description: world.description, authorId: world.authorId, favorites: world.favorites, visits: world.visits, popularity: world.popularity, heat: world.heat, capacity: world.capacity, created_at: world.created_at, updated_at: world.updated_at)
-            
-            return newWorld
-        }
-        else {
-            print("No such world exist, please double check the world id: \(worldId)")
-            
-            return nil
-        }
-    }
-    
-    /**
-     Update data for a single world that user clicks in the worlds' list, so that the detail view can display the stats.
-
-     - Parameter worldId: The id of a world that the user clicks in the list.
-     */
-    func fetchWorld(worldId: String) {
-        WorldAPI.getWorld(client: apiClient, worldID: worldId) { world in
-            if let world = world {
-                let newWorld: VRWorld = VRWorld(name: world.name, id: world.id, authorName: world.authorName, imageUrl: world.imageUrl, description: world.description, authorId: world.authorId, favorites: world.favorites, visits: world.visits, popularity: world.popularity, heat: world.heat, capacity: world.capacity, created_at: world.created_at, updated_at: world.updated_at)
-                
-                DispatchQueue.main.async {
-                    self.worldDetail = newWorld
-                }
-            }
-            else {
-                print("No such world exist, please double check the world id: \(worldId)")
-            }
-        }
-    }
-    
-//    func updateFriendsGroup(friends: [String]) {
-//        for userID in friends {
-//            UserAPI.
-//        }
-//    }
     
     /**
      Create a sample `VRChatClient` instance for preview.

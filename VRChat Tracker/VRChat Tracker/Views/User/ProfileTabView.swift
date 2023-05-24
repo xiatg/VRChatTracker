@@ -13,95 +13,143 @@ struct ProfileTabView: View {
     
     let user:User
     
+    @State private var statusDescription: String
+    @FocusState private var isEditingDescription: Bool
+    @State private var languageTagCount = 0
+    @State private var newLanguageSelection = "ADD"
+    @State private var isLoading = false
+    
     init(client: VRChatClient) {
         self.client = client
         
         self.user = client.user!
+        
+        self._statusDescription = State(initialValue: self.user.statusDescription!)
     }
     
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                // current user avatar image
-                AsyncImage(url: URL(string: user.currentAvatarImageUrl!)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                } placeholder: {
-                    ProgressView()
-                }
-                
-                VStack {
-                    // user icon/image
-                    if (user.userIcon ?? "" != "") {
-                        AsyncImage(url: URL(string: user.userIcon!)) { image in
-                                image
+        ZStack {
+            NavigationStack {
+                ScrollView {
+                    // current user avatar image
+                    AsyncImage(url: URL(string: user.currentAvatarImageUrl!)) { image in
+                            image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: 200)
-                                .clipShape(Circle())
-                                .overlay {
-                                    Circle().stroke(.white, lineWidth: 4)
-                                }
-                                .shadow(radius: 7)
-                        } placeholder: {
-                            ProgressView()
-                        }
+                    } placeholder: {
+                        ProgressView()
+                            .frame(height: 400)
                     }
-                    // user name
-                    Text("\(user.displayName!)")
-                        .font(.title)
-                        .bold()
-                    // user status
-                    Text("\(user.statusDescription!)")
-                        .padding(.top, -10)
                     
-                    HStack {
-                        Text("\(user.state!)")
+                    VStack {
+                        // user icon/image
+                        if (user.userIcon ?? "" != "") {
+                            AsyncImage(url: URL(string: user.userIcon!)) { image in
+                                    image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 200)
+                                    .clipShape(Circle())
+                                    .overlay {
+                                        Circle().stroke(.white, lineWidth: 4)
+                                    }
+                                    .shadow(radius: 7)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                        }
+                        // user name
+                        Text("\(user.displayName!)")
+                            .font(.title)
+                            .bold()
+                        // user status
                         
-                        Text("\(user.status!)")
-                    }
-                    .padding(.top)
-  
-                    HStack {
-                        // user language tags
-                        ForEach(user.tags!, id: \.self) { tag in
-                            if (tag.starts(with: "language")) {
-                                Button(action: nothing) {
-                                    Text(tag.suffix(3).uppercased())
+                        
+                        VStack {
+                            TextField("", text: $statusDescription, axis: .vertical)
+                                .focused($isEditingDescription)
+                                .multilineTextAlignment(.center)
+                                .frame(height: 60)
+                            
+                            if (isEditingDescription) {
+                                Button {
+                                    isEditingDescription.toggle()
+                                } label: {
+                                    Text("Update")
+                                }
+                                .buttonStyle(.bordered)
+                            }
+                        }
+                        
+                        HStack {
+                            Text("\(user.state!)")
+                            
+                            Text("\(user.status!)")
+                        }
+                        .padding(.top)
+      
+                        HStack {
+                            // user language tags
+                            ForEach(user.tags!, id: \.self) { tag in
+                                if (tag.starts(with: "language")) {
+                                    Button {
+                                        Task {
+                                            isLoading = true
+                                            await client.deleteTags(tags: [tag])
+                                            newLanguageSelection = "ADD"
+                                            isLoading = false
+                                        }
+                                    } label: {
+                                        Text(toEmoji(languageAbbr: tag.suffix(3).lowercased()))
+                                    }
+                                    .buttonStyle(.bordered)
+                                }
+                            }
+                            if (user.tags!.filter{ (tag) -> Bool in return tag.contains("language")}.count < 3) {
+                                Picker("Add", selection: $newLanguageSelection) {
+                                    ForEach(languagesAbbrs.filter{ (abbr) -> Bool in return !(user.tags!.contains("language_\(abbr)")) } , id: \.self) {
+                                        Text(toEmoji(languageAbbr: $0))
+                                    }
+                                }
+                                .onChange(of: newLanguageSelection) { newValue in
+                                    if newValue != "ADD" {
+                                        Task {
+                                            isLoading = true
+                                            await client.addTags(tags: ["language_\(newValue)"])
+                                            isLoading = false
+                                        }
+                                    }
                                 }
                             }
                         }
-                        if (user.tags!.count < 4) {
-                            Button(action: nothing) {
-                                Image(systemName: "plus.circle")
-                            }
+                        .padding(.top, -7)
+                        
+                        HStack {
+                            // user info
+                            Text(user.bio!.replacingOccurrences(of: "⁄", with: "/").replacingOccurrences(of: "＃", with: "#"))
+                                .multilineTextAlignment(.leading)
+                            .padding(.top)
+                            
+                            Spacer()
                         }
-                    }
-                    .padding(.top, -7)
-                    
-                    HStack {
-                        // user info
-                        Text(user.bio!)
-                            .multilineTextAlignment(.leading)
-                        .padding(.top)
                         
                         Spacer()
                     }
-                    
-                    Spacer()
+                    .padding(.horizontal, 10.0)
+                    .offset(y: ((user.userIcon ?? "") == "") ? 0 : -100)
                 }
-                .padding(.horizontal, 10.0)
-                .offset(y: ((user.userIcon ?? "") == "") ? 0 : -100)
+                .scrollIndicators(.hidden)
+                .ignoresSafeArea()
             }
-            .scrollIndicators(.hidden)
-            .ignoresSafeArea()
-//            .navigationTitle(user.displayName!)
+            .refreshable {
+                client.loginUserInfo()
+            }
+            .statusBarHidden()
+            
+            if (isLoading) {
+                LoadingView()
+            }
         }
-        .refreshable {
-            client.loginUserInfo()
-        }
-        .statusBarHidden()
     }
 }
 
