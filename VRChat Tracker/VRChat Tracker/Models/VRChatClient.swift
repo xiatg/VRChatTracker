@@ -288,6 +288,31 @@ class VRChatClient: ObservableObject {
         await self.loginUserInfoAsync()
     }
     
+    func addBioLinks(bioLinks: [String]) async {
+        let newBioLinks = user!.bioLinks! + bioLinks
+        
+        let user = await UserAPIAsync.updateUser(client: apiClientAsync, userID: user!.id!, bioLinks: newBioLinks)
+        
+        guard user != nil else { return }
+        
+        await self.loginUserInfoAsync()
+    }
+    
+    func deleteBioLinks(bioLinks: [String]) async {
+        
+        var newBioLinks = user!.bioLinks!
+        
+        newBioLinks.removeAll { bioLink in
+            return bioLinks.contains(bioLink)
+        }
+        
+        let user = await UserAPIAsync.updateUser(client: apiClientAsync, userID: user!.id!, bioLinks: newBioLinks)
+        
+        guard user != nil else { return }
+
+        await self.loginUserInfoAsync()
+    }
+    
     //
     // MARK: World
     //

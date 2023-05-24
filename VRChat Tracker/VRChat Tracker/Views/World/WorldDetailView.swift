@@ -75,15 +75,8 @@ struct WorldDetailView: View {
                 .contentShape(Rectangle())
                 .padding(.horizontal, 20)
                 
-                // descriptions
-                Text("Description")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.system(size: 30))
-                    .padding(.bottom, 8.0)
-                    .foregroundColor(.white)
-                    .padding(.leading, 20)
                 if let description = world.description {
-                    Text(description)
+                    Text(description.replacingOccurrences(of: "⁄", with: "/").replacingOccurrences(of: "＃", with: "#").replacingOccurrences(of: "˸", with: ":").replacingOccurrences(of: "（", with: "(").replacingOccurrences(of: "）", with: ")").replacingOccurrences(of: "∗", with: "*").replacingOccurrences(of: "＂", with: "\""))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.system(size: 15))
                         .padding(.bottom, 8.0)

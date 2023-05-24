@@ -81,7 +81,7 @@ struct UserDetailView: View {
                     
                     // display user info/descriptions
                     HStack {
-                        Text(user.bio!.replacingOccurrences(of: "⁄", with: "/").replacingOccurrences(of: "＃", with: "#").replacingOccurrences(of: "˸", with: ":"))
+                        Text(user.bio!.replacingOccurrences(of: "⁄", with: "/").replacingOccurrences(of: "＃", with: "#").replacingOccurrences(of: "˸", with: ":").replacingOccurrences(of: "（", with: "(").replacingOccurrences(of: "）", with: ")").replacingOccurrences(of: "∗", with: "*").replacingOccurrences(of: "＂", with: "\""))
                             .multilineTextAlignment(.leading)
                         .padding(.top)
                         

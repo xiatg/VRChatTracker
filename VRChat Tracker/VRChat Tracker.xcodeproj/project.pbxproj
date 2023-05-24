@@ -32,6 +32,7 @@
 		F7BB1F4B299EDD6300AA12F7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7BB1F4A299EDD6300AA12F7 /* Preview Assets.xcassets */; };
 		F7C4ED0E299F3CDA00CC6F83 /* SwiftVRChatAPI in Frameworks */ = {isa = PBXBuildFile; productRef = F7C4ED0D299F3CDA00CC6F83 /* SwiftVRChatAPI */; };
 		F7DAD3F02A1DBB3E0002C647 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DAD3EF2A1DBB3E0002C647 /* LoadingView.swift */; };
+		F7DAD3F22A1DD0C90002C647 /* BioLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DAD3F12A1DD0C90002C647 /* BioLinkView.swift */; };
 		F7EE997B29A88C93009BBC98 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EE997A29A88C93009BBC98 /* UserView.swift */; };
 		F7EE998929A92049009BBC98 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EE998729A92049009BBC98 /* PreviewData.swift */; };
 		F7EE998A29A92049009BBC98 /* FriendUserPreview.json in Resources */ = {isa = PBXBuildFile; fileRef = F7EE998829A92049009BBC98 /* FriendUserPreview.json */; };
@@ -64,6 +65,7 @@
 		F7BB1F48299EDD6300AA12F7 /* VRChat_Tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VRChat_Tracker.entitlements; sourceTree = "<group>"; };
 		F7BB1F4A299EDD6300AA12F7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F7DAD3EF2A1DBB3E0002C647 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		F7DAD3F12A1DD0C90002C647 /* BioLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioLinkView.swift; sourceTree = "<group>"; };
 		F7EE997A29A88C93009BBC98 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		F7EE998729A92049009BBC98 /* PreviewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		F7EE998829A92049009BBC98 /* FriendUserPreview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FriendUserPreview.json; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				23FEB13829A868F600EFE656 /* SearchBarView.swift */,
 				F7191A8329A70DD50033ED57 /* SettingTabView.swift */,
 				F7DAD3EF2A1DBB3E0002C647 /* LoadingView.swift */,
+				F7DAD3F12A1DD0C90002C647 /* BioLinkView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				F7191A8229A6CA900033ED57 /* VRChatClient.swift in Sources */,
 				23FEB13329A85A9E00EFE656 /* WorldModel.swift in Sources */,
 				F7736A702A1C70C000472E08 /* LanguageModel.swift in Sources */,
+				F7DAD3F22A1DD0C90002C647 /* BioLinkView.swift in Sources */,
 				23FEB13729A866BD00EFE656 /* WorldTabView.swift in Sources */,
 				F7191A8629A71EDD0033ED57 /* FriendTabView.swift in Sources */,
 				F76A452929A33AA40078C19D /* ProfileTabView.swift in Sources */,

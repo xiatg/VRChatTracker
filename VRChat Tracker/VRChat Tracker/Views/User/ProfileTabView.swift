@@ -15,11 +15,22 @@ struct ProfileTabView: View {
     
     @State private var statusDescription: String
     @FocusState private var isEditingDescription: Bool
+    
     @State private var bio: String
     @FocusState private var isEditingBio: Bool
-    @State private var languageTagCount = 0
+    
     @State private var newLanguageSelection = "ADD"
+    
+    @State private var toDeleteLanguageTag = ""
+    @State private var showDeleteLanguageTagAlert = false
+    
     @State private var isLoading = false
+    
+    @State private var showNewBioLinkAlert = false
+    @State private var newBioLink = "https://"
+    
+    @State private var toDeleteBioLink = ""
+    @State private var showDeleteBioLinkAlert = false
     
     init(client: VRChatClient) {
         self.client = client
@@ -27,7 +38,7 @@ struct ProfileTabView: View {
         self.user = client.user!
         
         self._statusDescription = State(initialValue: self.user.statusDescription!)
-        self._bio = State(initialValue: self.user.bio!.replacingOccurrences(of: "⁄", with: "/").replacingOccurrences(of: "＃", with: "#"))
+        self._bio = State(initialValue: self.user.bio!.replacingOccurrences(of: "⁄", with: "/").replacingOccurrences(of: "＃", with: "#").replacingOccurrences(of: "˸", with: ":").replacingOccurrences(of: "（", with: "(").replacingOccurrences(of: "）", with: ")").replacingOccurrences(of: "∗", with: "*").replacingOccurrences(of: "＂", with: "\""))
     }
     
     var body: some View {
@@ -74,7 +85,7 @@ struct ProfileTabView: View {
                                     .focused($isEditingDescription)
                                     .multilineTextAlignment(.center)
                                     .limitInputLength(value: $statusDescription, length: 32)
-                                    .padding(-10)
+                                    .padding(.top, -15)
                                 
                                 if (isEditingDescription) {
                                     Button {
@@ -102,16 +113,13 @@ struct ProfileTabView: View {
                                 // user language tags
                                 ForEach(user.tags!, id: \.self) { tag in
                                     if (tag.starts(with: "language")) {
-                                        Button {
-                                            Task {
-                                                isLoading = true
-                                                await client.deleteTags(tags: [tag])
-                                                newLanguageSelection = "ADD"
-                                                isLoading = false
-                                            }
-                                        } label: {
+                                        Button(action: {}) {
                                             Text(toEmoji(languageAbbr: tag.suffix(3).lowercased()))
                                         }
+                                        .simultaneousGesture(LongPressGesture().onEnded({ _ in
+                                            toDeleteLanguageTag = tag
+                                            showDeleteLanguageTagAlert.toggle()
+                                        }))
                                         .buttonStyle(.bordered)
                                     }
                                 }
@@ -126,6 +134,7 @@ struct ProfileTabView: View {
                                             Task {
                                                 isLoading = true
                                                 await client.addTags(tags: ["language_\(newValue)"])
+                                                newLanguageSelection = "ADD"
                                                 isLoading = false
                                             }
                                         }
@@ -133,6 +142,77 @@ struct ProfileTabView: View {
                                 }
                             }
                             .padding(.top, -7)
+                            .alert("Delete Spoken Language", isPresented: $showDeleteLanguageTagAlert) {
+                                Button("Cancel") {
+                                    showDeleteLanguageTagAlert.toggle()
+                                }
+                                Button("Delete") {
+                                    Task {
+                                        isLoading = true
+                                        await client.deleteTags(tags: [toDeleteLanguageTag])
+                                        isLoading = false
+                                    }
+                                }
+                            } message: {
+                                Text("Are you sure you want to delete \n \(toEmoji(languageAbbr: toDeleteLanguageTag.suffix(3).lowercased())) \n from your spoken language?")
+                            }
+                            
+                            HStack {
+                                ForEach(user.bioLinks!, id: \.self) { bioLink in
+                                    BioLinkView(bioLink: bioLink)
+                                        .simultaneousGesture(LongPressGesture().onEnded({ _ in
+                                            toDeleteBioLink = bioLink
+                                            showDeleteBioLinkAlert.toggle()
+                                        }))
+                                        .simultaneousGesture(TapGesture().onEnded({ _ in
+                                            UIApplication.shared.open(URL(string: bioLink)!)
+                                        }))
+                                }
+                                
+                                if (user.bioLinks!.count < 3) {
+                                    Button {
+                                        showNewBioLinkAlert.toggle()
+                                    } label: {
+                                        Image(systemName: "plus.circle")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 20, height: 20)
+                                            .clipShape(Circle())
+                                    }
+                                    .alert("New Biolink", isPresented: $showNewBioLinkAlert) {
+                                        TextField("https://", text: $newBioLink)
+                                            .textInputAutocapitalization(.never)
+                                            .autocorrectionDisabled(true)
+                                        Button("Cancel") {
+                                            showNewBioLinkAlert.toggle()
+                                        }
+                                        Button("Add") {
+                                            Task {
+                                                isLoading = true
+                                                await client.addBioLinks(bioLinks: [newBioLink])
+                                                isLoading = false
+                                            }
+                                        }
+                                    }
+                                    .buttonStyle(.automatic)
+                                    .padding(.horizontal, 10)
+                                    .clipShape(Circle())
+                                }
+                            }
+                            .alert("Delete BioLink", isPresented: $showDeleteBioLinkAlert) {
+                                Button("Cancel") {
+                                    showDeleteBioLinkAlert.toggle()
+                                }
+                                Button("Delete") {
+                                    Task {
+                                        isLoading = true
+                                        await client.deleteBioLinks(bioLinks: [toDeleteBioLink])
+                                        isLoading = false
+                                    }
+                                }
+                            } message: {
+                                Text("Are you sure you want to delete \n \(toDeleteBioLink) \n from your biolinks?")
+                            }
                             
                             if (isEditingBio) {
                                 Button {
