@@ -169,6 +169,12 @@ class VRChatClient: ObservableObject {
         }
     }
     
+    func logoutAsync() async {
+        await AuthenticationAPIAsync.logout(client: apiClientAsync)
+        
+        apiClient.updateCookies()
+    }
+    
     /**
      Cancel user login action, or log the user out. Clean everything.
      */

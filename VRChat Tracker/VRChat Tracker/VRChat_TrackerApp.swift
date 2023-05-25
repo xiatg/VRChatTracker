@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct VRChat_TrackerApp: App {
     @StateObject var client = VRChatClient()
+    @State var isLoading = false
     
     var body: some Scene {
         
@@ -17,11 +18,17 @@ struct VRChat_TrackerApp: App {
         // yes: navigation view
         // no: login page view
         WindowGroup {
-            if (client.isLoggedIn) {
-                NavigationView(client: client)
-            } else {
-                LoginView(client: client)
+            ZStack {
+                if (client.isLoggedIn) {
+                    NavigationView(client: client)
+                } else {
+                    LoginView(client: client)
+                }
+                if isLoading {
+                    LoadingView()
+                }
             }
+            .environment(\.isLoading, $isLoading)
         }
     }
 }
