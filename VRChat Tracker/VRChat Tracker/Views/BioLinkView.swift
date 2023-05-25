@@ -18,25 +18,31 @@ struct BioLinkView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
-                    .clipShape(Circle())
             } else if (bioLink.hasPrefix("https://discord") || bioLink.hasPrefix("https://www.discord")) {
                 Image("discord")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
-                    .clipShape(Circle())
             } else if (bioLink.hasPrefix("https://github") || bioLink.hasPrefix("https://www.github")) {
                 Image("github")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
-                    .clipShape(Circle())
-            }else {
+            } else if (bioLink.hasPrefix("https://twitter") || bioLink.hasPrefix("https://www.twitter")) {
+                Image("twitter")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+            } else if (bioLink.hasPrefix("https://instagram") || bioLink.hasPrefix("https://www.instagram")) {
+                Image("instagram")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+            } else {
                 Image(systemName: "link")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
-                    .clipShape(Circle())
             }
         }
         .buttonStyle(.bordered)
@@ -46,6 +52,6 @@ struct BioLinkView: View {
 
 struct BioLinkView_Previews: PreviewProvider {
     static var previews: some View {
-        BioLinkView(bioLink: "https://github.gg")
+        BioLinkView(bioLink: "https://twitter.gg")
     }
 }

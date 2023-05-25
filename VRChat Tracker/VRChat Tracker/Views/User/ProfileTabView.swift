@@ -165,7 +165,11 @@ struct ProfileTabView: View {
                                             showDeleteBioLinkAlert.toggle()
                                         }))
                                         .simultaneousGesture(TapGesture().onEnded({ _ in
-                                            UIApplication.shared.open(URL(string: bioLink)!)
+                                            if let url = URL(string: bioLink) {
+                                                UIApplication.shared.open(url)
+                                            } else {
+                                                print("unable to parse link into URL \(bioLink)")
+                                            }
                                         }))
                                 }
                                 
