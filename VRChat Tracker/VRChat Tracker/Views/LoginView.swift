@@ -147,8 +147,11 @@ struct LoginView: View {
                     .cornerRadius(15)
                     .contentShape(Rectangle())
                 }
+                
+                Spacer()
             }
             .padding([.leading, .bottom, .trailing], 30.0)
+            .padding(.top, 100)
             .onTapGesture {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     }

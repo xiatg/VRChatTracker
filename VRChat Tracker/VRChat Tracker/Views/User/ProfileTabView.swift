@@ -24,7 +24,7 @@ struct ProfileTabView: View {
     @State private var toDeleteLanguageTag = ""
     @State private var showDeleteLanguageTagAlert = false
     
-    @State private var isLoading = false
+    @Environment(\.isLoading) @Binding var isLoading: Bool
     
     @State private var showNewBioLinkAlert = false
     @State private var newBioLink = "https://"
@@ -258,10 +258,6 @@ struct ProfileTabView: View {
                 client.loginUserInfo()
             }
             .statusBarHidden()
-            
-            if (isLoading) {
-                LoadingView()
-            }
         }
     }
 }

@@ -97,6 +97,8 @@ class VRChatClient: ObservableObject {
                 self.showErrorMessage = true
             }
         }
+        
+        apiClient.updateCookies()
     }
     
     /**
@@ -201,11 +203,16 @@ class VRChatClient: ObservableObject {
             return 
         }
         
+        print("🌍 udpate friends! 🌍")
+        
         self.onlineFriends = []
         self.activeFriends = []
         self.offlineFriends = []
         
         if let user = user {
+            
+            print("🌍 user exists! 🌍")
+            
             for userID in user.onlineFriends! {
                 UserAPI.getUser(client: apiClient, userID: userID) { user in
                     guard let user = user else { return }
@@ -220,12 +227,18 @@ class VRChatClient: ObservableObject {
                                 
                                 DispatchQueue.main.sync {
                                     self.onlineFriends?.append(Friend(user: user, world: world, instance: instance))
+                                    
+                                    print("new online friend")
+                                    print(Friend(user: user, world: world, instance: instance))
                                 }
                             }
                         }
                     } else {
                         DispatchQueue.main.async {
                             self.onlineFriends?.append(Friend(user: user))
+                            
+                            print("new online friend")
+                            print(Friend(user: user))
                         }
                     }
                 }
@@ -237,6 +250,9 @@ class VRChatClient: ObservableObject {
                     
                     DispatchQueue.main.async {
                         self.activeFriends?.append(Friend(user: user))
+                        
+                        print("new active friend")
+                        print(Friend(user: user))
                     }
                 }
             }
@@ -247,6 +263,9 @@ class VRChatClient: ObservableObject {
 
                     DispatchQueue.main.async {
                         self.offlineFriends?.append(Friend(user: user))
+                        
+                        print("new offline friend")
+                        print(Friend(user: user))
                     }
                 }
             }
