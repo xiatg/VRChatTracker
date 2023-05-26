@@ -15,6 +15,7 @@ struct LoginView: View {
     @State var password = ""
     @State var twoFactorEmailCode = ""
     @State private var isLoading = false
+    @State private var showPassword = false
     
     var body: some View {
         ZStack {
@@ -46,42 +47,54 @@ struct LoginView: View {
                 VStack {
                     // MFA Check
                     if (client.is2FA == false) {
-                        TextField("", text: $username)
-                            .placeholder(when: username.isEmpty) {
-                                Text("Username").foregroundColor(.black)
-                            }
+                        TextField("", text: $username, prompt: Text("Username").foregroundColor(.gray))
                             .padding()
-                            .background(Color.white)
+                            .background(.white)
                             .tint(.blue)
                             .cornerRadius(5)
                             .padding(.bottom, 5)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
                         
-                        SecureField("", text: $password)
-                            .placeholder(when: password.isEmpty) {
-                                Text("Password").foregroundColor(.black)
+                        HStack {
+                            if (showPassword) {
+                                TextField("", text: $password, prompt: Text("Password").foregroundColor(.gray))
+                                    .padding()
+                                    .background(.white)
+                                    .cornerRadius(5)
+                                    .padding(.bottom, 15)
+                            } else {
+                                SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray))
+                                    .padding()
+                                    .background(Color.white)
+                                    .cornerRadius(5)
+                                    .padding(.bottom, 15)
                             }
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(5)
-                            .padding(.bottom, 15)
-                        
+                            Button {
+                                showPassword.toggle()
+                            } label: {
+                                Image(systemName: showPassword ? "eye.slash" : "eye")
+                                    .foregroundColor(.white)
+                                    .padding(.bottom)
+                            }
+                        }
                     } else {
                         // If username and password are correct, prompt to MFA check
-                        TextField("Two-factor Email Code", text: $twoFactorEmailCode)
+                        TextField("", text: $twoFactorEmailCode, prompt: Text("Two-factor Email Code").foregroundColor(.gray))
                             .padding()
                             .background(Color.white)
                             .cornerRadius(5)
                             .padding(.bottom, 5)
                             .transition(.move(edge: .trailing))
-                        
-                        
                     }
                 }
                 .foregroundColor(.black)
                 // login button
-                Button(action: login) {
+                Button {
+                    Task {
+                        await login()
+                    }
+                } label: {
                     HStack {
                         Spacer()
                         if (isLoading) {
@@ -134,47 +147,47 @@ struct LoginView: View {
                     .cornerRadius(15)
                     .contentShape(Rectangle())
                 }
+                
+                Spacer()
             }
             .padding([.leading, .bottom, .trailing], 30.0)
+            .padding(.top, 100)
             .onTapGesture {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     }
             
             if (client.isAutoLoggingIn || isLoading) {
-                // Dim the progress view with a semi-transparent overlay
-                Color.black.opacity(0.4)
-                    .edgesIgnoringSafeArea(.all)
-                VStack {
-                    Text("Logging in...")
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                }
+                LoadingView()
             }
         }
         .alert(isPresented: $client.showNoInternetAlert) {
-            
             Alert(title: Text("No Internet Connection"),
                   message: Text("Connect to the internet and try again."),
                   dismissButton: .default(Text("Okay")))
-            
-            
+        }
+        .alert(isPresented: $client.showErrorMessage) {
+            Alert(title: Text("Login failed"),
+                  message: Text(client.errorMessage),
+                  dismissButton: .default(Text("Okay")))
         }
         .ignoresSafeArea()
     }
     /**
      Check MFA, if it passed, log the user in, else initialize a new login page.
      */
-    func login() {
+    func login() async {
         isLoading = true
 
         if (client.is2FA == false) {
             // initlaize a new `APIClient`
             client.apiClient = APIClient(username: username, password: password)
+            client.apiClientAsync = APIClientAsync(username: username, password: password)
             
-            client.loginUserInfo()
+            await client.loginUserInfoAsync()
             
         } else {
-            client.email2FALogin(emailOTP: twoFactorEmailCode)
+            
+            await client.email2FALoginAsync(emailOTP: twoFactorEmailCode)
         }
         
         isLoading = false
@@ -185,23 +198,6 @@ struct LoginView: View {
      */
     func cancel() {
         client.clear()
-    }
-}
-
-// https://stackoverflow.com/questions/57688242/swiftui-how-to-change-the-placeholder-color-of-the-textfield
-extension View {
-    /**
-     Place holder view modifications
-     */
-    func placeholder<Content: View>(
-        when shouldShow: Bool,
-        alignment: Alignment = .leading,
-        @ViewBuilder placeholder: () -> Content) -> some View {
-
-        ZStack(alignment: alignment) {
-            placeholder().opacity(shouldShow ? 1 : 0)
-            self
-        }
     }
 }
 

@@ -14,58 +14,74 @@ struct AvatarTabView: View {
     
     // the observable VRChat cilent instance
     @ObservedObject var client: VRChatClient
-    
-    // the stored metadata of three avatars
-    // if the internet is disconnected, load the pre-stored data
-    var avatarExamples: [VRAvatar] = [avatarExample1, avatarExample2, avatarExample3]
-    
+
     var body: some View {
-        // fetch avatar list data from the API
-        let avatarList = client.avatarList != nil ? client.avatarList! : avatarExamples
+        
         NavigationStack {
-            // search bar to search avatars
-            SearchBarView(text: $searchText)
-                .padding([.leading, .trailing, .bottom], 16)
-            // list all the avatar info
-            List (avatarList.filter({ searchText.isEmpty ? true : $0.name?.localizedCaseInsensitiveContains(searchText) ?? false })) { item in
-                NavigationLink {
-                    // if clicked, load the detail view
-                    AvatarDetailView(avatar: item)
-                } label: {
-                    VStack{
-                        Divider()
-                        // avatar name
-                        Text(item.name!)
-                            .foregroundColor(.white)
-                            .bold()
-                        // avatar name
-                        AsyncImage(url: URL(string: item.imageUrl!)) { image in
-                            image
-                                .resizable()
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .scaledToFit()
-                                .overlay {
-                                    Rectangle().stroke(.black, lineWidth: 0.1)
-                                }
-                        } placeholder: {
-                            // placeholder while the image is loading
-                            Image("cat")
-                                .resizable()
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .scaledToFit()
-                                .overlay {
-                                    Rectangle().stroke(.black, lineWidth: 0.1)
-                                }
-                        }
+            List {
+                if let favoritedAvatarList = client.favoritedAvatarList {
+                    Section("Favorited Avatars") {
+                        AvatarRowView(client: client, avatars: favoritedAvatarList)
                     }
-                    .background(Color("BackgroundColor"))
+                }
+                
+                if let avatarList = client.avatarList {
+                    Section("Featured Avatars") {
+                        AvatarRowView(client: client, avatars: avatarList)
+                    }
                 }
             }
-            .navigationTitle("Discover Avatars")
+            .navigationTitle("Avatars")
         }
-        // refresh/pull down the screen to load more avatars
         .refreshable {
             client.getAvatars()
+        }
+        .onAppear {
+            client.getAvatars()
+        }
+    }
+}
+
+struct AvatarRowView: View {
+    @ObservedObject var client: VRChatClient
+    
+    let avatars: [VRAvatar]
+    
+    var body: some View {
+        ScrollView(.horizontal) {
+            LazyHStack(spacing: 5) {
+                ForEach(avatars.sorted{ $0.updated_at! > $1.updated_at! }) { avatar in
+                    
+                    NavigationLink {
+                        // if clicked, load the detail view
+                        AvatarDetailView(avatar: avatar)
+                    } label: {
+                        VStack{
+                            Divider()
+                            // avatar name
+                            Text(avatar.name!)
+                                .foregroundColor(.white)
+                                .bold()
+                            // avatar name
+                            AsyncImage(url: URL(string: avatar.imageUrl!)) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            } placeholder: {
+                                // placeholder while the image is loading
+                                Image("cat")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            }
+                            .cornerRadius(10)
+                            .padding(.bottom, 5)
+                        }
+                        .background(Color("BackgroundColor"))
+                        .cornerRadius(20)
+                        .frame(width: 300, height: 200)
+                    }
+                }
+            }
         }
     }
 }

@@ -18,6 +18,8 @@ struct VRWorld : Identifiable{
     let authorId: String?
     let favorites: Int?
     let visits: Int?
+    let popularity: Int?
+    let heat: Int?
     let capacity: Int?
     let created_at: String?
     let updated_at: String?

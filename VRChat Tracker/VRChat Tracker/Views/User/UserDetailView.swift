@@ -69,15 +69,32 @@ struct UserDetailView: View {
                     HStack {
                         ForEach(user.tags!, id: \.self) { tag in
                             if (tag.starts(with: "language")) {
-                                Text(tag.suffix(3).uppercased())
+                                Button(action: nothing) {
+                                    Text(toEmoji(languageAbbr: tag.suffix(3).lowercased()))
+                                }
+                                .buttonStyle(.bordered)
+                                .foregroundColor(.primary)
                             }
                         }
                     }
                     .padding(.top, -7)
                     
+                    HStack {
+                        ForEach(user.bioLinks!, id: \.self) { bioLink in
+                            BioLinkView(bioLink: bioLink)
+                                .simultaneousGesture(TapGesture().onEnded({ _ in
+                                    if let url = URL(string: bioLink) {
+                                        UIApplication.shared.open(url)
+                                    } else {
+                                        print("unable to parse link into URL \"\(bioLink)\"")
+                                    }
+                                }))
+                        }
+                    }
+                    
                     // display user info/descriptions
                     HStack {
-                        Text(user.bio!)
+                        Text(user.bio!.replacingOccurrences(of: "⁄", with: "/").replacingOccurrences(of: "＃", with: "#").replacingOccurrences(of: "˸", with: ":").replacingOccurrences(of: "（", with: "(").replacingOccurrences(of: "）", with: ")").replacingOccurrences(of: "∗", with: "*").replacingOccurrences(of: "＂", with: "\""))
                             .multilineTextAlignment(.leading)
                         .padding(.top)
                         

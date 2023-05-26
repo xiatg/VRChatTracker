@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingTabView: View {
     @ObservedObject var client: VRChatClient
+    @Environment(\.isLoading) @Binding var isLoading: Bool
     
     
     var body: some View {
@@ -16,9 +17,15 @@ struct SettingTabView: View {
             List {
                 // log out button
                 Section(content: {
-                    Button(action: logout, label: {
+                    Button {
+                        Task {
+                            isLoading = true
+                            await logout()
+                            isLoading = false
+                        }
+                    } label: {
                         Text("Logout")
-                    })
+                    }
                 }, header: {
                     Text("system")
                 })
@@ -37,14 +44,15 @@ struct SettingTabView: View {
                     Text("about")
                 })
             }
-            .navigationTitle("Setting")
+            .navigationTitle("Settings")
         }
     }
     
     /**
      Logout the current user, clean everything, go back to login page.
      */
-    func logout() {
+    func logout() async {
+        await client.logoutAsync()
         client.clear()
     }
 }
