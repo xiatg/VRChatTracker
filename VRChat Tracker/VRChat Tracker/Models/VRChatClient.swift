@@ -43,6 +43,10 @@ class VRChatClient: ObservableObject {
     // AvatarDetailView
     @Published var avatarDetail: VRAvatar?
     
+    @Published var favoritedWorldIdList: [String]?
+    @Published var favoritedAvatarIdList: [String]?
+    @Published var favoritedFriendIdList: [String]?
+    
     var apiClient = APIClient()
     var apiClientAsync = APIClientAsync()
     
@@ -98,6 +102,10 @@ class VRChatClient: ObservableObject {
             }
         }
         
+        if user?.displayName != nil {
+            await getFavoritesAsync()
+        }
+        
         apiClient.updateCookies()
     }
     
@@ -129,6 +137,9 @@ class VRChatClient: ObservableObject {
                         // If already successfully logged in
                         if (self.user?.displayName != nil) {
                             self.isLoggedIn = true
+                            
+                            self.getFavorites()
+                            
                         } else if (self.user?.requiresTwoFactorAuth == ["emailOtp"]) {
                             self.isLoggedIn = false
                             self.is2FA = true
@@ -203,16 +214,11 @@ class VRChatClient: ObservableObject {
             return 
         }
         
-        print("🌍 udpate friends! 🌍")
-        
         self.onlineFriends = []
         self.activeFriends = []
         self.offlineFriends = []
         
         if let user = user {
-            
-            print("🌍 user exists! 🌍")
-            
             for userID in user.onlineFriends! {
                 UserAPI.getUser(client: apiClient, userID: userID) { user in
                     guard let user = user else { return }
@@ -225,20 +231,14 @@ class VRChatClient: ObservableObject {
                             
                             WorldAPI.getWorld(client: self.apiClient, worldID: worldID) { world in
                                 
-                                DispatchQueue.main.sync {
+                                DispatchQueue.main.async {
                                     self.onlineFriends?.append(Friend(user: user, world: world, instance: instance))
-                                    
-                                    print("new online friend")
-                                    print(Friend(user: user, world: world, instance: instance))
                                 }
                             }
                         }
                     } else {
                         DispatchQueue.main.async {
                             self.onlineFriends?.append(Friend(user: user))
-                            
-                            print("new online friend")
-                            print(Friend(user: user))
                         }
                     }
                 }
@@ -250,9 +250,6 @@ class VRChatClient: ObservableObject {
                     
                     DispatchQueue.main.async {
                         self.activeFriends?.append(Friend(user: user))
-                        
-                        print("new active friend")
-                        print(Friend(user: user))
                     }
                 }
             }
@@ -263,9 +260,6 @@ class VRChatClient: ObservableObject {
 
                     DispatchQueue.main.async {
                         self.offlineFriends?.append(Friend(user: user))
-                        
-                        print("new offline friend")
-                        print(Friend(user: user))
                     }
                 }
             }
@@ -353,7 +347,10 @@ class VRChatClient: ObservableObject {
             return 
         }
         
-        self.worldList = []
+        DispatchQueue.main.async {
+            self.worldList = []
+        }
+        
         WorldAPI.searchWorld(client: apiClient) { worlds in
             if let worlds = worlds {
                 for item in worlds {
@@ -370,7 +367,10 @@ class VRChatClient: ObservableObject {
             }
         }
         
-        self.favoritedWorldList = []
+        DispatchQueue.main.async {
+            self.favoritedWorldList = []
+        }
+        
         WorldAPI.getFavoritedWorld(client: apiClient) { worlds in
             if let worlds = worlds {
                 for item in worlds {
@@ -481,6 +481,83 @@ class VRChatClient: ObservableObject {
         }
     }
     
+    //
+    // MARK: Favorite
+    //
+    
+    func getFavoritesAsync() async {
+        //TODO: avoid getting so many favorites. fetch each type separately
+        let favorites = await FavoriteAPIAsync.getFavorites(client: apiClientAsync, n: 200)
+        
+        guard let favorites = favorites else { return }
+        
+        DispatchQueue.main.sync {
+            self.favoritedWorldIdList = []
+            self.favoritedAvatarIdList = []
+            self.favoritedFriendIdList = []
+            
+            for favorite in favorites {
+                switch favorite.type {
+                case .avatar:
+                    self.favoritedAvatarIdList?.append(favorite.favoriteId!)
+                case .world:
+                    self.favoritedWorldIdList?.append(favorite.favoriteId!)
+                case .friend:
+                    self.favoritedFriendIdList?.append(favorite.favoriteId!)
+                default:
+                    continue
+                }
+            }
+        }
+    }
+    
+    func getFavorites() {
+        FavoriteAPI.getFavorites(client: apiClient, n: 200) { favorites in
+            guard let favorites = favorites else { return }
+            
+            DispatchQueue.main.sync {
+                self.favoritedWorldIdList = []
+                self.favoritedAvatarIdList = []
+                self.favoritedFriendIdList = []
+            }
+            
+            DispatchQueue.main.async {
+                for favorite in favorites {
+                    switch favorite.type {
+                    case .avatar:
+                        self.favoritedAvatarIdList?.append(favorite.favoriteId!)
+                    case .world:
+                        self.favoritedWorldIdList?.append(favorite.favoriteId!)
+                    case .friend:
+                        self.favoritedFriendIdList?.append(favorite.favoriteId!)
+                    default:
+                        continue
+                    }
+                }
+            }
+        }
+    }
+    
+    func addFavoriteAsync(type: FavoriteType, favoriteId: String, tags: [String]? = nil) async {
+        let favorite = await FavoriteAPIAsync.addFavorite(client: apiClientAsync, type: type, favoriteId: favoriteId, tags: tags)
+        
+        guard favorite != nil else { return }
+        
+        await getFavoritesAsync()
+        
+        getWorlds()
+    }
+    
+    func removeFavoriteAsync(favoriteId: String) async {
+        let favorite = await FavoriteAPIAsync.removeFavorite(client: apiClientAsync, favoriteId: favoriteId)
+        
+        guard favorite != nil else { return }
+        
+        await getFavoritesAsync()
+        
+        getWorlds()
+    }
+    
     /**
      Create a sample `VRChatClient` instance for preview.
      */
@@ -497,6 +574,8 @@ class VRChatClient: ObservableObject {
         
         client_preview.worldList = [worldExample, worldExample2, worldExample3]
         client_preview.avatarList = [avatarExample1, avatarExample2, avatarExample3]
+        
+        client_preview.favoritedWorldIdList = [worldExample.id!]
         
         return client_preview
     }

@@ -16,8 +16,19 @@ struct WorldDetailView: View {
     // the observable VRChat cilent instance
     @ObservedObject var client: VRChatClient
     
+    @State var isFavorited: Bool
+    
+    @Environment(\.isLoading) @Binding var isLoading: Bool
+    
     // the data format
     let dateFormatter = DateFormatter()
+    
+    init(world: VRWorld, client: VRChatClient) {
+        self.world = world
+        self.client = client
+        
+        self._isFavorited = State(initialValue: client.favoritedWorldIdList!.contains(world.id!))
+    }
     
     var body: some View {
         // fetch world list data from the API
@@ -59,13 +70,26 @@ struct WorldDetailView: View {
                 .padding(.horizontal, 20)
                 
                 // favorite button
-                Button(action: addOrDelFavorite) {
+                Button {
+                    Task {
+                        isLoading = true
+                        await addOrDelFavorite(favoriteId: world.id!)
+                        isLoading = false
+                    }
+                } label: {
                     HStack {
                         Spacer()
-                        Image(systemName: "star.fill")
-                            .id(123)
-                        Text("Add to Favorites")
-                        Spacer()
+                        if (isFavorited) {
+                            Image(systemName: "star.fill")
+                                .id(123)
+                            Text("Favorited")
+                            Spacer()
+                        } else {
+                            Image(systemName: "star")
+                                .id(123)
+                            Text("Add to Favorites")
+                            Spacer()
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -172,9 +196,14 @@ struct WorldDetailView: View {
      
      This function is not supported by API, but it will be supported in the future.
      */
-    func addOrDelFavorite() {
-        // TODO: add this world into favorite list or remove it from my list
-        return
+    func addOrDelFavorite(favoriteId: String) async {
+        if (isFavorited) {
+            await client.removeFavoriteAsync(favoriteId: favoriteId)
+        } else {
+            await client.addFavoriteAsync(type: .world, favoriteId: favoriteId)
+        }
+        
+        isFavorited.toggle()
     }
     
 }
