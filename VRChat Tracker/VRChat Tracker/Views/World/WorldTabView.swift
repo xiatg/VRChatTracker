@@ -112,6 +112,7 @@ struct WorldRowView: View {
     }
 }
 
+#if DEBUG
 struct WorldTabView_Previews: PreviewProvider {
     static var previews: some View {
 //        let worldList = [worldExample, worldExample2, worldExample3]
@@ -119,3 +120,4 @@ struct WorldTabView_Previews: PreviewProvider {
         WorldTabView(client: VRChatClient.createPreview())
     }
 }
+#endif

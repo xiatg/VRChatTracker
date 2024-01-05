@@ -37,7 +37,10 @@ struct SettingTabView: View {
                     }, label: {
                         Text("Contribute on GitHub")
                     })
-                    Button(action: nothing, label: {
+                    Button(action: {
+                        UIApplication.shared.open(URL(string:
+                            "https://github.com/sponsors/xiatg")!)
+                    }, label: {
                         Text("Support us ❤️")
                     })
                 }, header: {
@@ -57,8 +60,10 @@ struct SettingTabView: View {
     }
 }
 
+#if DEBUG
 struct SettingTabView_Previews: PreviewProvider {
     static var previews: some View {
         SettingTabView(client: VRChatClient.createPreview())
     }
 }
+#endif

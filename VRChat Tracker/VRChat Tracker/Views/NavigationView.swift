@@ -63,8 +63,10 @@ struct NavigationView: View {
     }
 }
 
+#if DEBUG
 struct NavigationView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView(client: VRChatClient.createPreview())
     }
 }
+#endif

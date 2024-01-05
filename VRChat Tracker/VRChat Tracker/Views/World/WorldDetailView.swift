@@ -208,9 +208,11 @@ struct WorldDetailView: View {
     
 }
 
+#if DEBUG
 struct WorldDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let world = worldExample
         WorldDetailView(world: world, client: VRChatClient.createPreview())
     }
 }
+#endif

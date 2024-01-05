@@ -558,6 +558,7 @@ class VRChatClient: ObservableObject {
         getWorlds()
     }
     
+    #if DEBUG
     /**
      Create a sample `VRChatClient` instance for preview.
      */
@@ -579,6 +580,7 @@ class VRChatClient: ObservableObject {
         
         return client_preview
     }
+    #endif
 }
 
 func nothing() {

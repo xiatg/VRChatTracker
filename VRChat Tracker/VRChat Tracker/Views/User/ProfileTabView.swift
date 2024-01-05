@@ -291,8 +291,10 @@ extension View {
     }
 }
 
+#if DEBUG
 struct ProfileTabView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileTabView(client: VRChatClient.createPreview())
     }
 }
+#endif
