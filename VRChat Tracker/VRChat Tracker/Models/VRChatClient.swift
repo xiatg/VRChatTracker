@@ -375,6 +375,14 @@ class VRChatClient: ObservableObject {
             if let worlds = worlds {
                 for item in worlds {
                     
+                    /** 
+                     Skip if the popularity field is missing for the world. 
+                     This can happen when the world is hidden.
+                     */
+                    if item.popularity == nil {
+                        continue
+                    }
+                    
                     let newWorld: VRWorld = VRWorld(name: item.name, id: item.id, authorName: item.authorName, imageUrl: item.imageUrl, description: item.description, authorId: item.authorId, favorites: item.favorites, visits: item.visits, popularity: item.popularity, heat: item.heat, capacity: item.capacity, created_at: item.created_at, updated_at: item.updated_at)
                     
                     DispatchQueue.main.async {
