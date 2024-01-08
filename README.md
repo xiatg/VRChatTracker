@@ -6,6 +6,16 @@
 <img src ="https://user-images.githubusercontent.com/26186346/225491527-202b6512-10fd-4f94-a0c1-bc09bde99e78.png" width=400></img>
 </p>
 
+<h3 align="center">
+    <a href="https://testflight.apple.com/join/iKcvp1bU" target="_blank">Test Flight</a>
+</h3>
+
+## Installation
+### Test Flight
+[Link](https://testflight.apple.com/join/iKcvp1bU)
+### .ipa
+[Latest Release](https://github.com/xiatg/VRChatTracker/releases/latest)
+
 ## Screenshots
 <p align="center">
 <img src ="https://github.com/watanabexia/VRChatTracker/assets/26186346/dba6a9ee-d387-4494-b74a-99237a8bc1bb" width=200></img>
