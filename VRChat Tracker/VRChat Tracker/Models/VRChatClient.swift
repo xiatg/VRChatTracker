@@ -370,7 +370,7 @@ class VRChatClient: ObservableObject {
         DispatchQueue.main.async {
             self.favoritedWorldList = []
         }
-        
+         
         WorldAPI.getFavoritedWorld(client: apiClient) { worlds in
             if let worlds = worlds {
                 for item in worlds {

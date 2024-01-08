@@ -33,15 +33,15 @@ struct SettingTabView: View {
                 Section(content: {
                     // the button link to our github code web page
                     Button(action: {
-                        UIApplication.shared.open(URL(string: "https://github.com/watanabexia/VRChatTracker")!)
+                        UIApplication.shared.open(URL(string: "https://github.com/xiatg/VRChatTracker/issues/new")!)
                     }, label: {
-                        Text("Contribute on GitHub")
+                        Text("Report an issue")
                     })
                     Button(action: {
                         UIApplication.shared.open(URL(string:
                             "https://github.com/sponsors/xiatg")!)
                     }, label: {
-                        Text("Support us ❤️")
+                        Text("Support VRChat Tracker ❤️")
                     })
                 }, header: {
                     Text("about")
