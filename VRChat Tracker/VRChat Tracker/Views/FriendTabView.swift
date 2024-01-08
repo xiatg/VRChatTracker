@@ -107,8 +107,10 @@ struct FriendRowView: View {
     }
 }
 
+#if DEBUG
 struct FriendTabView_Previews: PreviewProvider {
     static var previews: some View {
         FriendTabView(client: VRChatClient.createPreview())
     }
 }
+#endif

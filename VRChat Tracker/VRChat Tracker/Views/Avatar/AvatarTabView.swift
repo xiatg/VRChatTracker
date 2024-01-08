@@ -86,6 +86,7 @@ struct AvatarRowView: View {
     }
 }
 
+#if DEBUG
 struct AvatarTabView_Previews: PreviewProvider {
     static var previews: some View {
 //        let avatarList: [VRAvatar] = [avatarExample1, avatarExample2, avatarExample3]
@@ -93,3 +94,4 @@ struct AvatarTabView_Previews: PreviewProvider {
         AvatarTabView(client: VRChatClient.createPreview())
     }
 }
+#endif

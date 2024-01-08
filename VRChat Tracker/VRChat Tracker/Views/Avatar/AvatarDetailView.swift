@@ -9,8 +9,7 @@ import SwiftUI
 
 struct AvatarDetailView: View {
     
-    // pre-stored data for no internet connection
-    var avatar: VRAvatar = avatarExample2
+    var avatar: VRAvatar
     
     // date format change
     let dateFormatter = DateFormatter()
@@ -95,9 +94,11 @@ struct AvatarDetailView: View {
     }
 }
 
+#if DEBUG
 struct AvatarDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let avatar: VRAvatar = avatarExample3
         AvatarDetailView(avatar: avatar)
     }
 }
+#endif

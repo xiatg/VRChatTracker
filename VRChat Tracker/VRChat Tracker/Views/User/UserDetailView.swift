@@ -114,6 +114,7 @@ struct UserDetailView: View {
     }
 }
 
+#if DEBUG
 struct UserDetailView_Previews: PreviewProvider {
     static var previews: some View {
         UserDetailView(user: PreviewData.load(name: "UserPreview")!,
@@ -121,3 +122,4 @@ struct UserDetailView_Previews: PreviewProvider {
                        instance: PreviewData.load(name: "InstancePreview")!)
     }
 }
+#endif

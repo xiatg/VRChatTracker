@@ -226,6 +226,7 @@ extension UIView {
     }
 }
 
+#if DEBUG
 struct UserView_Previews: PreviewProvider {
     static var previews: some View {
         UserView(user: PreviewData.load(name: "UserPreview")!,
@@ -233,3 +234,4 @@ struct UserView_Previews: PreviewProvider {
                  instance: PreviewData.load(name: "InstancePreview")!)
     }
 }
+#endif
