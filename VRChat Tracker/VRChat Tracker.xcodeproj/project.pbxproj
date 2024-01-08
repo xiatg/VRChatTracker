@@ -526,7 +526,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/watanabexia/vrchatapi-swift";
 			requirement = {
-				branch = "1.11.1-alpha";
+				branch = 1.16.2;
 				kind = branch;
 			};
 		};

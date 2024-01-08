@@ -14,6 +14,7 @@ class VRChatClient: ObservableObject {
     // LoginView
     @Published var isLoggedIn = false
     @Published var is2FA = false
+    @Published var twoFactorAuthMethod: String?
     @Published var isAutoLoggingIn: Bool
     @Published var showErrorMessage = false
     @Published var errorMessage = ""
@@ -90,9 +91,19 @@ class VRChatClient: ObservableObject {
             // If already successfully logged in
             if (user.displayName != nil) {
                 self.isLoggedIn = true
-            } else if (user.requiresTwoFactorAuth == ["emailOtp"]) {
-                self.isLoggedIn = false
-                self.is2FA = true
+            } else if let twoFactorAuthMethods = user.requiresTwoFactorAuth {
+                if twoFactorAuthMethods.contains("emailOtp") {
+                    self.twoFactorAuthMethod = "emailOtp"
+                    self.isLoggedIn = false
+                    self.is2FA = true
+                } else if twoFactorAuthMethods.contains("totp") {
+                    self.twoFactorAuthMethod = "totp"
+                    self.isLoggedIn = false
+                    self.is2FA = true
+                } else {
+                    self.errorMessage = "Unknown two factor authentication method."
+                    self.showErrorMessage = true
+                }
             } else if let error = user.error {
                 self.errorMessage = error.message!
                 self.showErrorMessage = true
@@ -140,9 +151,19 @@ class VRChatClient: ObservableObject {
                             
                             self.getFavorites()
                             
-                        } else if (self.user?.requiresTwoFactorAuth == ["emailOtp"]) {
-                            self.isLoggedIn = false
-                            self.is2FA = true
+                        } else if let twoFactorAuthMethods = user?.requiresTwoFactorAuth {
+                            if twoFactorAuthMethods.contains("emailOtp") {
+                                self.twoFactorAuthMethod = "emailOtp"
+                                self.isLoggedIn = false
+                                self.is2FA = true
+                            } else if twoFactorAuthMethods.contains("totp") {
+                                self.twoFactorAuthMethod = "totp"
+                                self.isLoggedIn = false
+                                self.is2FA = true
+                            } else {
+                                self.errorMessage = "Unknown two factor authentication method."
+                                self.showErrorMessage = true
+                            }
                         }
                         
                         self.isAutoLoggingIn = false
@@ -168,17 +189,13 @@ class VRChatClient: ObservableObject {
     }
     
     /**
-     Varify MFA with user input code from email.
-
-     - Parameter emailOTP: a string code the user enters.
+     2FA with OTP.
      */
-    func email2FALogin(emailOTP: String) {
-        AuthenticationAPI.verify2FAEmail(client: self.apiClient, emailOTP: emailOTP) { verify in
-            guard let verify = verify else { return }
-            
-            if (verify) {
-                self.loginUserInfo()
-            }
+    func totp2FALoginAsync(totp: String) async {
+        let verify = await AuthenticationAPIAsync.verify2FATOTP(client: self.apiClientAsync, TOTP: totp)
+        
+        if (verify ?? false) {
+            await self.loginUserInfoAsync()
         }
     }
     
@@ -194,6 +211,7 @@ class VRChatClient: ObservableObject {
     func clear() {
         self.isLoggedIn = false
         self.is2FA = false
+        self.twoFactorAuthMethod = nil
         self.isAutoLoggingIn = false
         self.user = nil
     }

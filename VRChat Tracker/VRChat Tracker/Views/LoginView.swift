@@ -13,7 +13,7 @@ struct LoginView: View {
     @ObservedObject var client: VRChatClient
     @State var username = ""
     @State var password = ""
-    @State var twoFactorEmailCode = ""
+    @State var twoFactorCode = ""
     @State private var isLoading = false
     @State private var showPassword = false
     
@@ -80,7 +80,7 @@ struct LoginView: View {
                         }
                     } else {
                         // If username and password are correct, prompt to MFA check
-                        TextField("", text: $twoFactorEmailCode, prompt: Text("Two-factor Email Code").foregroundColor(.gray))
+                        TextField("", text: $twoFactorCode, prompt: Text("Two-factor Code").foregroundColor(.gray))
                             .padding()
                             .background(Color.white)
                             .cornerRadius(5)
@@ -101,7 +101,11 @@ struct LoginView: View {
                             ProgressView()
                         } else {
                             if (client.is2FA) {
-                                Text("Send 2FA Code")
+                                if client.twoFactorAuthMethod == "emailOtp" {
+                                    Text("Send Email Code")
+                                } else if client.twoFactorAuthMethod == "totp" {
+                                    Text("Send OTP Code")
+                                }
                             } else {
                                 Text("Sign In")
                             }
@@ -152,9 +156,9 @@ struct LoginView: View {
             }
             .padding([.leading, .bottom, .trailing], 30.0)
             .padding(.top, 100)
-            .onTapGesture {
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    }
+//            .onTapGesture {
+//                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//                    }
             
             if (client.isAutoLoggingIn || isLoading) {
                 LoadingView()
@@ -186,8 +190,12 @@ struct LoginView: View {
             await client.loginUserInfoAsync()
             
         } else {
-            
-            await client.email2FALoginAsync(emailOTP: twoFactorEmailCode)
+            if client.twoFactorAuthMethod == "emailOtp" {
+                await client.email2FALoginAsync(emailOTP: twoFactorCode)
+            } else if client.twoFactorAuthMethod == "totp" {
+                print("HERE")
+                await client.totp2FALoginAsync(totp: twoFactorCode)
+            }
         }
         
         isLoading = false

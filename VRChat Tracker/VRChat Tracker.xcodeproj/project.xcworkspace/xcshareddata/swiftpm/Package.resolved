@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/watanabexia/vrchatapi-swift",
       "state" : {
-        "branch" : "1.11.1-alpha",
-        "revision" : "e202328529e64ffdddb89824fb32124061375dc9"
+        "branch" : "1.16.2",
+        "revision" : "0f5069bb5e54d3f0d4f7c401f24f8e3ef3fb35ff"
       }
     }
   ],
