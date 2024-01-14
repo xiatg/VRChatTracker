@@ -83,7 +83,7 @@ struct FriendTabView: View {
                 friends += offlineFriends
             }
 
-            return friends.filter{ $0.user.displayName!.localizedCaseInsensitiveContains(searchName) }
+            return friends.filter{ ($0.user.displayName ?? "[ERR] Unknown Name").localizedCaseInsensitiveContains(searchName) }
         }
     }
 }
@@ -94,7 +94,7 @@ struct FriendRowView: View {
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 5) {
-                ForEach(friends.sorted{ $0.user.displayName! < $1.user.displayName! }) { friend in
+                ForEach(friends.sorted{ ($0.user.displayName ?? "[ERR] Unknown Name") < ($1.user.displayName ?? "[ERR] Unknown Name")}) { friend in
                     NavigationLink {
                         UserDetailView(user: friend.user)
                     } label: {

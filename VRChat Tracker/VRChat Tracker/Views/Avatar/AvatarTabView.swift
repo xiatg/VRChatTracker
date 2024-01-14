@@ -50,8 +50,7 @@ struct AvatarRowView: View {
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 5) {
-                ForEach(avatars.sorted{ $0.updated_at! > $1.updated_at! }) { avatar in
-                    
+                ForEach(avatars.sorted{ ($0.updated_at ?? "1970-01-01T00:00:00.000Z") > ($1.updated_at ?? "1970-01-01T00:00:00.000Z") }) { avatar in // TODO: better solution than this
                     NavigationLink {
                         // if clicked, load the detail view
                         AvatarDetailView(avatar: avatar)
@@ -59,11 +58,12 @@ struct AvatarRowView: View {
                         VStack{
                             Divider()
                             // avatar name
-                            Text(avatar.name!)
+                            Text(avatar.name ?? "[ERR] Unknown Name")
                                 .foregroundColor(.white)
                                 .bold()
-                            // avatar name
-                            AsyncImage(url: URL(string: avatar.imageUrl!)) { image in
+                            
+                            // avatar thumbnail
+                            AsyncImage(url: URL(string: avatar.imageUrl ?? "")) { image in // TODO: better solution than ""
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)

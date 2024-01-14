@@ -27,7 +27,7 @@ struct UserView: View {
             
             HStack {
                 // the image of the current avatar
-                AsyncImage(url: URL(string: user.currentAvatarThumbnailImageUrl!)) { image in
+                AsyncImage(url: URL(string: user.currentAvatarThumbnailImageUrl ?? "")) { image in
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -48,7 +48,7 @@ struct UserView: View {
 
                     HStack {
                         if (user.userIcon ?? "" != "") {
-                            AsyncImage(url: URL(string: user.userIcon!)) { image in
+                            AsyncImage(url: URL(string: user.userIcon ?? "")) { image in
                                     image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -65,7 +65,7 @@ struct UserView: View {
 
                         // display user name
                         HStack(spacing: -10) {
-                            Text("\(user.displayName!)")
+                            Text("\(user.displayName ?? "[ERR] Unknown Name")")
                                 .ignoresSafeArea()
                                 .font(.title)
                                 .bold()
@@ -81,8 +81,8 @@ struct UserView: View {
                     VStack {
                         HStack {
                             Spacer()
-                            Text("\(user.state!)")
-                            Text("\(user.status!)")
+                            Text("\(user.state ?? "[ERR] Unknown State")")
+                            Text("\(user.status ?? "[ERR] Unknown Status")")
                         }
                         .padding(.trailing, 10)
                     }
@@ -95,7 +95,7 @@ struct UserView: View {
             
             HStack {
                 // user written descriptions
-                Text("\(user.statusDescription!)")
+                Text("\(user.statusDescription ?? "[ERR] Unknown Status Description")")
                     .foregroundColor(isAverageColorLight ? .black : .white)
                     .minimumScaleFactor(0.01)
                     .lineLimit(3)
@@ -106,7 +106,7 @@ struct UserView: View {
             
             if let world = world {
                 HStack(alignment: .top) {
-                    AsyncImage(url: URL(string: world.thumbnailImageUrl!)) { image in
+                    AsyncImage(url: URL(string: world.thumbnailImageUrl ?? "")) { image in
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -117,11 +117,11 @@ struct UserView: View {
 
                     // users' world
                     VStack(alignment: .leading) {
-                        Text("\(world.name!)")
+                        Text("\(world.name ?? "[ERR] Unknown World Name")")
                             .lineLimit(1)
                             .bold()
 
-                        Text("\(world.description!)")
+                        Text("\(world.description ?? "[ERR] Unknown World Description")")
                             .lineLimit(1)
                             .foregroundColor(.secondary)
 
@@ -140,7 +140,7 @@ struct UserView: View {
                                     Text("🌍")
                                 }
 
-                                Text("\(instance.n_users!)/\(instance.capacity!)")
+                                Text("\(instance.n_users ?? 0)/\(instance.capacity ?? 0)")
                             }
                         }
                     }

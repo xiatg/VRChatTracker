@@ -51,7 +51,7 @@ struct WorldRowView: View {
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 5) {
-                ForEach(worlds.sorted{ $0.popularity! > $1.popularity! }) { world in
+                ForEach(worlds.sorted{ ($0.popularity ?? 0) > ($1.popularity ?? 0) }) { world in
                     NavigationLink {
                         WorldDetailView(world: world, client: client)
                     } label: {
@@ -59,7 +59,7 @@ struct WorldRowView: View {
                             HStack {
                                 ZStack{
                                     // world image
-                                    AsyncImage(url: URL(string: world.imageUrl!)) { image in
+                                    AsyncImage(url: URL(string: world.imageUrl ?? "")) { image in
                                         image
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)

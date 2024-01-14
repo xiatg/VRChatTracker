@@ -30,7 +30,7 @@ let worldExample2 = VRWorld(name: "LS Media", id: "wrld_1b68f7a8-8aea-4900-b7a2-
 
 let worldExample3 = VRWorld(name: "The room of the rain", id: "wrld_fae3fa95-bc18-46f0-af57-f0c97c0ca90a", authorName: "Ivaj15", imageUrl: "https://api.vrchat.cloud/api/1/file/file_e4041df4-ecab-4494-86d6-7debe18ab8b3/5/file", description: "in this place it always rains․ Now with pool table‚ sleep mode‚ fire place‚ an ocean‚ news‚ pencils‚ beer pong‚ mirror light and a new mirror in bedǃ made by Ivaj （ spanish hub）․", authorId: "usr_6cc30b65-edf2-4e49-ac50-d56aa533d822", favorites: 154522, visits: 29272808, popularity: 10, heat: 10, capacity: 24, created_at: "2019-03-12T02:43:02.384Z", updated_at: "2022-10-13T00:40:35.490Z")
 
-let avatarExample1 = VRAvatar(name: "BB Red Dead of Night", id: "avtr_ca2ff732-f5ed-4c64-a2a2-272efaa051c5", authorName: "-CoconutMilku-", imageUrl: "https://api.vrchat.cloud/api/1/file/file_a21a0455-9919-495f-8148-1d05705c70ef/1/file", description: "BB Red Dead of Night", authorId: "usr_0cc0d7af-9df7-4ddc-8da4-c1e98d3a5818", updated_at: "2022-08-04T20:27:31.509Z")
+let avatarExample1 = VRAvatar(name: "BB Red Dead of Night", id: "avtr_ca2ff732-f5ed-4c64-a2a2-272efaa051c5", authorName: "-CoconutMilku-", imageUrl: nil, description: "BB Red Dead of Night", authorId: "usr_0cc0d7af-9df7-4ddc-8da4-c1e98d3a5818", updated_at: "2022-08-04T20:27:31.509Z")
 
 let avatarExample2 = VRAvatar(name: "Neko Caboose Hot Pink n Wings", id: "avtr_e8393e34-d5a8-4cfe-bf47-781dfa1bfaa8", authorName: "g6qwerty", imageUrl: "https://api.vrchat.cloud/api/1/file/file_1d51364a-c645-4854-9c47-12af9252d2d7/1/file", description: "Neko Caboose Hot Pink V8․3․2 quest （FBT", authorId: "usr_80bc9da2-3607-4a2c-80ec-c7e5fef80671", updated_at: "2021-06-16T22:08:48.025Z")
 
