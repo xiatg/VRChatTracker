@@ -37,7 +37,7 @@ struct ProfileTabView: View {
         
         self.user = client.user!
         
-        self._statusDescription = State(initialValue: self.user.statusDescription!)
+        self._statusDescription = State(initialValue: self.user.statusDescription ?? "[ERR] Status Failed to Load, Plaese contact developer")
         self._bio = State(initialValue: self.user.bio!.replacingOccurrences(of: "⁄", with: "/").replacingOccurrences(of: "＃", with: "#").replacingOccurrences(of: "˸", with: ":").replacingOccurrences(of: "（", with: "(").replacingOccurrences(of: "）", with: ")").replacingOccurrences(of: "∗", with: "*").replacingOccurrences(of: "＂", with: "\""))
     }
     

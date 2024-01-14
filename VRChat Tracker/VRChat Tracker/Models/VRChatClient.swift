@@ -241,8 +241,8 @@ class VRChatClient: ObservableObject {
                 UserAPI.getUser(client: apiClient, userID: userID) { user in
                     guard let user = user else { return }
                     
-                    let worldID = user.worldId!
-                    let instanceID = user.instanceId!
+                    guard let worldID = user.worldId else { return }
+                    guard let instanceID = user.instanceId else { return }
             
                     if (worldID != "private" && worldID != "traveling" && worldID != "offline" && worldID != "privateOffline") {
                         InstanceAPI.getInstance(client: self.apiClient, worldID: worldID, instanceID: instanceID) { instance in
